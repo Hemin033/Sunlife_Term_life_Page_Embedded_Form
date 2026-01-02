@@ -838,9 +838,80 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero Section */}
-      <section className="hero-section" style={{ background: 'linear-gradient(180deg, #E8F7FA 0%, #F5FBFC 100%)', padding: '0' }}>
-        <div className="hero-container" style={{ maxWidth: '100%', margin: '0 auto', textAlign: 'center' }}>
+      {/* Hero Section - Desktop */}
+      <section className="hero-section hero-desktop" style={{ minHeight: 'auto', padding: 0 }}>
+        <div className="hero-container" style={{ position: 'relative', maxWidth: '1400px', margin: '0 auto' }}>
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '40px',
+            transform: 'translateY(-50%)',
+            zIndex: '10'
+          }}>
+            {/* Logo Overlay */}
+            <Image
+              src="/IMAGE-TOP-OVERLAY-Life-2.png"
+              alt="PolicyAdvisor.com | Sun Life"
+              width={450}
+              height={58}
+              style={{
+                width: '390px',
+                height: 'auto',
+                display: 'block',
+                marginBottom: '20px'
+              }}
+            />
+            <h1 style={{
+              color: '#013946',
+              fontSize: '56px',
+              fontWeight: '700',
+              textAlign: 'left',
+              maxWidth: '550px',
+              lineHeight: '1.15',
+              letterSpacing: '-1px',
+              margin: '0 0 24px 0'
+            }}>
+              Plan today,<br />
+              Protect tomorrow<br />
+              with Sun Life
+            </h1>
+            <button
+              onClick={() => setShowLeadForm(true)}
+              style={{
+                fontSize: '16px',
+                fontWeight: 700,
+                padding: '14px 32px',
+                border: 'none',
+                cursor: 'pointer',
+                borderRadius: '4px',
+                transition: 'all 0.3s ease',
+                textTransform: 'uppercase',
+                backgroundColor: '#FFB800',
+                color: '#1A1A1A',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              GET QUOTE
+            </button>
+          </div>
+          <Image
+            src="/HEader-4.png"
+            alt="Sun Life Insurance - Protect Your Family's Future"
+            width={1400}
+            height={500}
+            priority
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block'
+            }}
+          />
+        </div>
+      </section>
+
+      {/* Hero Section - Mobile Only */}
+      <section className="hero-section hero-mobile" style={{ background: 'linear-gradient(180deg, #E8F7FA 0%, #F5FBFC 100%)', padding: '0' }}>
+        <div style={{ maxWidth: '100%', margin: '0 auto', textAlign: 'center' }}>
           {/* Logo Bar */}
           <div style={{ padding: '20px 20px 0', maxWidth: '500px', margin: '0 auto' }}>
             <Image
@@ -862,7 +933,7 @@ export default function Home() {
           <div style={{ padding: '30px 20px 20px', maxWidth: '700px', margin: '0 auto' }}>
             <h1 style={{
               color: '#013946',
-              fontSize: '42px',
+              fontSize: '32px',
               fontWeight: '700',
               textAlign: 'center',
               lineHeight: '1.2',
@@ -872,9 +943,9 @@ export default function Home() {
               Plan today, Protect tomorrow with Sun Life.
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: '18px',
               color: '#4a5568',
-              margin: '0 0 28px 0',
+              margin: '0 0 24px 0',
               lineHeight: 1.5
             }}>
               Life insurance that protects what matters most
@@ -883,17 +954,13 @@ export default function Home() {
             {/* CTA Button */}
             <button
               onClick={() => setShowLeadForm(true)}
-              className="btn btn-primary"
               style={{
                 minWidth: '200px',
-                fontSize: '18px',
+                fontSize: '16px',
                 fontWeight: 600,
-                padding: '16px 36px',
+                padding: '14px 32px',
                 border: 'none',
                 cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 borderRadius: '4px',
                 transition: 'all 0.3s ease',
                 textTransform: 'uppercase',
@@ -916,7 +983,7 @@ export default function Home() {
               priority
               style={{
                 width: '100%',
-                maxWidth: '900px',
+                maxWidth: '100%',
                 height: 'auto',
                 display: 'block',
                 margin: '0 auto'

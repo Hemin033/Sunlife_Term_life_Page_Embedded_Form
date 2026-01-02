@@ -36,6 +36,23 @@ a {
   min-height: 420px;
 }
 
+/* Hero Desktop/Mobile Toggle */
+.hero-desktop {
+  display: block;
+}
+.hero-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-desktop {
+    display: none !important;
+  }
+  .hero-mobile {
+    display: block !important;
+  }
+}
+
 .hero-container {
   max-width: 100%;
   margin: 0 auto;
