@@ -704,98 +704,231 @@ a {
 }
 
 /* Responsive Design */
+
+/* Tablet */
 @media (max-width: 1024px) {
   .faq-wrapper {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
+  
+  .hero-container h1 {
+    font-size: 42px !important;
+  }
 }
 
+/* Mobile Landscape & Small Tablets */
 @media (max-width: 768px) {
-  /* Reduce gaps between sections */
+  /* Base adjustments */
+  html, body {
+    font-size: 16px;
+  }
+  
+  /* Sections */
   .section {
-    padding: 20px 20px;
+    padding: 30px 16px;
   }
 
-  /* Increase image sizes by 10% */
-  .hero-section img,
-  .benefits-section img,
-  .insurance-answers img {
-    transform: scale(1.1);
+  .section > * {
+    max-width: 100%;
+    padding: 0 8px;
   }
 
-  /* Reduce points font size by 50% for mobile */
-  .points-text {
-    font-size: 13.5px !important;
+  /* Hero Section */
+  .hero-section {
+    min-height: auto;
+    padding: 0;
   }
 
-  /* Change status levels to vertical layout on mobile */
-  .status-levels-grid {
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
+  .hero-container {
+    position: relative;
   }
 
-  /* Hide Frequency column on mobile for points table */
-  .points-table th:nth-child(3),
-  .points-table td:nth-child(3) {
-    display: none;
+  .hero-container h1 {
+    font-size: 28px !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
   }
 
-  /* Add left and right margins to text elements on mobile */
-  .section p,
-  .section h2,
-  .section h3,
-  .vitality-intro p,
-  .benefits-content p,
-  .benefits-content h3,
-  .testimonials-section h2,
-  .rewards-section h2,
-  .insurance-content h2,
-  .insurance-content p,
-  .faq-section h2,
-  .faq-subtitle {
-    margin-left: 15px !important;
-    margin-right: 15px !important;
+  .hero-container button {
+    width: 100%;
   }
 
-  .benefits-section,
+  .hero-container img {
+    display: block !important;
+  }
+
+  /* Vitality Intro */
+  .vitality-intro {
+    padding: 0 8px;
+  }
+
+  .vitality-intro h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .vitality-intro p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Benefits Section */
+  .benefits-section {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .benefits-image {
+    flex: none !important;
+    width: 100%;
+    order: -1;
+  }
+
+  .benefits-image img {
+    max-height: 300px !important;
+    object-fit: cover;
+  }
+
+  .benefits-content {
+    padding: 0 8px;
+  }
+
+  .benefits-content h3 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .benefits-content h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .benefits-list li {
+    font-size: 16px;
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+
+  /* Insurance Answers / CTA Boxes */
   .insurance-answers {
     flex-direction: column;
+    gap: 24px;
   }
 
+  /* Coverage Grid */
   .coverage-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
 
+  .coverage-item {
+    font-size: 15px;
+  }
+
+  /* Testimonials & Grids */
   .testimonials-grid,
   .workout-grid,
   .partners-grid {
     grid-template-columns: 1fr;
   }
 
-  /* FAQ responsive layout */
+  .testimonials-section h2 {
+    font-size: 26px;
+  }
+
+  /* FAQ Section */
   .faq-wrapper {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 24px;
   }
 
   .faq-header {
     position: static;
   }
 
-  .faq-header h2 {
-    font-size: 36px !important;
+  .faq-section {
+    padding: 40px 16px;
   }
 
+  .faq-section h2 {
+    font-size: 26px;
+  }
+
+  .faq-subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .faq-item {
+    padding: 16px 20px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+  }
+
+  .faq-answer {
+    font-size: 15px;
+  }
+
+  /* Buttons */
   .cta-buttons {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
+    padding: 0 16px;
   }
 
   .btn {
     width: 100%;
-    max-width: 400px;
-    justify-content: center;
+    max-width: 100%;
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 30px 16px !important;
+    margin-top: 40px !important;
+  }
+
+  footer p {
+    font-size: 11px !important;
+    padding: 0 8px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  /* Hero adjustments */
+  .hero-container h1 {
+    font-size: 28px !important;
+    line-height: 1.3 !important;
+  }
+
+  .hero-container button {
+    font-size: 16px !important;
+    padding: 12px 24px !important;
+  }
+
+  /* Typography scaling */
+  .vitality-intro h2,
+  .benefits-content h3,
+  .testimonials-section h2,
+  .faq-section h2 {
+    font-size: 24px !important;
+  }
+
+  .vitality-intro p,
+  .benefits-list li {
+    font-size: 15px !important;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 14px 20px;
+    font-size: 14px;
   }
 }
 

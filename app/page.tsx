@@ -85,9 +85,174 @@ export default function Home() {
 
   return (
     <main>
+      {/* Mobile Responsive Styles */}
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          /* Lead Form Modal */
+          .lead-form-modal {
+            padding: 10px !important;
+          }
+          .lead-form-content {
+            padding: 24px 16px !important;
+            max-height: 95vh !important;
+          }
+          .lead-form-content h2 {
+            font-size: 24px !important;
+          }
+          .lead-form-content p {
+            font-size: 14px !important;
+          }
+          .form-row {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+          .form-row label {
+            font-size: 14px !important;
+          }
+          .form-row input,
+          .form-row select {
+            font-size: 16px !important;
+            padding: 12px !important;
+          }
+          .gender-buttons button,
+          .smoker-buttons button {
+            padding: 12px !important;
+            font-size: 14px !important;
+          }
+          
+          /* CTA Box */
+          .cta-box {
+            flex-direction: column !important;
+            padding: 24px 16px !important;
+            gap: 16px !important;
+            text-align: center !important;
+          }
+          .cta-box > div:first-child {
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+          .cta-box img {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
+            object-fit: cover !important;
+          }
+          .cta-box h2 {
+            font-size: 24px !important;
+            text-align: center !important;
+            margin-bottom: 8px !important;
+          }
+          .cta-box p {
+            font-size: 16px !important;
+            text-align: center !important;
+            margin-bottom: 20px !important;
+          }
+          .cta-box button {
+            width: 100% !important;
+          }
+          
+          /* Hero Section */
+          .hero-section h1 {
+            font-size: 28px !important;
+            line-height: 1.25 !important;
+          }
+          .hero-section p {
+            font-size: 16px !important;
+          }
+          
+          /* Product Cards */
+          .products-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .product-card {
+            margin: 0 auto;
+            max-width: 400px;
+          }
+          
+          /* Benefits Grid */
+          .benefits-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          
+          /* Features Grid */
+          .features-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .feature-card {
+            padding: 20px !important;
+          }
+          
+          /* Cost Section */
+          .cost-section {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .cost-section h2 {
+            font-size: 24px !important;
+          }
+          .cost-section p {
+            font-size: 15px !important;
+          }
+          .cost-table {
+            font-size: 14px !important;
+          }
+          .cost-table th,
+          .cost-table td {
+            padding: 12px 8px !important;
+          }
+          
+          /* Yellow CTA Banner */
+          .cta-banner {
+            padding: 30px 16px !important;
+            text-align: center !important;
+          }
+          .cta-banner h2 {
+            font-size: 18px !important;
+            text-align: center !important;
+          }
+          .cta-banner p {
+            font-size: 14px !important;
+            text-align: center !important;
+          }
+          .cta-banner button {
+            width: 100% !important;
+            max-width: 280px !important;
+          }
+          
+          /* Section Headers */
+          .section-header {
+            font-size: 24px !important;
+            margin-bottom: 24px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .lead-form-content {
+            padding: 20px 12px !important;
+          }
+          .lead-form-content h2 {
+            font-size: 22px !important;
+          }
+          .cta-box h2,
+          .cta-banner h2,
+          .section-header {
+            font-size: 22px !important;
+          }
+          .cost-table th,
+          .cost-table td {
+            padding: 10px 6px !important;
+            font-size: 13px !important;
+          }
+        }
+      `}</style>
+      
       {/* Lead Form Modal */}
       {showLeadForm && (
-        <div style={{
+        <div className="lead-form-modal" style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -101,7 +266,7 @@ export default function Home() {
           padding: '20px',
           overflowY: 'auto'
         }}>
-          <div style={{
+          <div className="lead-form-content" style={{
             backgroundColor: '#fff',
             borderRadius: '20px',
             padding: '40px',
@@ -162,7 +327,7 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* Full Name */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Full Name <span style={{ color: '#013946' }}>*</span>
                 </label>
@@ -184,7 +349,7 @@ export default function Home() {
               </div>
 
               {/* Phone Number */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Phone Number <span style={{ color: '#013946' }}>*</span>
                 </label>
@@ -206,7 +371,7 @@ export default function Home() {
               </div>
 
               {/* Email Address */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Email Address <span style={{ color: '#013946' }}>*</span>
                 </label>
@@ -228,11 +393,11 @@ export default function Home() {
               </div>
 
               {/* Gender */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Gender <span style={{ color: '#013946' }}>*</span>
                 </label>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div className="gender-buttons" style={{ display: 'flex', gap: '12px' }}>
                   <button
                     type="button"
                     onClick={() => handleInputChange('gender', 'Man')}
@@ -271,7 +436,7 @@ export default function Home() {
               </div>
 
               {/* Date of Birth */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Date of Birth <span style={{ color: '#013946' }}>*</span>
@@ -310,7 +475,7 @@ export default function Home() {
               </div>
 
               {/* Smoker Status */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Smoker Status
@@ -319,7 +484,7 @@ export default function Home() {
                     Includes tobacco, e-cigarettes, and vaping in the past 12 months.
                   </p>
                 </div>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div className="smoker-buttons" style={{ display: 'flex', gap: '12px' }}>
                   <button
                     type="button"
                     onClick={() => handleInputChange('smokerStatus', 'Non-smoker')}
@@ -358,7 +523,7 @@ export default function Home() {
               </div>
 
               {/* Province */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Province
                 </label>
@@ -391,7 +556,7 @@ export default function Home() {
               </div>
 
               {/* Coverage Amount */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Coverage Amount
                 </label>
@@ -417,7 +582,7 @@ export default function Home() {
               </div>
 
               {/* Occupation */}
-              <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '32px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '32px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Occupation
                 </label>
@@ -674,67 +839,90 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-container" style={{ position: 'relative', maxWidth: '1200px', margin: '0 auto', paddingTop: '20px' }}>
-            <div style={{
-              position: 'absolute',
-              top: '70%',
-              left: '0',
-              transform: 'translateY(-50%)',
-              zIndex: '10',
-              paddingLeft: '20px'
-            }}>
-              <h1 style={{
-                color: '#013946',
-                fontSize: '59px',
-                fontWeight: '700',
-                textAlign: 'left',
-                maxWidth: '600px',
-                textShadow: '2px 2px 4px rgba(255, 255, 255, 0.8)',
-                lineHeight: '1.2',
-                letterSpacing: '-0.5px',
-                margin: '0 0 20px 0'
-              }}>
-                Plan today,<br />
-                Protect tomorrow<br />
-                with Sun Life
-              </h1>
-              <button
-                onClick={() => setShowLeadForm(true)}
-                className="btn btn-primary"
-                style={{
-                  minWidth: '180px',
-                  fontSize: '18px',
-                  fontWeight: 600,
-                  padding: '14px 28px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: '4px',
-                  transition: 'all 0.3s ease',
-                  textTransform: 'uppercase',
-                  backgroundColor: '#FFB800',
-                  color: '#1A1A1A',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                }}
-              >
-                GET QUOTE
-              </button>
-            </div>
+      <section className="hero-section" style={{ background: 'linear-gradient(180deg, #E8F7FA 0%, #F5FBFC 100%)', padding: '0' }}>
+        <div className="hero-container" style={{ maxWidth: '100%', margin: '0 auto', textAlign: 'center' }}>
+          {/* Logo Bar */}
+          <div style={{ padding: '20px 20px 0', maxWidth: '500px', margin: '0 auto' }}>
             <Image
-              src="/HEader-5.png"
-              alt="Sun Life Insurance - Protect Your Family's Future"
-              width={1000}
-              height={200}
+              src="/IMAGE-TOP-OVERLAY-Life-2.png"
+              alt="PolicyAdvisor.com | Sun Life"
+              width={500}
+              height={60}
+              priority
+              style={{
+                width: '70%',
+                height: 'auto',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+          </div>
+          
+          {/* Hero Text */}
+          <div style={{ padding: '30px 20px 20px', maxWidth: '700px', margin: '0 auto' }}>
+            <h1 style={{
+              color: '#013946',
+              fontSize: '42px',
+              fontWeight: '700',
+              textAlign: 'center',
+              lineHeight: '1.2',
+              letterSpacing: '-0.5px',
+              margin: '0 0 16px 0'
+            }}>
+              Plan today, Protect tomorrow with Sun Life.
+            </h1>
+            <p style={{
+              fontSize: '20px',
+              color: '#4a5568',
+              margin: '0 0 28px 0',
+              lineHeight: 1.5
+            }}>
+              Life insurance that protects what matters most
+            </p>
+            
+            {/* CTA Button */}
+            <button
+              onClick={() => setShowLeadForm(true)}
+              className="btn btn-primary"
+              style={{
+                minWidth: '200px',
+                fontSize: '18px',
+                fontWeight: 600,
+                padding: '16px 36px',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '4px',
+                transition: 'all 0.3s ease',
+                textTransform: 'uppercase',
+                backgroundColor: '#FFB800',
+                color: '#1A1A1A',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              GET QUOTE
+            </button>
+          </div>
+          
+          {/* Hero Image */}
+          <div style={{ marginTop: '20px', overflow: 'hidden' }}>
+            <Image
+              src="/Header-base-2.png"
+              alt="Father and child - Protect your family's future with Sun Life"
+              width={1200}
+              height={600}
               priority
               style={{
                 width: '100%',
+                maxWidth: '900px',
                 height: 'auto',
-                display: 'block'
+                display: 'block',
+                margin: '0 auto'
               }}
             />
+          </div>
         </div>
       </section>
 
@@ -798,25 +986,25 @@ export default function Home() {
 
       {/* Insurance Answers Section */}
       <section className="section section-white">
-          <div style={{
+          <div className="cta-box" style={{
           backgroundColor: '#FFF8E0',
           borderRadius: '16px',
-          padding: '24px 30px',
+          padding: '40px',
           display: 'flex',
           alignItems: 'center',
-          gap: '60px',
+          gap: '50px',
           maxWidth: '1200px',
             margin: '0 auto'
           }}>
           <div style={{
             flex: '1',
-            maxWidth: '500px'
+            maxWidth: '450px'
           }}>
             <Image
               src="/CTA-NEW-.png"
               alt="Ready to get your Sun Life quote"
-              width={500}
-              height={400}
+              width={450}
+              height={360}
               style={{
                 width: '100%',
                 height: 'auto',
@@ -829,7 +1017,7 @@ export default function Home() {
               fontSize: '32px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '20px',
+              marginBottom: '12px',
               lineHeight: 1.2,
               textAlign: 'left'
             }}>
@@ -839,7 +1027,7 @@ export default function Home() {
               fontSize: '18px',
               color: '#4a5568',
               lineHeight: 1.6,
-              marginBottom: '32px',
+              marginBottom: '28px',
               textAlign: 'left'
             }}>
               Get personalized quotes from our licensed advisors in minutes. No obligation, just expert guidance to help you choose the right coverage.
@@ -872,14 +1060,14 @@ export default function Home() {
             Sun Life term life insurance products
           </h2>
           
-          <div style={{
+          <div className="products-grid" style={{
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
             gap: '33px',
             marginTop: '20px'
           }}>
             {/* SunTerm Card */}
-            <div style={{
+            <div className="product-card" style={{
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -931,7 +1119,7 @@ export default function Home() {
               </div>
 
             {/* SunSpectrum Term Card */}
-            <div style={{
+            <div className="product-card" style={{
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -983,7 +1171,7 @@ export default function Home() {
               </div>
 
             {/* SunLife Go Card */}
-            <div style={{
+            <div className="product-card" style={{
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -1045,7 +1233,7 @@ export default function Home() {
             Enjoy exclusive benefits
           </h2>
 
-          <div style={{
+          <div className="benefits-grid" style={{
               display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '33px',
@@ -1156,7 +1344,7 @@ export default function Home() {
       {/* Cost of Term Insurance */}
       <section className="section section-white">
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{
+            <div className="cost-section" style={{
             display: 'grid',
             gridTemplateColumns: '45% 50%',
             gap: '60px',
@@ -1204,7 +1392,7 @@ export default function Home() {
             <div style={{
               flex: '0 0 50%'
             }}>
-              <table style={{
+              <table className="cost-table" style={{
               width: '100%', 
               borderCollapse: 'collapse',
               backgroundColor: '#fff',
@@ -1215,32 +1403,32 @@ export default function Home() {
               <thead>
                 <tr style={{ backgroundColor: '#FFF8E0' }}>
                   <th style={{ 
-                    padding: '12px', 
+                    padding: '16px 20px', 
                     textAlign: 'left', 
-                    fontWeight: 700, 
-                    fontSize: '15px', 
+                    fontWeight: 800, 
+                    fontSize: '18px', 
                     color: '#1f2937',
-                    borderBottom: '1px solid #e5e7eb'
+                    borderBottom: '2px solid #e5e7eb'
                   }}>
                     Age range
                   </th>
                   <th style={{ 
-                    padding: '12px', 
+                    padding: '16px 20px', 
                     textAlign: 'left', 
-                    fontWeight: 700, 
-                    fontSize: '15px', 
+                    fontWeight: 800, 
+                    fontSize: '18px', 
                     color: '#1f2937',
-                    borderBottom: '1px solid #e5e7eb'
+                    borderBottom: '2px solid #e5e7eb'
                   }}>
                     Premiums (female)
                   </th>
                   <th style={{ 
-                    padding: '12px', 
+                    padding: '16px 20px', 
                     textAlign: 'left', 
-                    fontWeight: 700, 
-                    fontSize: '15px', 
+                    fontWeight: 800, 
+                    fontSize: '18px', 
                     color: '#1f2937',
-                    borderBottom: '1px solid #e5e7eb'
+                    borderBottom: '2px solid #e5e7eb'
                   }}>
                     Premiums (male)
                   </th>
@@ -1248,29 +1436,29 @@ export default function Home() {
               </thead>
               <tbody>
                 <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937' }}>20s</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$29.10</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$47.33</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>20s</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$29.10</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$47.33</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937' }}>30s</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$54.12</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$76.70</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>30s</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$54.12</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$76.70</td>
                 </tr>
-                <tr>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937' }}>40s</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$136.23</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$212.48</td>
+                <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>40s</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$136.23</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$212.48</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937' }}>50s</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$298.45</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$425.67</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>50s</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$298.45</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$425.67</td>
                 </tr>
                 <tr>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937' }}>60s</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$587.92</td>
-                  <td style={{ padding: '16px', fontSize: '16px', color: '#1f2937', fontWeight: '600' }}>$789.34</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>60s</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$587.92</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$789.34</td>
                 </tr>
               </tbody>
             </table>
@@ -1282,58 +1470,52 @@ export default function Home() {
 
       {/* CTA Section - Get Quote */}
       <section className="section section-white">
-        <div style={{ 
+        <div className="cta-banner" style={{ 
           maxWidth: '1200px', 
           margin: '0 auto',
           backgroundColor: '#FFF8E0',
-          padding: '35px 45px',
+          padding: '50px 45px',
           borderRadius: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '33px',
-          flexWrap: 'wrap'
+          textAlign: 'center'
         }}>
-          <div style={{ flex: '1', minWidth: '300px' }}>
-            <h2 style={{ 
-              fontSize: '32px', 
-              fontWeight: 700, 
-              color: '#2d3748', 
-              marginBottom: '12px',
-              lineHeight: 1.3,
-              textAlign: 'left'
-            }}>
-              Ready to protect your family with Sun Life?
-            </h2>
-            <p style={{ 
-              fontSize: '18px', 
-              color: '#4a5568', 
-              margin: 0,
-              lineHeight: 1.7,
-              textAlign: 'left'
-            }}>
-              Get your personalized Sun Life quote in minutes!
-            </p>
-          </div>
-          <div>
-            <button
-              onClick={() => setShowLeadForm(true)}
-              className="btn btn-primary"
-              style={{
-                minWidth: '200px',
-                fontSize: '16px',
-                padding: '16px 40px',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#013946'
-              }}
-            >
-              GET QUOTE
-            </button>
-          </div>
+          <h2 className="cta-banner-heading" style={{ 
+            fontSize: 'clamp(18px, 4vw, 26px)', 
+            fontWeight: 700, 
+            color: '#2d3748', 
+            marginBottom: '12px',
+            lineHeight: 1.3,
+            textAlign: 'center'
+          }}>
+            Ready to protect your family with Sun Life?
+          </h2>
+          <p className="cta-banner-text" style={{ 
+            fontSize: 'clamp(14px, 3vw, 17px)', 
+            color: '#6b7280', 
+            margin: '0 0 24px 0',
+            lineHeight: 1.5,
+            textAlign: 'center',
+            fontWeight: 400
+          }}>
+            Get your personalized Sun Life quote in minutes!
+          </p>
+          <button
+            onClick={() => setShowLeadForm(true)}
+            className="btn btn-primary"
+            style={{
+              minWidth: '200px',
+              fontSize: '16px',
+              padding: '16px 40px',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#013946',
+              borderRadius: '8px'
+            }}
+          >
+            GET QUOTE
+          </button>
         </div>
       </section>
 
@@ -1352,7 +1534,7 @@ export default function Home() {
           </h2>
 
           {/* Features Grid */}
-          <div style={{ 
+          <div className="features-grid" style={{ 
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '26px',
@@ -1361,7 +1543,7 @@ export default function Home() {
             margin: '0 auto'
           }}>
             {/* Level Premiums */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1401,7 +1583,7 @@ export default function Home() {
             </div>
 
             {/* Flexible Terms */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1441,7 +1623,7 @@ export default function Home() {
             </div>
 
             {/* High Coverage Limits */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1481,7 +1663,7 @@ export default function Home() {
             </div>
 
             {/* Convertible */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1521,7 +1703,7 @@ export default function Home() {
             </div>
 
             {/* Customizable Riders */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1561,7 +1743,7 @@ export default function Home() {
             </div>
 
             {/* Digital & Advisor-Assisted */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1601,7 +1783,7 @@ export default function Home() {
             </div>
 
             {/* Living Benefit */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1641,7 +1823,7 @@ export default function Home() {
         </div>
 
             {/* Renewable Coverage */}
-            <div style={{
+            <div className="feature-card" style={{
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
               borderRadius: '12px',
@@ -1681,7 +1863,7 @@ export default function Home() {
             </div>
 
             {/* Wellness Resources */}
-            <div style={{ 
+            <div className="feature-card" style={{ 
               backgroundColor: '#fff',
               border: '1px solid #e5e7eb',
           borderRadius: '12px',
