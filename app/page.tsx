@@ -838,157 +838,702 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero Section - Desktop */}
-      <section className="hero-section hero-desktop" style={{ minHeight: 'auto', padding: 0 }}>
-        <div className="hero-container" style={{ position: 'relative', maxWidth: '1400px', margin: '0 auto' }}>
+      {/* Top Header Bar with Logos */}
+      <div className="header-logo-bar" style={{
+        width: '100%',
+        backgroundColor: '#F9FAFA',
+        position: 'relative',
+        padding: '12px 0'
+      }}>
           <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '40px',
-            transform: 'translateY(-50%)',
-            zIndex: '10'
-          }}>
-            {/* Logo Overlay */}
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 40px'
+        }}>
             <Image
               src="/IMAGE-TOP-OVERLAY-Life-2.png"
-              alt="PolicyAdvisor.com | Sun Life"
-              width={450}
-              height={58}
+            alt="PolicyAdvisor and Sun Life"
+            width={400}
+            height={50}
               style={{
-                width: '390px',
-                height: 'auto',
-                display: 'block',
-                marginBottom: '20px'
-              }}
-            />
+              width: 'auto',
+              height: '40px',
+              objectFit: 'contain',
+              display: 'block'
+            }}
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Hero Section - Desktop with Overlapping Form */}
+      <section className="hero-section hero-desktop" style={{ position: 'relative', paddingBottom: '0' }}>
+        {/* Top Section - Light background with text */}
+        <div style={{ 
+          backgroundColor: '#f8fafa',
+          position: 'relative',
+          zIndex: 1
+        }}>
+          <div style={{
+            display: 'flex',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '50px 40px 60px',
+            position: 'relative'
+          }}>
+            {/* Left Side - Text Content */}
+            <div style={{ 
+              flex: '1',
+              maxWidth: '55%',
+              paddingRight: '40px'
+            }}>
             <h1 style={{
-              color: '#013946',
-              fontSize: '56px',
+                color: '#1a1a1a',
+                fontSize: 'clamp(32px, 4vw, 46px)',
               fontWeight: '700',
-              textAlign: 'left',
-              maxWidth: '550px',
               lineHeight: '1.15',
-              letterSpacing: '-1px',
-              margin: '0 0 24px 0'
+                marginBottom: '20px'
             }}>
               Plan today,<br />
               Protect tomorrow<br />
-              with Sun Life
+                with Sun Life.
             </h1>
-            <button
-              onClick={() => setShowLeadForm(true)}
-              style={{
-                fontSize: '16px',
-                fontWeight: 700,
-                padding: '14px 32px',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                transition: 'all 0.3s ease',
-                textTransform: 'uppercase',
-                backgroundColor: '#FFB800',
-                color: '#1A1A1A',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              GET QUOTE
-            </button>
+              <p style={{
+                color: '#4a5568',
+                fontSize: 'clamp(16px, 1.8vw, 19px)',
+                lineHeight: '1.6',
+                maxWidth: '480px'
+              }}>
+                Secure your family's future with reliable coverage. Sun Life offers flexible life insurance options designed to safeguard your loved ones from one of Canada's most established insurers.
+              </p>
+            </div>
+
+            {/* Right Side - Spacer for form positioning */}
+            <div style={{ flex: '1', maxWidth: '45%' }} />
           </div>
+        </div>
+
+        {/* Bottom Section - Full Width Image */}
+        <div style={{ 
+          position: 'relative',
+          width: '100%'
+        }}>
           <Image
-            src="/HEader-4.png"
-            alt="Sun Life Insurance - Protect Your Family's Future"
-            width={1400}
-            height={500}
-            priority
-            style={{
+            src="/Mid-Header-5.png"
+            alt="Family protection with Sun Life"
+            width={1920}
+            height={600}
+              style={{
               width: '100%',
               height: 'auto',
               display: 'block'
             }}
           />
         </div>
-      </section>
 
-      {/* Hero Section - Mobile Only */}
-      <section className="hero-section hero-mobile" style={{ background: 'linear-gradient(180deg, #E8F7FA 0%, #F5FBFC 100%)', padding: '0' }}>
-        <div style={{ maxWidth: '100%', margin: '0 auto', textAlign: 'center' }}>
-          {/* Logo Bar */}
-          <div style={{ padding: '20px 20px 0', maxWidth: '500px', margin: '0 auto' }}>
-            <Image
-              src="/IMAGE-TOP-OVERLAY-Life-2.png"
-              alt="PolicyAdvisor.com | Sun Life"
-              width={500}
-              height={60}
-              priority
-              style={{
-                width: '70%',
-                height: 'auto',
-                display: 'block',
-                margin: '0 auto'
-              }}
-            />
-          </div>
-          
-          {/* Hero Text */}
-          <div style={{ padding: '30px 20px 20px', maxWidth: '700px', margin: '0 auto' }}>
-            <h1 style={{
-              color: '#013946',
-              fontSize: '32px',
-              fontWeight: '700',
-              textAlign: 'center',
-              lineHeight: '1.2',
-              letterSpacing: '-0.5px',
-              margin: '0 0 16px 0'
+        {/* Floating Form Card - Positioned to overlap both sections */}
+        <div className="floating-form-wrapper" style={{
+          position: 'absolute',
+          top: '40px',
+          right: 'max(20px, calc((100% - 1200px) / 2 - 20px))',
+          width: '100%',
+          maxWidth: '480px',
+          zIndex: 100
+        }}>
+          <div className="hero-form-container" style={{
+            backgroundColor: '#FFF8E0',
+            borderRadius: '12px',
+            padding: '40px 36px',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.075)'
+          }}>
+            {/* Form Header */}
+            <h2 style={{
+              fontSize: '26px',
+                fontWeight: 700,
+              color: '#1a1a1a',
+              marginBottom: '10px',
+              textAlign: 'center'
             }}>
-              Plan today, Protect tomorrow with Sun Life.
-            </h1>
+              Get started today
+            </h2>
             <p style={{
-              fontSize: '18px',
-              color: '#4a5568',
-              margin: '0 0 24px 0',
-              lineHeight: 1.5
+              fontSize: '15px',
+              color: '#4a4a4a',
+              marginBottom: '24px',
+              lineHeight: '1.5',
+              textAlign: 'center'
             }}>
-              Life insurance that protects what matters most
+              Complete a short form to get your free, no-obligation quote.
             </p>
-            
-            {/* CTA Button */}
-            <button
-              onClick={() => setShowLeadForm(true)}
-              style={{
-                minWidth: '200px',
-                fontSize: '16px',
-                fontWeight: 600,
-                padding: '14px 32px',
-                border: 'none',
+
+            {/* Form */}
+            <form onSubmit={handleSubmitLead}>
+              {/* Basic Information */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="John Smith"
+                    value={formData.fullName}
+                    onChange={(e) => handleInputChange('fullName', e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="(555) 123-4567"
+                    value={formData.phoneNumber}
+                    onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937'
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="john.smith@gmail.com"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '14px 16px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none',
+                    backgroundColor: '#fff',
+                    color: '#1f2937'
+                  }}
+                />
+              </div>
+
+              {/* Gender and Date of Birth */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Gender *
+                  </label>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button 
+                      type="button"
+                      onClick={() => handleInputChange('gender', 'Man')}
+                      style={{
+                        flex: 1,
+                        padding: '14px 12px',
+                        fontSize: '15px',
+                        border: `2px solid ${formData.gender === 'Man' ? '#FFB800' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.gender === 'Man' ? '#FFB800' : '#fff',
+                        color: formData.gender === 'Man' ? '#013946' : '#1f2937',
                 cursor: 'pointer',
-                borderRadius: '4px',
-                transition: 'all 0.3s ease',
-                textTransform: 'uppercase',
-                backgroundColor: '#FFB800',
-                color: '#1A1A1A',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              GET QUOTE
+                        fontWeight: 500
+                      }}
+                    >
+                      Man
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('gender', 'Woman')}
+                      style={{
+                        flex: 1,
+                        padding: '14px 12px',
+                        fontSize: '15px',
+                        border: `2px solid ${formData.gender === 'Woman' ? '#FFB800' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.gender === 'Woman' ? '#FFB800' : '#fff',
+                        color: formData.gender === 'Woman' ? '#013946' : '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 500
+                      }}
+                    >
+                      Woman
             </button>
           </div>
+                </div>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Date of Birth *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={10}
+                    placeholder="MM/DD/YYYY"
+                    value={formData.dateOfBirth}
+                    onChange={(e) => {
+                      let value = e.target.value.replace(/\D/g, '');
+                      if (value.length <= 8) {
+                        if (value.length >= 4) {
+                          value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
+                        } else if (value.length >= 2) {
+                          value = value.slice(0, 2) + '/' + value.slice(2);
+                        }
+                        handleInputChange('dateOfBirth', value);
+                      }
+                    }}
+            style={{
+              width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937'
+            }}
+          />
+        </div>
+              </div>
+
+              {/* Smoker Status and Province */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Smoker Status
+                  </label>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('smokerStatus', 'No')}
+              style={{
+                        flex: 1,
+                        padding: '14px 12px',
+                        fontSize: '15px',
+                        border: `2px solid ${formData.smokerStatus === 'No' ? '#FFB800' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'No' ? '#FFB800' : '#fff',
+                        color: formData.smokerStatus === 'No' ? '#013946' : '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 500
+                      }}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleInputChange('smokerStatus', 'Yes')}
+                      style={{
+                        flex: 1,
+                        padding: '14px 12px',
+                        fontSize: '15px',
+                        border: `2px solid ${formData.smokerStatus === 'Yes' ? '#FFB800' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'Yes' ? '#FFB800' : '#fff',
+                        color: formData.smokerStatus === 'Yes' ? '#013946' : '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 500
+                      }}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Province *
+                  </label>
+                  <select
+                    value={formData.province}
+                    onChange={(e) => handleInputChange('province', e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <option value="">Select...</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon</option>
+                  </select>
+                </div>
+          </div>
           
-          {/* Hero Image */}
-          <div style={{ marginTop: '20px', overflow: 'hidden' }}>
+              {/* Submit Button */}
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '18px',
+                  fontSize: '17px',
+                  fontWeight: 700,
+                  color: '#013946',
+                  backgroundColor: '#FFB800',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}
+              >
+                Submit Request
+              </button>
+
+              {/* Form Disclaimer */}
+              <p style={{
+                marginTop: '16px',
+                fontSize: '12px',
+                color: '#666',
+                lineHeight: '1.5',
+                textAlign: 'center'
+              }}>
+                By submitting, you agree to be contacted by a licensed advisor from Sun Life.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Hero Section - Mobile */}
+      <section className="hero-section hero-mobile" style={{ display: 'none' }}>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          backgroundColor: '#EEFCFE'
+        }}>
+          {/* Hero Text */}
+          <div style={{
+            padding: '24px 20px 20px',
+            textAlign: 'center'
+          }}>
+            <h1 style={{
+              color: '#013946',
+              fontSize: '28px',
+              fontWeight: '700',
+              lineHeight: '1.2',
+              marginBottom: '12px'
+            }}>
+              Plan today,<br />
+              Protect tomorrow<br />
+              with Sun Life.
+            </h1>
+            <p style={{
+              color: '#4a5568',
+              fontSize: '15px',
+              lineHeight: '1.5',
+              marginBottom: '0'
+            }}>
+              Get your free Sun Life life insurance quote below.
+            </p>
+          </div>
+
+          {/* Hero Image - Mobile */}
+          <div style={{ width: '100%', overflow: 'hidden' }}>
             <Image
               src="/Header-base-2.png"
-              alt="Father and child - Protect your family's future with Sun Life"
+              alt="Protect your family's future with Sun Life"
               width={1200}
               height={600}
-              priority
               style={{
                 width: '100%',
-                maxWidth: '100%',
                 height: 'auto',
-                display: 'block',
-                margin: '0 auto'
+                display: 'block'
               }}
             />
+          </div>
+          
+          {/* Mobile Form */}
+          <div style={{
+            width: '100%',
+            padding: '16px 20px',
+            backgroundColor: '#fff'
+          }}>
+            <form onSubmit={handleSubmitLead}>
+              {/* Full Name */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Full Name <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="John Smith"
+                  value={formData.fullName}
+                  onChange={(e) => handleInputChange('fullName', e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+
+              {/* Phone */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Phone <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="(555) 123-4567"
+                  value={formData.phoneNumber}
+                  onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+
+              {/* Email */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Email <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="email@example.com"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+
+              {/* Date of Birth */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Date of Birth <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  maxLength={10}
+                  placeholder="MM/DD/YYYY"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length <= 8) {
+                      if (value.length >= 4) {
+                        value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
+                      } else if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2);
+                      }
+                      handleInputChange('dateOfBirth', value);
+                    }
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+
+              {/* Gender */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Gender <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('gender', 'Man')}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.gender === 'Man' ? '#013946' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.gender === 'Man' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    Man
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('gender', 'Woman')}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.gender === 'Woman' ? '#013946' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.gender === 'Woman' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    Woman
+                  </button>
+                </div>
+              </div>
+          
+              {/* Smoker Status */}
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Smoker <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('smokerStatus', 'No')}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.smokerStatus === 'No' ? '#013946' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.smokerStatus === 'No' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleInputChange('smokerStatus', 'Yes')}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.smokerStatus === 'Yes' ? '#013946' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.smokerStatus === 'Yes' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    Yes
+                  </button>
+                </div>
+              </div>
+
+              {/* Province */}
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Province
+                </label>
+                <select
+                  value={formData.province}
+                  onChange={(e) => handleInputChange('province', e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: '15px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    outline: 'none',
+                    backgroundColor: '#fff'
+                  }}
+                >
+                  <option value="">Select...</option>
+                  <option value="AB">Alberta</option>
+                  <option value="BC">British Columbia</option>
+                  <option value="MB">Manitoba</option>
+                  <option value="NB">New Brunswick</option>
+                  <option value="NL">Newfoundland</option>
+                  <option value="NS">Nova Scotia</option>
+                  <option value="ON">Ontario</option>
+                  <option value="PE">PEI</option>
+                  <option value="QC">Quebec</option>
+                  <option value="SK">Saskatchewan</option>
+                </select>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  color: '#fff',
+                  backgroundColor: '#013946',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Submit Request
+              </button>
+
+              <p style={{
+                marginTop: '10px',
+                fontSize: '11px',
+                color: '#6b7280',
+                lineHeight: '1.4',
+                textAlign: 'center'
+              }}>
+                By submitting, you agree to be contacted by a licensed advisor from Sun Life.
+              </p>
+            </form>
           </div>
         </div>
       </section>

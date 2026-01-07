@@ -33,30 +33,93 @@ a {
   padding: 0;
   position: relative;
   overflow: hidden;
-  min-height: 420px;
-}
-
-/* Hero Desktop/Mobile Toggle */
-.hero-desktop {
-  display: block;
-}
-.hero-mobile {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .hero-desktop {
-    display: none !important;
-  }
-  .hero-mobile {
-    display: block !important;
-  }
 }
 
 .hero-container {
   max-width: 100%;
   margin: 0 auto;
   display: block;
+  position: relative;
+}
+
+/* Desktop hero visible by default, mobile hidden */
+.hero-desktop {
+  display: block;
+}
+
+.hero-mobile {
+  display: none !important;
+}
+
+/* Hero with Floating Form Layout */
+.hero-left {
+  flex: 1;
+}
+
+.floating-form-wrapper {
+  position: absolute;
+  top: 40px;
+  right: max(30px, calc((100% - 1400px) / 2 + 30px));
+  width: 100%;
+  max-width: 480px;
+  z-index: 100;
+}
+
+.form-spacer {
+  height: 480px;
+}
+
+/* Hero responsive styles - Tablet */
+@media (max-width: 1200px) {
+  .floating-form-wrapper {
+    max-width: 420px;
+    right: 20px;
+  }
+  
+  .hero-form-container {
+    padding: 24px 22px !important;
+  }
+  
+  .hero-form-container h2 {
+    font-size: 20px !important;
+  }
+  
+  .form-spacer {
+    height: 520px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .floating-form-wrapper {
+    max-width: 380px;
+    right: 15px;
+  }
+  
+  .hero-form-container {
+    padding: 20px 18px !important;
+  }
+  
+  .form-spacer {
+    height: 560px;
+  }
+}
+
+/* Hero responsive styles - Mobile: Show mobile hero, hide desktop */
+@media (max-width: 768px) {
+  .hero-desktop {
+    display: none !important;
+  }
+  
+  .hero-mobile {
+    display: block !important;
+  }
+}
+
+/* Hero responsive styles - Small Mobile */
+@media (max-width: 480px) {
+  .hero-mobile h1 {
+    font-size: 24px !important;
+  }
 }
 
 /* Hero content styles - no longer needed with image header */
