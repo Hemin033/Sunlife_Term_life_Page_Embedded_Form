@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { IoMdWalk } from 'react-icons/io'
 import { MdDirectionsRun } from 'react-icons/md'
@@ -11,12 +12,9 @@ import { BsShield, BsPeople, BsGraphUp } from 'react-icons/bs'
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
 export default function Home() {
+  const router = useRouter()
   const [activeFAQ, setActiveFAQ] = useState<number | null>(null)
   const [showLeadForm, setShowLeadForm] = useState(false)
-  const [showOTPVerification, setShowOTPVerification] = useState(false)
-  const [showThankYou, setShowThankYou] = useState(false)
-  const [otp, setOTP] = useState(['', '', '', '', '', ''])
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -140,48 +138,9 @@ export default function Home() {
       return
     }
     
-    // Store phone number for OTP verification
-    setPhoneNumber(formData.phoneNumber)
-    // Hide lead form and show OTP verification
+    // Form is valid - redirect to thank you page
     setShowLeadForm(false)
-    setShowOTPVerification(true)
-  }
-
-  const handleOTPChange = (index: number, value: string) => {
-    const newOTP = [...otp]
-    // Only allow numbers
-    if (value.match(/^[0-9]$/)) {
-      newOTP[index] = value
-      setOTP(newOTP)
-      // Auto-focus next input
-      if (index < 5 && value !== '') {
-        const nextInput = document.getElementById(`otp-${index + 1}`)
-        nextInput?.focus()
-      }
-    } else if (value === '') {
-      // Allow backspace
-      newOTP[index] = ''
-      setOTP(newOTP)
-      // Auto-focus previous input
-      if (index > 0) {
-        const prevInput = document.getElementById(`otp-${index - 1}`)
-        prevInput?.focus()
-      }
-    }
-  }
-
-  const handleVerifyOTP = () => {
-    // Here you would verify the OTP
-    console.log('Verifying OTP:', otp.join(''))
-    setShowOTPVerification(false)
-    setShowThankYou(true)
-  }
-
-  const handleResendOTP = () => {
-    // Here you would trigger OTP resend
-    console.log('Resending OTP to:', phoneNumber)
-    // Reset OTP inputs
-    setOTP(['', '', '', '', '', ''])
+    router.push('/thank-you?return=/')
   }
 
   return (
@@ -812,189 +771,6 @@ export default function Home() {
                 </p>
               </div>
             </form>
-          </div>
-        </div>
-      )}
-
-      {/* OTP Verification Modal */}
-      {showOTPVerification && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div style={{
-            backgroundColor: '#fff',
-            borderRadius: '20px',
-            padding: '40px',
-            maxWidth: '400px',
-            width: '100%',
-            textAlign: 'center',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
-          }}>
-            <h2 style={{
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#1f2937',
-              marginBottom: '12px'
-            }}>
-              Verify Your Number
-            </h2>
-            <p style={{
-              fontSize: '14px',
-              color: '#6b7280',
-              marginBottom: '24px'
-            }}>
-              An OTP has been sent to {phoneNumber}
-            </p>
-            
-            <div style={{
-              display: 'flex',
-              gap: '8px',
-              justifyContent: 'center',
-              marginBottom: '24px'
-            }}>
-              {otp.map((digit, index) => (
-                <input
-                  key={index}
-                  id={`otp-${index}`}
-                  type="text"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleOTPChange(index, e.target.value)}
-                  style={{
-                    width: '40px',
-                    height: '40px',
-                    textAlign: 'center',
-                    fontSize: '18px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '8px',
-                    outline: 'none',
-                    transition: 'border-color 0.2s ease'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = '#013946'}
-                  onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={handleVerifyOTP}
-              style={{
-                width: '100%',
-                padding: '14px',
-                backgroundColor: '#013946',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                marginBottom: '16px'
-              }}
-            >
-              Verify
-            </button>
-
-            <p style={{
-              fontSize: '14px',
-              color: '#6b7280'
-            }}>
-              Didn't receive the code? <button
-                onClick={handleResendOTP}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#013946',
-                  cursor: 'pointer',
-                  fontWeight: 500
-                }}
-              >
-                Resend OTP (42s)
-              </button>
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Thank You Modal */}
-      {showThankYou && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div style={{
-            backgroundColor: '#fff',
-            borderRadius: '20px',
-            padding: '40px',
-            maxWidth: '500px',
-            width: '100%',
-            textAlign: 'center',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
-          }}>
-            <div style={{
-              width: '64px',
-              height: '64px',
-              backgroundColor: '#013946',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 24px'
-            }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h2 style={{
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#1f2937',
-              marginBottom: '16px'
-            }}>
-              Thank You!
-            </h2>
-            <p style={{
-              fontSize: '16px',
-              color: '#6b7280',
-              lineHeight: 1.5,
-              marginBottom: '24px'
-            }}>
-              One of our licensed advisors will reach out soon with your Sun Life term life insurance options and guide you on what's best for your needs.
-            </p>
-            <button
-              onClick={() => setShowThankYou(false)}
-              style={{
-                width: '100%',
-                padding: '14px',
-                backgroundColor: '#013946',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              Close
-            </button>
           </div>
         </div>
       )}
