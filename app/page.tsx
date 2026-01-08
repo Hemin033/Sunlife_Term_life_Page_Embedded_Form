@@ -67,10 +67,10 @@ export default function Home() {
 
   const validateDateOfBirth = (dob: string): string => {
     if (!dob.trim()) return 'Date of birth is required'
-    const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/
-    if (!dateRegex.test(dob)) return 'Please enter a valid date (MM/DD/YYYY)'
+    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
+    if (!dateRegex.test(dob)) return 'Please enter a valid date (DD/MM/YYYY)'
     
-    const [month, day, year] = dob.split('/').map(Number)
+    const [day, month, year] = dob.split('/').map(Number)
     const birthDate = new Date(year, month - 1, day)
     const today = new Date()
     let age = today.getFullYear() - birthDate.getFullYear()
@@ -99,6 +99,18 @@ export default function Home() {
   const validateProvince = (province: string): string => {
     if (!province) return 'Please select your province'
     return ''
+  }
+
+  // Format phone number as (XXX) XXX-XXXX
+  const formatPhoneNumber = (value: string): string => {
+    // Remove all non-digits
+    const digits = value.replace(/\D/g, '')
+    
+    // Format based on length
+    if (digits.length === 0) return ''
+    if (digits.length <= 3) return `(${digits}`
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`
   }
 
   const validateForm = (): boolean => {
@@ -416,85 +428,113 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* Full Name */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Full Name <span style={{ color: '#013946' }}>*</span>
                 </label>
+                <div>
                 <input
                   type="text"
                   required
                   placeholder="John Smith"
                   value={formData.fullName}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
+                    onBlur={() => {
+                      const error = validateFullName(formData.fullName)
+                      if (error) setFormErrors(prev => ({ ...prev, fullName: error }))
+                    }}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
                     fontSize: '15px',
-                    border: '1px solid #d1d5db',
+                      border: `1px solid ${formErrors.fullName ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
                     outline: 'none'
                   }}
                 />
+                  {formErrors.fullName && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.fullName}</p>}
+                </div>
               </div>
 
               {/* Phone Number */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Phone Number <span style={{ color: '#013946' }}>*</span>
                 </label>
+                <div>
                 <input
                   type="tel"
                   required
                   placeholder="(555) 123-4567"
                   value={formData.phoneNumber}
-                  onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value)
+                      handleInputChange('phoneNumber', formatted)
+                    }}
+                    onBlur={() => {
+                      const error = validatePhone(formData.phoneNumber)
+                      if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
+                    }}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
                     fontSize: '15px',
-                    border: '1px solid #d1d5db',
+                      border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
                     outline: 'none'
                   }}
                 />
+                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
+                </div>
               </div>
 
               {/* Email Address */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Email Address <span style={{ color: '#013946' }}>*</span>
                 </label>
+                <div>
                 <input
                   type="email"
                   required
                   placeholder="John.smith@gmail.com"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
+                    onBlur={() => {
+                      const error = validateEmail(formData.email)
+                      if (error) setFormErrors(prev => ({ ...prev, email: error }))
+                    }}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
                     fontSize: '15px',
-                    border: '1px solid #d1d5db',
+                      border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
                     outline: 'none'
                   }}
                 />
+                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.email}</p>}
+                </div>
               </div>
 
               {/* Gender */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Gender <span style={{ color: '#013946' }}>*</span>
                 </label>
+                <div>
                 <div className="gender-buttons" style={{ display: 'flex', gap: '12px' }}>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('gender', 'Man')}
+                      onClick={() => {
+                        handleInputChange('gender', 'Man')
+                        setFormErrors(prev => ({ ...prev, gender: '' }))
+                      }}
                     style={{
                       flex: 1,
                       padding: '14px',
                       fontSize: '15px',
-                      border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : '#d1d5db'}`,
+                        border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
                       backgroundColor: formData.gender === 'Man' ? '#e0f2fe' : '#fff',
                       color: '#1f2937',
@@ -506,12 +546,15 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('gender', 'Woman')}
+                      onClick={() => {
+                        handleInputChange('gender', 'Woman')
+                        setFormErrors(prev => ({ ...prev, gender: '' }))
+                      }}
                     style={{
                       flex: 1,
                       padding: '14px',
                       fontSize: '15px',
-                      border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : '#d1d5db'}`,
+                        border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
                       backgroundColor: formData.gender === 'Woman' ? '#e0f2fe' : '#fff',
                       color: '#1f2937',
@@ -521,6 +564,8 @@ export default function Home() {
                   >
                     Woman
                   </button>
+                  </div>
+                  {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.gender}</p>}
                 </div>
               </div>
 
@@ -534,16 +579,17 @@ export default function Home() {
                     Your premium depends on your age.
                   </p>
                 </div>
+                <div>
                 <input
                   type="text"
                   required
                   maxLength={10}
-                  placeholder="MM/DD/YYYY"
+                    placeholder="DD/MM/YYYY"
                   value={formData.dateOfBirth}
                   onChange={(e) => {
                     let value = e.target.value.replace(/\D/g, '');
                     if (value.length <= 8) {
-                      // Format as MM/DD/YYYY
+                        // Format as DD/MM/YYYY
                       if (value.length >= 4) {
                         value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
                       } else if (value.length >= 2) {
@@ -552,36 +598,46 @@ export default function Home() {
                       handleInputChange('dateOfBirth', value);
                     }
                   }}
+                    onBlur={() => {
+                      const error = validateDateOfBirth(formData.dateOfBirth)
+                      if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
+                  }}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
                     fontSize: '15px',
-                    border: '1px solid #d1d5db',
+                      border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
                     outline: 'none'
                   }}
                 />
+                  {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
+                </div>
               </div>
 
               {/* Smoker Status */}
               <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
-                    Smoker Status
+                    Smoker Status <span style={{ color: '#013946' }}>*</span>
                   </label>
                   <p style={{ fontSize: '13px', color: '#6b7280', margin: '4px 0 0 0' }}>
                     Includes tobacco, e-cigarettes, and vaping in the past 12 months.
                   </p>
                 </div>
+                <div>
                 <div className="smoker-buttons" style={{ display: 'flex', gap: '12px' }}>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('smokerStatus', 'Non-smoker')}
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Non-smoker')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
                     style={{
                       flex: 1,
                       padding: '14px',
                       fontSize: '15px',
-                      border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : '#d1d5db'}`,
+                        border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
                       backgroundColor: formData.smokerStatus === 'Non-smoker' ? '#e0f2fe' : '#fff',
                       color: '#1f2937',
@@ -593,12 +649,15 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('smokerStatus', 'Smoker')}
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Smoker')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
                     style={{
                       flex: 1,
                       padding: '14px',
                       fontSize: '15px',
-                      border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : '#d1d5db'}`,
+                        border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
                       backgroundColor: formData.smokerStatus === 'Smoker' ? '#e0f2fe' : '#fff',
                       color: '#1f2937',
@@ -608,22 +667,33 @@ export default function Home() {
                   >
                     Smoker
                   </button>
+                  </div>
+                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
                 </div>
               </div>
 
               {/* Province */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
-                  Province
+                  Province <span style={{ color: '#013946' }}>*</span>
                 </label>
+                <div>
                 <select
+                    required
                   value={formData.province}
-                  onChange={(e) => handleInputChange('province', e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange('province', e.target.value)
+                      setFormErrors(prev => ({ ...prev, province: '' }))
+                    }}
+                    onBlur={() => {
+                      const error = validateProvince(formData.province)
+                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                    }}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
                     fontSize: '15px',
-                    border: '1px solid #d1d5db',
+                      border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
                     outline: 'none',
                     backgroundColor: '#fff',
@@ -642,6 +712,8 @@ export default function Home() {
                   <option value="QC">Quebec</option>
                   <option value="SK">Saskatchewan</option>
                 </select>
+                  {formErrors.province && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
+                </div>
               </div>
 
               {/* Coverage Amount */}
@@ -976,17 +1048,17 @@ export default function Home() {
               maxWidth: '50%',
               paddingRight: '30px'
             }}>
-              <h1 style={{
+            <h1 style={{
                 color: '#1a1a1a',
                 fontSize: 'clamp(32px, 4vw, 44px)',
-                fontWeight: '700',
-                lineHeight: '1.15',
+              fontWeight: '700',
+              lineHeight: '1.15',
                 marginBottom: '16px'
-              }}>
-                Plan today,<br />
-                Protect tomorrow<br />
+            }}>
+              Plan today,<br />
+              Protect tomorrow<br />
                 with Sun Life.
-              </h1>
+            </h1>
               <p style={{
                 color: '#4a5568',
                 fontSize: 'clamp(15px, 1.6vw, 18px)',
@@ -1039,7 +1111,7 @@ export default function Home() {
             {/* Form Header */}
             <h2 style={{
               fontSize: '24px',
-              fontWeight: 700,
+                fontWeight: 700,
               color: '#1a1a1a',
               marginBottom: '8px',
               textAlign: 'center'
@@ -1066,9 +1138,14 @@ export default function Home() {
                   </label>
                   <input
                     type="text"
+                    required
                     placeholder="John Smith"
                     value={formData.fullName}
                     onChange={(e) => handleInputChange('fullName', e.target.value)}
+                    onBlur={() => {
+                      const error = validateFullName(formData.fullName)
+                      if (error) setFormErrors(prev => ({ ...prev, fullName: error }))
+                    }}
                     style={{
                       width: '100%',
                       padding: '10px 12px',
@@ -1088,9 +1165,17 @@ export default function Home() {
                   </label>
                   <input
                     type="tel"
+                    required
                     placeholder="(555) 123-4567"
                     value={formData.phoneNumber}
-                    onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value)
+                      handleInputChange('phoneNumber', formatted)
+                    }}
+                    onBlur={() => {
+                      const error = validatePhone(formData.phoneNumber)
+                      if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
+                    }}
                     style={{
                       width: '100%',
                       padding: '10px 12px',
@@ -1112,9 +1197,14 @@ export default function Home() {
                 </label>
                 <input
                   type="email"
+                  required
                   placeholder="john.smith@gmail.com"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
+                  onBlur={() => {
+                    const error = validateEmail(formData.email)
+                    if (error) setFormErrors(prev => ({ ...prev, email: error }))
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1138,7 +1228,10 @@ export default function Home() {
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button 
                       type="button"
-                      onClick={() => handleInputChange('gender', 'Man')}
+                      onClick={() => {
+                        handleInputChange('gender', 'Man')
+                        setFormErrors(prev => ({ ...prev, gender: '' }))
+                      }}
                       style={{
                         flex: 1,
                         padding: '10px 8px',
@@ -1147,7 +1240,7 @@ export default function Home() {
                         borderRadius: '6px',
                         backgroundColor: formData.gender === 'Man' ? '#FFB800' : '#fff',
                         color: formData.gender === 'Man' ? '#013946' : '#1f2937',
-                        cursor: 'pointer',
+                cursor: 'pointer',
                         fontWeight: 500
                       }}
                     >
@@ -1155,7 +1248,10 @@ export default function Home() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleInputChange('gender', 'Woman')}
+                      onClick={() => {
+                        handleInputChange('gender', 'Woman')
+                        setFormErrors(prev => ({ ...prev, gender: '' }))
+                      }}
                       style={{
                         flex: 1,
                         padding: '10px 8px',
@@ -1169,8 +1265,8 @@ export default function Home() {
                       }}
                     >
                       Woman
-                    </button>
-                  </div>
+            </button>
+          </div>
                   {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.gender}</p>}
                 </div>
                 <div>
@@ -1179,12 +1275,14 @@ export default function Home() {
                   </label>
                   <input
                     type="text"
+                    required
                     maxLength={10}
-                    placeholder="MM/DD/YYYY"
+                    placeholder="DD/MM/YYYY"
                     value={formData.dateOfBirth}
                     onChange={(e) => {
                       let value = e.target.value.replace(/\D/g, '');
                       if (value.length <= 8) {
+                        // Format as DD/MM/YYYY
                         if (value.length >= 4) {
                           value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
                         } else if (value.length >= 2) {
@@ -1193,8 +1291,12 @@ export default function Home() {
                         handleInputChange('dateOfBirth', value);
                       }
                     }}
-                    style={{
-                      width: '100%',
+                    onBlur={() => {
+                      const error = validateDateOfBirth(formData.dateOfBirth)
+                      if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
+                    }}
+            style={{
+              width: '100%',
                       padding: '10px 12px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
@@ -1205,7 +1307,7 @@ export default function Home() {
                     }}
                   />
                   {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
-                </div>
+        </div>
               </div>
 
               {/* Smoker Status and Province */}
@@ -1217,8 +1319,11 @@ export default function Home() {
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button
                       type="button"
-                      onClick={() => handleInputChange('smokerStatus', 'No')}
-                      style={{
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'No')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
+              style={{
                         flex: 1,
                         padding: '10px 8px',
                         fontSize: '14px',
@@ -1234,7 +1339,10 @@ export default function Home() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleInputChange('smokerStatus', 'Yes')}
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Yes')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
                       style={{
                         flex: 1,
                         padding: '10px 8px',
@@ -1257,8 +1365,16 @@ export default function Home() {
                     Province *
                   </label>
                   <select
+                    required
                     value={formData.province}
-                    onChange={(e) => handleInputChange('province', e.target.value)}
+                    onChange={(e) => {
+                      handleInputChange('province', e.target.value)
+                      setFormErrors(prev => ({ ...prev, province: '' }))
+                    }}
+                    onBlur={() => {
+                      const error = validateProvince(formData.province)
+                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                    }}
                     style={{
                       width: '100%',
                       padding: '10px 12px',
@@ -1288,7 +1404,7 @@ export default function Home() {
                   </select>
                   {formErrors.province && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
-              </div>
+          </div>
           
               {/* Submit Button */}
               <button
@@ -1391,9 +1507,14 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
+                  required
                   placeholder="John Smith"
                   value={formData.fullName}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
+                  onBlur={() => {
+                    const error = validateFullName(formData.fullName)
+                    if (error) setFormErrors(prev => ({ ...prev, fullName: error }))
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1413,9 +1534,17 @@ export default function Home() {
                 </label>
                 <input
                   type="tel"
+                  required
                   placeholder="(555) 123-4567"
                   value={formData.phoneNumber}
-                  onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                  onChange={(e) => {
+                    const formatted = formatPhoneNumber(e.target.value)
+                    handleInputChange('phoneNumber', formatted)
+                  }}
+                  onBlur={() => {
+                    const error = validatePhone(formData.phoneNumber)
+                    if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1435,9 +1564,14 @@ export default function Home() {
                 </label>
                 <input
                   type="email"
+                  required
                   placeholder="email@example.com"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
+                  onBlur={() => {
+                    const error = validateEmail(formData.email)
+                    if (error) setFormErrors(prev => ({ ...prev, email: error }))
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1457,12 +1591,14 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
+                  required
                   maxLength={10}
-                  placeholder="MM/DD/YYYY"
+                  placeholder="DD/MM/YYYY"
                   value={formData.dateOfBirth}
                   onChange={(e) => {
                     let value = e.target.value.replace(/\D/g, '');
                     if (value.length <= 8) {
+                      // Format as DD/MM/YYYY
                       if (value.length >= 4) {
                         value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
                       } else if (value.length >= 2) {
@@ -1470,6 +1606,10 @@ export default function Home() {
                       }
                       handleInputChange('dateOfBirth', value);
                     }
+                  }}
+                  onBlur={() => {
+                    const error = validateDateOfBirth(formData.dateOfBirth)
+                    if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
                   }}
                   style={{
                     width: '100%',
@@ -1489,10 +1629,13 @@ export default function Home() {
                   Gender <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <button
+            <button
                     type="button"
-                    onClick={() => handleInputChange('gender', 'Man')}
-                    style={{
+                    onClick={() => {
+                      handleInputChange('gender', 'Man')
+                      setFormErrors(prev => ({ ...prev, gender: '' }))
+                    }}
+              style={{
                       flex: 1,
                       padding: '8px 10px',
                       fontSize: '14px',
@@ -1500,7 +1643,7 @@ export default function Home() {
                       borderRadius: '6px',
                       backgroundColor: formData.gender === 'Man' ? '#e0f7fa' : '#fff',
                       color: '#1f2937',
-                      cursor: 'pointer',
+                cursor: 'pointer',
                       fontWeight: 600
                     }}
                   >
@@ -1508,7 +1651,10 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('gender', 'Woman')}
+                    onClick={() => {
+                      handleInputChange('gender', 'Woman')
+                      setFormErrors(prev => ({ ...prev, gender: '' }))
+                    }}
                     style={{
                       flex: 1,
                       padding: '8px 10px',
@@ -1522,10 +1668,10 @@ export default function Home() {
                     }}
                   >
                     Woman
-                  </button>
+            </button>
                 </div>
                 {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.gender}</p>}
-              </div>
+          </div>
           
               {/* Province - Custom Dropdown */}
               <div style={{ marginBottom: '10px', position: 'relative' }}>
@@ -1534,8 +1680,15 @@ export default function Home() {
                 </label>
                 <div
                   onClick={() => setMobileProvinceOpen(!mobileProvinceOpen)}
-                  style={{
-                    width: '100%',
+                  onBlur={() => {
+                    setTimeout(() => {
+                      const error = validateProvince(formData.province)
+                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                    }, 200)
+                  }}
+                  tabIndex={0}
+              style={{
+                width: '100%',
                     padding: '10px 12px',
                     fontSize: '15px',
                     border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
@@ -1589,6 +1742,7 @@ export default function Home() {
                         key={province.value}
                         onClick={() => {
                           handleInputChange('province', province.value);
+                          setFormErrors(prev => ({ ...prev, province: '' }));
                           setMobileProvinceOpen(false);
                         }}
                         style={{
@@ -1616,7 +1770,10 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('smokerStatus', 'No')}
+                    onClick={() => {
+                      handleInputChange('smokerStatus', 'No')
+                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                    }}
                     style={{
                       flex: 1,
                       padding: '8px 10px',
@@ -1633,7 +1790,10 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleInputChange('smokerStatus', 'Yes')}
+                    onClick={() => {
+                      handleInputChange('smokerStatus', 'Yes')
+                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                    }}
                     style={{
                       flex: 1,
                       padding: '8px 10px',
