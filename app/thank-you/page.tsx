@@ -42,8 +42,8 @@ function ThankYouContent() {
           <Image
             src="/Sun-Life-Financial-Logo.png"
             alt="Sun Life Financial"
-            width={120}
-            height={40}
+            width={270}
+            height={90}
             style={{ objectFit: 'contain' }}
           />
           <span style={{
