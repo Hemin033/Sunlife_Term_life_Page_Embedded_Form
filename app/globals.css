@@ -891,6 +891,20 @@ a {
     margin-bottom: 16px;
   }
 
+  /* Products Carousel */
+  .products-carousel {
+    flex-direction: column !important;
+    transform: none !important;
+  }
+  
+  .products-carousel .product-card {
+    flex: none !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+  }
+
   /* Insurance Answers / CTA Boxes */
   .insurance-answers {
     flex-direction: column;
@@ -1009,6 +1023,11 @@ a {
   .btn {
     padding: 14px 20px;
     font-size: 14px;
+  }
+
+  /* Products Carousel - single column on small mobile */
+  .products-carousel .product-card {
+    max-width: 100% !important;
   }
 }
 

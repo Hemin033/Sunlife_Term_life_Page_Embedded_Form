@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { IoMdWalk } from 'react-icons/io'
@@ -29,6 +29,16 @@ export default function Home() {
   })
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [mobileProvinceOpen, setMobileProvinceOpen] = useState(false)
+  const [productCarouselIndex, setProductCarouselIndex] = useState(0)
+
+  // Auto-scroll carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProductCarouselIndex(prev => prev === 1 ? 0 : prev + 1)
+    }, 3000) // Change slide every 3 seconds
+    
+    return () => clearInterval(interval)
+  }, [])
 
   const toggleFAQ = (index: number) => {
     setActiveFAQ(activeFAQ === index ? null : index)
@@ -381,7 +391,7 @@ export default function Home() {
               marginBottom: '16px',
               textAlign: 'center'
             }}>
-              Complete the quick form below to find out how affordable life insurance can be — and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
+              Complete the quick form below to find out how affordable life insurance can be and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
             </p>
             <p style={{
               fontSize: '14px',
@@ -1714,7 +1724,7 @@ export default function Home() {
         <div className="vitality-intro">
           <h2>Protect what matters most with Sun Life</h2>
           <p>
-            Secure your family's future with reliable coverage. Sun Life offers flexible life insurance options designed to safeguard your loved ones, pay off debts, and preserve your legacy — all with reliable coverage from one of Canada's most established insurers.
+            Secure your family's future with reliable coverage. Sun Life offers flexible life insurance options designed to safeguard your loved ones, pay off debts, and preserve your legacy, all with reliable coverage from one of Canada's most established insurers.
             <br /><br />
             Whether you're looking for affordable term coverage or lifetime protection that builds value, Sun Life makes it easy to find the right plan for your needs and budget.
           </p>
@@ -1751,7 +1761,7 @@ export default function Home() {
                 Choose from term, permanent, or participating life insurance options that evolve with your needs.</li>
                 
                 <li><strong>Affordable and customizable</strong><br />
-                Find a plan that fits your budget — with coverage starting at just a few dollars a day.</li>
+                Find a plan that fits your budget with coverage starting at just a few dollars a day.</li>
                 
                 <li><strong>Expert guidance, no pressure</strong><br />
                 Get a free consultation with a licensed advisor who helps you understand your options and choose confidently.</li>
@@ -1843,14 +1853,81 @@ export default function Home() {
             Sun Life term life insurance products
           </h2>
           
-          <div className="products-grid" style={{
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-            gap: '33px',
-            marginTop: '20px'
-          }}>
+          {/* Carousel Container */}
+          <div style={{ position: 'relative', marginTop: '20px' }}>
+            {/* Left Arrow */}
+            <button
+              onClick={() => setProductCarouselIndex(prev => Math.max(0, prev - 1))}
+              style={{
+                position: 'absolute',
+                left: '-50px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: 'none',
+                backgroundColor: productCarouselIndex === 0 ? '#e5e7eb' : '#013946',
+                color: productCarouselIndex === 0 ? '#9ca3af' : '#fff',
+                cursor: productCarouselIndex === 0 ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                zIndex: 10,
+                transition: 'all 0.3s ease'
+              }}
+              disabled={productCarouselIndex === 0}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => setProductCarouselIndex(prev => Math.min(1, prev + 1))}
+              style={{
+                position: 'absolute',
+                right: '-50px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: 'none',
+                backgroundColor: productCarouselIndex === 1 ? '#e5e7eb' : '#013946',
+                color: productCarouselIndex === 1 ? '#9ca3af' : '#fff',
+                cursor: productCarouselIndex === 1 ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                zIndex: 10,
+                transition: 'all 0.3s ease'
+              }}
+              disabled={productCarouselIndex === 1}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+
+            {/* Carousel Track */}
+            <div style={{ overflow: 'hidden' }}>
+              <div 
+                className="products-carousel"
+                style={{
+                  display: 'flex',
+                  gap: '24px',
+                  transition: 'transform 0.5s ease',
+                  transform: `translateX(calc(-${productCarouselIndex} * (33.333% + 16px)))`
+                }}
+              >
             {/* SunTerm Card */}
             <div className="product-card" style={{
+              flex: '0 0 calc(33.333% - 16px)',
+              minWidth: 'calc(33.333% - 16px)',
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -1903,6 +1980,8 @@ export default function Home() {
 
             {/* SunSpectrum Term Card */}
             <div className="product-card" style={{
+              flex: '0 0 calc(33.333% - 16px)',
+              minWidth: 'calc(33.333% - 16px)',
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -1955,6 +2034,8 @@ export default function Home() {
 
             {/* SunLife Go Card */}
             <div className="product-card" style={{
+              flex: '0 0 calc(33.333% - 16px)',
+              minWidth: 'calc(33.333% - 16px)',
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -2000,11 +2081,86 @@ export default function Home() {
                   lineHeight: 1.6,
                   margin: 0
                 }}>
-                  Easy to apply for, no-medical-exam online policies with coverage up to $1&nbsp;million (SunLife Go) or $500,000 (SunLife Go Simplified)—ideal for fast, basic protection needs.
+                  Easy to apply for, no-medical-exam online policies with coverage up to $1&nbsp;million (SunLife Go) or $500,000 (SunLife Go Simplified), ideal for fast, basic protection needs.
                 </p>
                   </div>
                 </div>
+
+            {/* SunLife Evolve Card */}
+            <div className="product-card" style={{
+              flex: '0 0 calc(33.333% - 16px)',
+              minWidth: 'calc(33.333% - 16px)',
+              backgroundColor: '#fff',
+              borderRadius: '12px',
+              padding: '0',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              overflow: 'hidden',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)'
+              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.15)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{ 
+                height: '200px',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src="/Term-Go-.png"
+                  alt="SunLife Evolve Life Insurance"
+                  fill
+                  style={{
+                    objectFit: 'cover'
+                  }}
+                />
               </div>
+              <div style={{ padding: '24px' }}>
+                <h3 style={{ 
+                  fontSize: '20px', 
+                  fontWeight: 700, 
+                  color: '#1f2937', 
+                  marginBottom: '12px',
+                  marginTop: 0
+                }}>
+                  SunLife Evolve
+                </h3>
+                <p style={{ 
+                  fontSize: '16px', 
+                  color: '#4a5568', 
+                  lineHeight: 1.6,
+                  margin: 0
+                }}>
+                  Offering the highest coverage and flexibility with up to $15-25 million; renewable to age 85 and convertible to permanent coverage up to age 75.
+                </p>
+              </div>
+            </div>
+              </div>
+            </div>
+            
+            {/* Carousel Dots */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '24px' }}>
+              {[0, 1].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setProductCarouselIndex(index)}
+                  style={{
+                    width: productCarouselIndex === index ? '24px' : '10px',
+                    height: '10px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    backgroundColor: productCarouselIndex === index ? '#013946' : '#d1d5db',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2162,13 +2318,13 @@ export default function Home() {
                 marginTop: '0',
                 marginBottom: '0'
               }}>
-                Your life insurance premium depends on factors like age, gender, coverage amount, term length, and overall health — but term life coverage is often more affordable than you might think.
+                Your life insurance premium depends on factors like age, gender, coverage amount, term length, and overall health, but term life coverage is often more affordable than you might think.
                 <br />
                 Sun Life makes it easy and accessible to protect your family's financial future with flexible, budget-friendly options.
                 <br />
-                Here are some sample rates — your exact cost will vary based on your coverage and term.
+                Here are some sample rates. Your exact cost will vary based on your coverage and term.
                 <br />
-                A licensed Sun Life advisor can help you find the right plan for your needs and budget — at no cost.
+                A licensed Sun Life advisor can help you find the right plan for your needs and budget at no cost.
               </p>
             </div>
 
@@ -2713,7 +2869,7 @@ export default function Home() {
             </div>
             {activeFAQ === 1 && (
               <div className="faq-answer">
-                    Sun Life offers four main term life products: SunTerm, SunSpectrum Term, SunLife Go, and SunLife Go Simplified. Each varies by coverage limit, application process, and available riders.
+                    Sun Life offers five main term life products: SunTerm, SunSpectrum Term, SunLife Go, SunLife Go Simplified, and SunLife Evolve. Each varies by coverage limit, application process, and available riders.
               </div>
             )}
           </div>
@@ -2725,7 +2881,7 @@ export default function Home() {
             </div>
             {activeFAQ === 2 && (
               <div className="faq-answer">
-                    Yes, most Sun Life term life insurance policies allow conversion to permanent insurance—whole life or universal—until age 75, providing you greater long-term flexibility.
+                    Yes, most Sun Life term life insurance policies allow conversion to permanent insurance (whole life or universal) until age 75, providing you greater long-term flexibility.
               </div>
             )}
           </div>
