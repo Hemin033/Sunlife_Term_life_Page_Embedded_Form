@@ -340,21 +340,22 @@ export default function Home() {
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           zIndex: 1000,
-          padding: '20px',
+          padding: '10px',
           overflowY: 'auto'
         }}>
           <div className="lead-form-content" style={{
             backgroundColor: '#fff',
             borderRadius: '20px',
-            padding: '30px',
-            maxWidth: '750px',
+            padding: 'clamp(20px, 4vw, 40px)',
+            maxWidth: '900px',
             width: '100%',
-            maxHeight: '90vh',
+            maxHeight: '95vh',
             overflowY: 'auto',
             position: 'relative',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+            margin: 'auto 0'
           }}>
             {/* Close Button */}
             <button
@@ -380,7 +381,7 @@ export default function Home() {
               fontSize: '32px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '6px',
+              marginBottom: '8px',
               textAlign: 'center'
             }}>
               Get started today
@@ -388,7 +389,7 @@ export default function Home() {
             <p style={{
               fontSize: '16px',
               color: '#6b7280',
-              marginBottom: '10px',
+              marginBottom: '16px',
               textAlign: 'center'
             }}>
               Complete the quick form below to find out how affordable life insurance can be and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
@@ -396,7 +397,7 @@ export default function Home() {
             <p style={{
               fontSize: '14px',
               color: '#6b7280',
-              marginBottom: '22px',
+              marginBottom: '32px',
               textAlign: 'center',
               fontStyle: 'italic'
             }}>
@@ -406,9 +407,9 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* First Name and Last Name */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '20px' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
                     First Name <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -423,7 +424,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '11px 12px',
+                      padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -433,7 +434,7 @@ export default function Home() {
                   {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.firstName}</p>}
                 </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
                     Last Name <span style={{ color: '#013946' }}>*</span>
                   </label>
                   <input
@@ -448,7 +449,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '11px 12px',
+                      padding: '14px 16px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.lastName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -460,9 +461,9 @@ export default function Home() {
               </div>
 
               {/* Phone Number and Email Address */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
                   Phone Number <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -480,7 +481,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '11px 12px',
+                      padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -490,7 +491,7 @@ export default function Home() {
                   {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
               </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
                   Email Address <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -505,7 +506,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '11px 12px',
+                      padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -517,12 +518,12 @@ export default function Home() {
               </div>
 
               {/* Gender */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Gender <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <div>
-                <div className="gender-buttons" style={{ display: 'flex', gap: '9px' }}>
+                <div className="gender-buttons" style={{ display: 'flex', gap: '10px' }}>
                   <button
                     type="button"
                       onClick={() => {
@@ -531,7 +532,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '11px',
+                      padding: '14px',
                       fontSize: '15px',
                         border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -551,7 +552,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '11px',
+                      padding: '14px',
                       fontSize: '15px',
                         border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -569,7 +570,7 @@ export default function Home() {
               </div>
 
               {/* Date of Birth */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Date of Birth <span style={{ color: '#013946' }}>*</span>
@@ -615,7 +616,7 @@ export default function Home() {
                   }}
                   style={{
                     width: '100%',
-                    padding: '11px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -627,7 +628,7 @@ export default function Home() {
               </div>
 
               {/* Smoker Status */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Smoker Status <span style={{ color: '#013946' }}>*</span>
@@ -637,7 +638,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div>
-                <div className="smoker-buttons" style={{ display: 'flex', gap: '9px' }}>
+                <div className="smoker-buttons" style={{ display: 'flex', gap: '10px' }}>
                   <button
                     type="button"
                       onClick={() => {
@@ -646,7 +647,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '11px',
+                      padding: '14px',
                       fontSize: '15px',
                         border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -666,7 +667,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '11px',
+                      padding: '14px',
                       fontSize: '15px',
                         border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -684,7 +685,7 @@ export default function Home() {
               </div>
 
               {/* Province */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Province <span style={{ color: '#013946' }}>*</span>
                 </label>
@@ -702,7 +703,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                    padding: '11px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -728,7 +729,7 @@ export default function Home() {
               </div>
 
               {/* Coverage Amount */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Coverage Amount
                 </label>
@@ -744,7 +745,7 @@ export default function Home() {
                   }}
                   style={{
                     width: '100%',
-                    padding: '11px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                     border: '1px solid #d1d5db',
                     borderRadius: '8px',
@@ -754,7 +755,7 @@ export default function Home() {
               </div>
 
               {/* Occupation */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '22px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '24px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Occupation
                 </label>
@@ -765,7 +766,7 @@ export default function Home() {
                   onChange={(e) => handleInputChange('occupation', e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '11px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                     border: '1px solid #d1d5db',
                     borderRadius: '8px',
@@ -927,29 +928,29 @@ export default function Home() {
           top: '30px',
           right: 'max(30px, calc((100% - 1200px) / 2 + 20px))',
           width: '100%',
-          maxWidth: '460px',
+          maxWidth: '520px',
           zIndex: 100
         }}>
           <div className="hero-form-container" style={{
             backgroundColor: '#FFF8E0',
             borderRadius: '12px',
-            padding: '32px 30px',
+            padding: '40px 36px',
             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.075)'
           }}>
             {/* Form Header */}
             <h2 style={{
-              fontSize: '24px',
+              fontSize: '26px',
               fontWeight: 700,
               color: '#1a1a1a',
-              marginBottom: '8px',
+              marginBottom: '10px',
               textAlign: 'center'
             }}>
               Get started today
             </h2>
             <p style={{
-              fontSize: '14px',
+              fontSize: '15px',
               color: '#4a4a4a',
-              marginBottom: '18px',
+              marginBottom: '24px',
               lineHeight: '1.5',
               textAlign: 'center'
             }}>
@@ -959,9 +960,9 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* First Name and Last Name */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     First Name *
                   </label>
                 <input
@@ -976,8 +977,8 @@ export default function Home() {
                     }}
                   style={{
                       width: '100%',
-                      padding: '10px 12px',
-                      fontSize: '14px',
+                      padding: '14px 16px',
+                      fontSize: '15px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
                     outline: 'none',
@@ -985,10 +986,10 @@ export default function Home() {
                       color: '#1f2937'
                     }}
                   />
-                  {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.firstName}</p>}
+                  {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.firstName}</p>}
                 </div>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Last Name *
                   </label>
                   <input
@@ -1003,7 +1004,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.lastName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1012,14 +1013,14 @@ export default function Home() {
                       color: '#1f2937'
                     }}
                   />
-                  {formErrors.lastName && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.lastName}</p>}
+                  {formErrors.lastName && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.lastName}</p>}
                 </div>
             </div>
 
               {/* Phone Number and Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Phone Number *
                   </label>
                   <input
@@ -1037,7 +1038,7 @@ export default function Home() {
                     }}
               style={{
                 width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1046,10 +1047,10 @@ export default function Home() {
                       color: '#1f2937'
                     }}
                   />
-                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.phoneNumber}</p>}
+                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
                 </div>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Email Address *
                   </label>
                   <input
@@ -1064,7 +1065,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1073,14 +1074,14 @@ export default function Home() {
                       color: '#1f2937'
                     }}
                   />
-                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.email}</p>}
+                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.email}</p>}
                 </div>
               </div>
 
               {/* Gender and Date of Birth */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Gender *
                   </label>
                   <div style={{ display: 'flex', gap: '8px' }}>
@@ -1125,10 +1126,10 @@ export default function Home() {
                       Woman
               </button>
           </div>
-                  {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.gender}</p>}
+                  {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.gender}</p>}
         </div>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Date of Birth *
                   </label>
                   <input
@@ -1167,7 +1168,7 @@ export default function Home() {
                     }}
             style={{
             width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1176,14 +1177,14 @@ export default function Home() {
                       color: '#1f2937'
                     }}
                   />
-                  {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
+                  {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
             </div>
               </div>
 
               {/* Smoker Status and Province */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '14px' }}>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Smoker Status *
                   </label>
                   <div style={{ display: 'flex', gap: '8px' }}>
@@ -1228,10 +1229,10 @@ export default function Home() {
                       Yes
               </button>
           </div>
-                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.smokerStatus}</p>}
+                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
         </div>
                 <div>
-                  <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Province *
                   </label>
                   <select
@@ -1247,7 +1248,7 @@ export default function Home() {
                     }}
                     style={{
             width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1272,7 +1273,7 @@ export default function Home() {
                     <option value="SK">Saskatchewan</option>
                     <option value="YT">Yukon</option>
                   </select>
-                  {formErrors.province && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.province}</p>}
+                  {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
           </div>
           
@@ -1281,7 +1282,7 @@ export default function Home() {
                 type="submit"
               style={{
                 width: '100%',
-                padding: '11px',
+                padding: '14px',
                   fontSize: '15px',
                   fontWeight: 700,
                   color: '#013946',
@@ -1372,7 +1373,7 @@ export default function Home() {
             <form onSubmit={handleSubmitLead}>
               {/* Full Name */}
               {/* First Name and Last Name */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
                 <div>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     First Name <span style={{ color: '#013946' }}>*</span>
@@ -1389,7 +1390,7 @@ export default function Home() {
                     }}
               style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1414,7 +1415,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.lastName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1426,7 +1427,7 @@ export default function Home() {
           </div>
           
               {/* Phone and Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
                 <div>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     Phone <span style={{ color: '#013946' }}>*</span>
@@ -1446,7 +1447,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1471,7 +1472,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '10px 12px',
+                      padding: '14px 16px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
@@ -1523,7 +1524,7 @@ export default function Home() {
                   }}
                   style={{
                     width: '100%',
-                    padding: '10px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                     border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '6px',
@@ -1599,7 +1600,7 @@ export default function Home() {
                   tabIndex={0}
               style={{
                 width: '100%',
-                    padding: '10px 12px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                     border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '6px',
@@ -1727,7 +1728,7 @@ export default function Home() {
                 type="submit"
               style={{
                 width: '100%',
-                  padding: '11px',
+                  padding: '14px',
                   fontSize: '15px',
                   fontWeight: 700,
                   color: '#fff',
@@ -1768,7 +1769,7 @@ export default function Home() {
       </section>
 
       {/* Active Lifestyle Benefits */}
-      <section className="section section-white" style={{ paddingTop: '60px' }}>
+      <section className="section section-white">
         <div className="benefits-section">
           <div className="benefits-image" style={{ flex: '0 0 45%' }}>
             <Image
@@ -1815,25 +1816,27 @@ export default function Home() {
 
       {/* Insurance Answers Section */}
       <section className="section section-white">
-          <div className="cta-box" style={{
+          <div className="cta-image-box" style={{
           backgroundColor: '#FFF8E0',
           borderRadius: '16px',
-          padding: '28px',
+          padding: 'clamp(16px, 3vw, 20px) clamp(16px, 4vw, 30px)',
           display: 'flex',
           alignItems: 'center',
-          gap: '36px',
+          gap: 'clamp(20px, 4vw, 40px)',
           maxWidth: '1200px',
-            margin: '0 auto'
+          margin: '0 auto',
+          flexWrap: 'wrap'
           }}>
           <div style={{
             flex: '1',
-            maxWidth: '450px'
+            minWidth: '250px',
+            maxWidth: '500px'
           }}>
             <Image
               src="/CTA-NEW-.png"
               alt="Ready to get your Sun Life quote"
-              width={450}
-              height={360}
+              width={500}
+              height={400}
               style={{
                 width: '100%',
                 height: 'auto',
@@ -1841,40 +1844,42 @@ export default function Home() {
               }}
             />
               </div>
-          <div style={{ flex: '1' }}>
+          <div style={{ flex: '1', minWidth: '280px' }}>
             <h2 style={{
-              fontSize: '32px',
+              fontSize: 'clamp(24px, 4vw, 32px)',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '10px',
+              marginBottom: '16px',
               lineHeight: 1.2,
               textAlign: 'left'
             }}>
               Ready to get your Sun Life quote?
             </h2>
             <p style={{
-              fontSize: '18px',
+              fontSize: 'clamp(15px, 2.5vw, 18px)',
               color: '#4a5568',
               lineHeight: 1.6,
-              marginBottom: '28px',
+              marginBottom: 'clamp(20px, 4vw, 32px)',
               textAlign: 'left'
             }}>
               Get personalized quotes from our licensed advisors in minutes. No obligation, just expert guidance to help you choose the right coverage.
             </p>
             <button
               onClick={() => setShowLeadForm(true)}
+              className="btn btn-primary"
               style={{
               backgroundColor: '#013946',
               color: 'white',
                   border: 'none',
-              padding: '16px 32px',
-              fontSize: '16px',
+              padding: 'clamp(12px, 2vw, 16px) clamp(24px, 4vw, 32px)',
+              fontSize: 'clamp(14px, 2vw, 16px)',
               fontWeight: 600,
               borderRadius: '8px',
                   cursor: 'pointer',
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
-              minWidth: '200px'
+              width: '100%',
+              maxWidth: '250px'
             }}>
               GET MY QUOTE
               </button>
@@ -1883,7 +1888,7 @@ export default function Home() {
       </section>
 
       {/* Term Life Insurance Products */}
-      <section className="section section-white" style={{ padding: '80px 20px' }}>
+      <section className="section section-white">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 className="centered-underlined-heading" style={{ marginBottom: '40px', fontSize: '32px', fontWeight: 700, color: '#2d3748', lineHeight: 1.3, textAlign: 'center' }}>
             Sun Life term life insurance products
@@ -2331,7 +2336,7 @@ export default function Home() {
                 fontSize: '32px', 
                 fontWeight: 700, 
                 color: '#2d3748', 
-                marginBottom: '22px', 
+                marginBottom: '24px', 
                 textAlign: 'left', 
                 lineHeight: 1.3,
                 position: 'relative',
@@ -2445,52 +2450,58 @@ export default function Home() {
 
       {/* CTA Section - Get Quote */}
       <section className="section section-white">
-        <div className="cta-banner" style={{ 
+        <div className="cta-box" style={{ 
           maxWidth: '1200px', 
           margin: '0 auto',
           backgroundColor: '#FFF8E0',
-          padding: '36px 32px',
+          padding: 'clamp(20px, 4vw, 35px) clamp(16px, 4vw, 45px)',
           borderRadius: '12px',
-          textAlign: 'center'
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'clamp(16px, 3vw, 33px)',
+          flexWrap: 'wrap'
         }}>
-          <h2 className="cta-banner-heading" style={{ 
-            fontSize: 'clamp(18px, 4vw, 26px)', 
-            fontWeight: 700, 
-            color: '#2d3748', 
-            marginBottom: '10px',
-            lineHeight: 1.3,
-            textAlign: 'center'
-          }}>
-            Ready to protect your family with Sun Life?
-          </h2>
-          <p className="cta-banner-text" style={{ 
-            fontSize: 'clamp(14px, 3vw, 17px)', 
-            color: '#6b7280', 
-            margin: '0 0 24px 0',
-            lineHeight: 1.5,
-            textAlign: 'center',
-            fontWeight: 400
-          }}>
-            Get your personalized Sun Life quote in minutes!
-          </p>
-          <button
-            onClick={() => setShowLeadForm(true)}
-            className="btn btn-primary"
-            style={{
-              minWidth: '200px',
-              fontSize: '16px',
-              padding: '16px 40px',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#013946',
-              borderRadius: '8px'
-            }}
-          >
-            GET QUOTE
-          </button>
+          <div style={{ flex: '1', minWidth: '250px' }}>
+            <h2 className="cta-heading" style={{ 
+              fontSize: 'clamp(16px, 3vw, 32px)', 
+              fontWeight: 700, 
+              color: '#2d3748', 
+              marginBottom: '8px',
+              lineHeight: 1.3,
+              textAlign: 'left'
+            }}>
+              Ready to protect your family with Sun&nbsp;Life?
+            </h2>
+            <p className="cta-subtext" style={{ 
+              fontSize: 'clamp(12px, 2vw, 18px)', 
+              color: '#4a5568', 
+              margin: 0,
+              lineHeight: 1.5,
+              textAlign: 'left'
+            }}>
+              Get your personalized Sun&nbsp;Life quote in minutes!
+            </p>
+          </div>
+          <div style={{ width: '100%', maxWidth: '250px', flexShrink: 0 }}>
+            <button
+              onClick={() => setShowLeadForm(true)}
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                fontSize: 'clamp(14px, 2vw, 16px)',
+                padding: 'clamp(12px, 2vw, 16px) clamp(20px, 4vw, 40px)',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#013946'
+              }}
+            >
+              GET QUOTE
+            </button>
+          </div>
         </div>
       </section>
 
@@ -2952,7 +2963,7 @@ export default function Home() {
         backgroundColor: '#f9fafb',
         borderTop: '1px solid #e5e7eb',
         padding: '40px 20px',
-        marginTop: '80px'
+        marginTop: '0'
       }}>
         <div style={{
           width: '100%',
