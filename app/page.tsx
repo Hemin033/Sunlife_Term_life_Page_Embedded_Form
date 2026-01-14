@@ -259,10 +259,26 @@ export default function Home() {
           /* Features Grid */
           .features-grid {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
+            gap: 12px !important;
           }
           .feature-card {
-            padding: 20px !important;
+            padding: 16px !important;
+            flex-wrap: wrap !important;
+          }
+          .feature-card > div:first-child {
+            flex-shrink: 0 !important;
+          }
+          .feature-card > div:last-child {
+            flex: 1 !important;
+            min-width: 0 !important;
+          }
+          .feature-card > div:last-child h3 {
+            font-size: 16px !important;
+            margin-bottom: 4px !important;
+          }
+          .feature-card > div:last-child p {
+            font-size: 14px !important;
+            margin-top: 0 !important;
           }
           
           /* Cost Section */
@@ -1898,6 +1914,7 @@ export default function Home() {
           <div style={{ position: 'relative', marginTop: '20px' }}>
             {/* Left Arrow */}
             <button
+              className="carousel-arrow"
               onClick={() => setProductCarouselIndex(prev => Math.max(0, prev - 1))}
               style={{
                 position: 'absolute',
@@ -1927,6 +1944,7 @@ export default function Home() {
 
             {/* Right Arrow */}
             <button
+              className="carousel-arrow"
               onClick={() => setProductCarouselIndex(prev => Math.min(1, prev + 1))}
               style={{
                 position: 'absolute',
@@ -2184,7 +2202,7 @@ export default function Home() {
             </div>
             
             {/* Carousel Dots */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '24px' }}>
+            <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '24px' }}>
               {[0, 1].map((index) => (
                 <button
                   key={index}
@@ -2225,23 +2243,27 @@ export default function Home() {
             }}>
               <div style={{
                 display: 'flex',
-              alignItems: 'center',
-                justifyContent: 'flex-start',
-                marginBottom: '14px',
-                fontSize: '32px',
-                color: '#013946'
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '10px'
               }}>
-                <AiOutlineDollar />
-                  </div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#1f2937',
-                marginBottom: '10px',
-                marginTop: 0
-              }}>
-                Affordable Premiums
-              </h3>
+                <div style={{
+                  fontSize: '28px',
+                  color: '#013946',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                  <AiOutlineDollar />
+                </div>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#1f2937',
+                  margin: 0
+                }}>
+                  Affordable Premiums
+                </h3>
+              </div>
               <p style={{
                 fontSize: '16px',
                 color: '#4a5568',
@@ -2250,7 +2272,7 @@ export default function Home() {
               }}>
                 Get substantial coverage at a fraction of the cost of permanent insurance, especially when you&#39;re young and healthy.
               </p>
-                  </div>
+            </div>
 
             {/* Financial Protection */}
             <div style={{
@@ -2259,22 +2281,26 @@ export default function Home() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'flex-start',
-                marginBottom: '14px',
-                fontSize: '32px',
-                color: '#013946'
+                gap: '12px',
+                marginBottom: '10px'
               }}>
-                <BsShield />
+                <div style={{
+                  fontSize: '28px',
+                  color: '#013946',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                  <BsShield />
                 </div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#1f2937',
-                marginBottom: '10px',
-                marginTop: 0
-              }}>
-                Financial Protection
-              </h3>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#1f2937',
+                  margin: 0
+                }}>
+                  Financial Protection
+                </h3>
+              </div>
               <p style={{
                 fontSize: '16px',
                 color: '#4a5568',
@@ -2282,8 +2308,8 @@ export default function Home() {
                 margin: 0
               }}>
                 Ensure your family can maintain their lifestyle and meet financial obligations if you&#39;re no longer there to provide.
-          </p>
-        </div>
+              </p>
+            </div>
 
             {/* Peace of Mind */}
             <div style={{
@@ -2292,22 +2318,26 @@ export default function Home() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'flex-start',
-                marginBottom: '14px',
-                fontSize: '32px',
-                color: '#013946'
+                gap: '12px',
+                marginBottom: '10px'
               }}>
-                <AiOutlineHeart />
-          </div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#1f2937',
-                marginBottom: '10px',
-                marginTop: 0
-              }}>
-                Peace of Mind
-              </h3>
+                <div style={{
+                  fontSize: '28px',
+                  color: '#013946',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                  <AiOutlineHeart />
+                </div>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#1f2937',
+                  margin: 0
+                }}>
+                  Peace of Mind
+                </h3>
+              </div>
               <p style={{
                 fontSize: '16px',
                 color: '#4a5568',

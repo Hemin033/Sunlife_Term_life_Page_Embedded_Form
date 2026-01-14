@@ -905,10 +905,57 @@ a {
     margin: 0 auto !important;
   }
 
+  /* Hide carousel arrows and dots on mobile */
+  .carousel-arrow,
+  .carousel-dots {
+    display: none !important;
+  }
+
   /* Insurance Answers / CTA Boxes */
   .insurance-answers {
     flex-direction: column;
     gap: 24px;
+  }
+
+  /* CTA Image Box - Mobile Center */
+  .cta-image-box {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .cta-image-box > div {
+    text-align: center !important;
+  }
+
+  .cta-image-box h2,
+  .cta-image-box p {
+    text-align: center !important;
+  }
+
+  .cta-image-box button {
+    margin: 0 auto !important;
+  }
+
+  /* CTA Box - Mobile Center */
+  .cta-box {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .cta-box > div {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .cta-box h2,
+  .cta-box p,
+  .cta-heading,
+  .cta-subtext {
+    text-align: center !important;
+  }
+
+  .cta-box button {
+    margin: 0 auto !important;
   }
 
   /* Coverage Grid */
