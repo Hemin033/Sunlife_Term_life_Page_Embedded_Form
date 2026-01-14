@@ -348,7 +348,7 @@ export default function Home() {
           <div className="lead-form-content" style={{
             backgroundColor: '#fff',
             borderRadius: '20px',
-            padding: '40px',
+            padding: '30px',
             maxWidth: '750px',
             width: '100%',
             maxHeight: '90vh',
@@ -380,7 +380,7 @@ export default function Home() {
               fontSize: '32px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '8px',
+              marginBottom: '6px',
               textAlign: 'center'
             }}>
               Get started today
@@ -388,7 +388,7 @@ export default function Home() {
             <p style={{
               fontSize: '16px',
               color: '#6b7280',
-              marginBottom: '16px',
+              marginBottom: '10px',
               textAlign: 'center'
             }}>
               Complete the quick form below to find out how affordable life insurance can be and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
@@ -396,7 +396,7 @@ export default function Home() {
             <p style={{
               fontSize: '14px',
               color: '#6b7280',
-              marginBottom: '32px',
+              marginBottom: '22px',
               textAlign: 'center',
               fontStyle: 'italic'
             }}>
@@ -406,14 +406,14 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* First Name and Last Name */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px', alignItems: 'start' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
                     First Name <span style={{ color: '#013946' }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
+                </label>
+                <input
+                  type="text"
+                  required
                     placeholder="John"
                     value={formData.firstName}
                     onChange={(e) => handleInputChange('firstName', e.target.value)}
@@ -421,19 +421,19 @@ export default function Home() {
                       const error = validateFirstName(formData.firstName)
                       if (error) setFormErrors(prev => ({ ...prev, firstName: error }))
                     }}
-                    style={{
-                      width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '15px',
+                  style={{
+                    width: '100%',
+                      padding: '11px 12px',
+                    fontSize: '15px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      outline: 'none'
-                    }}
-                  />
+                    borderRadius: '8px',
+                    outline: 'none'
+                  }}
+                />
                   {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.firstName}</p>}
                 </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
                     Last Name <span style={{ color: '#013946' }}>*</span>
                   </label>
                   <input
@@ -448,7 +448,7 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '14px 16px',
+                      padding: '11px 12px',
                       fontSize: '15px',
                       border: `1px solid ${formErrors.lastName ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -460,16 +460,16 @@ export default function Home() {
               </div>
 
               {/* Phone Number and Email Address */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px', alignItems: 'start' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
-                    Phone Number <span style={{ color: '#013946' }}>*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="(555) 123-4567"
-                    value={formData.phoneNumber}
+                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  Phone Number <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="(555) 123-4567"
+                  value={formData.phoneNumber}
                     onChange={(e) => {
                       const formatted = formatPhoneNumber(e.target.value)
                       handleInputChange('phoneNumber', formatted)
@@ -478,51 +478,51 @@ export default function Home() {
                       const error = validatePhone(formData.phoneNumber)
                       if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
                     }}
-                    style={{
-                      width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '15px',
+                  style={{
+                    width: '100%',
+                      padding: '11px 12px',
+                    fontSize: '15px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      outline: 'none'
-                    }}
-                  />
+                    borderRadius: '8px',
+                    outline: 'none'
+                  }}
+                />
                   {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
-                </div>
+              </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
-                    Email Address <span style={{ color: '#013946' }}>*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
+                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block', marginBottom: '7px' }}>
+                  Email Address <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <input
+                  type="email"
+                  required
                     placeholder="john.smith@gmail.com"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
                     onBlur={() => {
                       const error = validateEmail(formData.email)
                       if (error) setFormErrors(prev => ({ ...prev, email: error }))
                     }}
-                    style={{
-                      width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '15px',
+                  style={{
+                    width: '100%',
+                      padding: '11px 12px',
+                    fontSize: '15px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      outline: 'none'
-                    }}
-                  />
+                    borderRadius: '8px',
+                    outline: 'none'
+                  }}
+                />
                   {formErrors.email && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.email}</p>}
                 </div>
               </div>
 
               {/* Gender */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Gender <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <div>
-                <div className="gender-buttons" style={{ display: 'flex', gap: '12px' }}>
+                <div className="gender-buttons" style={{ display: 'flex', gap: '9px' }}>
                   <button
                     type="button"
                       onClick={() => {
@@ -531,7 +531,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '14px',
+                      padding: '11px',
                       fontSize: '15px',
                         border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -551,7 +551,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '14px',
+                      padding: '11px',
                       fontSize: '15px',
                         border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -569,7 +569,7 @@ export default function Home() {
               </div>
 
               {/* Date of Birth */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Date of Birth <span style={{ color: '#013946' }}>*</span>
@@ -586,15 +586,27 @@ export default function Home() {
                     placeholder="DD/MM/YYYY"
                   value={formData.dateOfBirth}
                   onChange={(e) => {
-                    let value = e.target.value.replace(/\D/g, '');
-                    if (value.length <= 8) {
-                        // Format as DD/MM/YYYY
-                      if (value.length >= 4) {
-                        value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
-                      } else if (value.length >= 2) {
-                        value = value.slice(0, 2) + '/' + value.slice(2);
+                    const inputValue = e.target.value;
+                    const prevValue = formData.dateOfBirth;
+                    
+                    // If deleting, allow direct deletion
+                    if (inputValue.length < prevValue.length) {
+                      handleInputChange('dateOfBirth', inputValue);
+                      return;
+                    }
+                    
+                    // Only keep digits for formatting
+                    let digits = inputValue.replace(/\D/g, '');
+                    if (digits.length <= 8) {
+                      let formatted = '';
+                      if (digits.length >= 4) {
+                        formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
+                      } else if (digits.length >= 2) {
+                        formatted = digits.slice(0, 2) + '/' + digits.slice(2);
+                      } else {
+                        formatted = digits;
                       }
-                      handleInputChange('dateOfBirth', value);
+                      handleInputChange('dateOfBirth', formatted);
                     }
                   }}
                     onBlur={() => {
@@ -603,7 +615,7 @@ export default function Home() {
                   }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
+                    padding: '11px 12px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -615,7 +627,7 @@ export default function Home() {
               </div>
 
               {/* Smoker Status */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
                     Smoker Status <span style={{ color: '#013946' }}>*</span>
@@ -625,7 +637,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div>
-                <div className="smoker-buttons" style={{ display: 'flex', gap: '12px' }}>
+                <div className="smoker-buttons" style={{ display: 'flex', gap: '9px' }}>
                   <button
                     type="button"
                       onClick={() => {
@@ -634,7 +646,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '14px',
+                      padding: '11px',
                       fontSize: '15px',
                         border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -654,7 +666,7 @@ export default function Home() {
                       }}
                     style={{
                       flex: 1,
-                      padding: '14px',
+                      padding: '11px',
                       fontSize: '15px',
                         border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '8px',
@@ -672,7 +684,7 @@ export default function Home() {
               </div>
 
               {/* Province */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'start' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Province <span style={{ color: '#013946' }}>*</span>
                 </label>
@@ -690,7 +702,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
+                    padding: '11px 12px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -716,7 +728,7 @@ export default function Home() {
               </div>
 
               {/* Coverage Amount */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '18px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Coverage Amount
                 </label>
@@ -732,7 +744,7 @@ export default function Home() {
                   }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
+                    padding: '11px 12px',
                     fontSize: '15px',
                     border: '1px solid #d1d5db',
                     borderRadius: '8px',
@@ -742,7 +754,7 @@ export default function Home() {
               </div>
 
               {/* Occupation */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '22px', marginBottom: '32px', alignItems: 'center' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '17px', marginBottom: '22px', alignItems: 'center' }}>
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Occupation
                 </label>
@@ -753,7 +765,7 @@ export default function Home() {
                   onChange={(e) => handleInputChange('occupation', e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
+                    padding: '11px 12px',
                     fontSize: '15px',
                     border: '1px solid #d1d5db',
                     borderRadius: '8px',
@@ -869,7 +881,7 @@ export default function Home() {
                 fontSize: 'clamp(32px, 4vw, 44px)',
               fontWeight: '700',
               lineHeight: '1.15',
-                marginBottom: '16px'
+                marginBottom: '14px'
             }}>
               Plan today,<br />
               Protect tomorrow<br />
@@ -937,7 +949,7 @@ export default function Home() {
             <p style={{
               fontSize: '14px',
               color: '#4a4a4a',
-              marginBottom: '20px',
+              marginBottom: '18px',
               lineHeight: '1.5',
               textAlign: 'center'
             }}>
@@ -947,7 +959,7 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* First Name and Last Name */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
                 <div>
                   <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
                     First Name *
@@ -1005,7 +1017,7 @@ export default function Home() {
             </div>
 
               {/* Phone Number and Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
                 <div>
                   <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
                     Phone Number *
@@ -1066,7 +1078,7 @@ export default function Home() {
               </div>
 
               {/* Gender and Date of Birth */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px' }}>
                 <div>
                   <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
                     Gender *
@@ -1098,7 +1110,7 @@ export default function Home() {
                         handleInputChange('gender', 'Woman')
                         setFormErrors(prev => ({ ...prev, gender: '' }))
                       }}
-                      style={{
+                style={{
                         flex: 1,
                         padding: '10px 8px',
                         fontSize: '14px',
@@ -1106,15 +1118,15 @@ export default function Home() {
                         borderRadius: '6px',
                         backgroundColor: formData.gender === 'Woman' ? '#FFB800' : '#fff',
                         color: formData.gender === 'Woman' ? '#013946' : '#1f2937',
-                        cursor: 'pointer',
-                        fontWeight: 500
-                      }}
-                    >
+                  cursor: 'pointer',
+                  fontWeight: 500
+                }}
+              >
                       Woman
-            </button>
+              </button>
           </div>
                   {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.gender}</p>}
-                </div>
+        </div>
                 <div>
                   <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
                     Date of Birth *
@@ -1126,15 +1138,27 @@ export default function Home() {
                     placeholder="DD/MM/YYYY"
                     value={formData.dateOfBirth}
                     onChange={(e) => {
-                      let value = e.target.value.replace(/\D/g, '');
-                      if (value.length <= 8) {
-                        // Format as DD/MM/YYYY
-                        if (value.length >= 4) {
-                          value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
-                        } else if (value.length >= 2) {
-                          value = value.slice(0, 2) + '/' + value.slice(2);
+                      const inputValue = e.target.value;
+                      const prevValue = formData.dateOfBirth;
+                      
+                      // If deleting, allow direct deletion
+                      if (inputValue.length < prevValue.length) {
+                        handleInputChange('dateOfBirth', inputValue);
+                        return;
+                      }
+                      
+                      // Only keep digits for formatting
+                      let digits = inputValue.replace(/\D/g, '');
+                      if (digits.length <= 8) {
+                        let formatted = '';
+                        if (digits.length >= 4) {
+                          formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
+                        } else if (digits.length >= 2) {
+                          formatted = digits.slice(0, 2) + '/' + digits.slice(2);
+                        } else {
+                          formatted = digits;
                         }
-                        handleInputChange('dateOfBirth', value);
+                        handleInputChange('dateOfBirth', formatted);
                       }
                     }}
                     onBlur={() => {
@@ -1142,7 +1166,7 @@ export default function Home() {
                       if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
                     }}
             style={{
-              width: '100%',
+            width: '100%',
                       padding: '10px 12px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
@@ -1153,11 +1177,11 @@ export default function Home() {
                     }}
                   />
                   {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '10px', margin: '3px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
-        </div>
+            </div>
               </div>
 
               {/* Smoker Status and Province */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
                 <div>
                   <label style={{ fontSize: '12px', color: '#1a1a1a', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
                     Smoker Status *
@@ -1257,7 +1281,7 @@ export default function Home() {
                 type="submit"
               style={{
                 width: '100%',
-                padding: '14px',
+                padding: '11px',
                   fontSize: '15px',
                   fontWeight: 700,
                   color: '#013946',
@@ -1307,7 +1331,7 @@ export default function Home() {
               fontSize: '28px',
               fontWeight: '700',
               lineHeight: '1.2',
-              marginBottom: '12px'
+              marginBottom: '10px'
             }}>
               Plan today,<br />
               Protect tomorrow<br />
@@ -1348,7 +1372,7 @@ export default function Home() {
             <form onSubmit={handleSubmitLead}>
               {/* Full Name */}
               {/* First Name and Last Name */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px', marginBottom: '10px' }}>
                 <div>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     First Name <span style={{ color: '#013946' }}>*</span>
@@ -1363,7 +1387,7 @@ export default function Home() {
                       const error = validateFirstName(formData.firstName)
                       if (error) setFormErrors(prev => ({ ...prev, firstName: error }))
                     }}
-                    style={{
+              style={{
                       width: '100%',
                       padding: '10px 12px',
                       fontSize: '15px',
@@ -1399,10 +1423,10 @@ export default function Home() {
                   />
                   {formErrors.lastName && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.lastName}</p>}
                 </div>
-              </div>
+          </div>
           
               {/* Phone and Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px', marginBottom: '10px' }}>
                 <div>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     Phone <span style={{ color: '#013946' }}>*</span>
@@ -1470,15 +1494,27 @@ export default function Home() {
                   placeholder="DD/MM/YYYY"
                   value={formData.dateOfBirth}
                   onChange={(e) => {
-                    let value = e.target.value.replace(/\D/g, '');
-                    if (value.length <= 8) {
-                      // Format as DD/MM/YYYY
-                      if (value.length >= 4) {
-                        value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
-                      } else if (value.length >= 2) {
-                        value = value.slice(0, 2) + '/' + value.slice(2);
+                    const inputValue = e.target.value;
+                    const prevValue = formData.dateOfBirth;
+                    
+                    // If deleting, allow direct deletion
+                    if (inputValue.length < prevValue.length) {
+                      handleInputChange('dateOfBirth', inputValue);
+                      return;
+                    }
+                    
+                    // Only keep digits for formatting
+                    let digits = inputValue.replace(/\D/g, '');
+                    if (digits.length <= 8) {
+                      let formatted = '';
+                      if (digits.length >= 4) {
+                        formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
+                      } else if (digits.length >= 2) {
+                        formatted = digits.slice(0, 2) + '/' + digits.slice(2);
+                      } else {
+                        formatted = digits;
                       }
-                      handleInputChange('dateOfBirth', value);
+                      handleInputChange('dateOfBirth', formatted);
                     }
                   }}
                   onBlur={() => {
@@ -1691,7 +1727,7 @@ export default function Home() {
                 type="submit"
               style={{
                 width: '100%',
-                  padding: '14px',
+                  padding: '11px',
                   fontSize: '15px',
                   fontWeight: 700,
                   color: '#fff',
@@ -1782,10 +1818,10 @@ export default function Home() {
           <div className="cta-box" style={{
           backgroundColor: '#FFF8E0',
           borderRadius: '16px',
-          padding: '40px',
+          padding: '28px',
           display: 'flex',
           alignItems: 'center',
-          gap: '50px',
+          gap: '36px',
           maxWidth: '1200px',
             margin: '0 auto'
           }}>
@@ -1810,7 +1846,7 @@ export default function Home() {
               fontSize: '32px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '12px',
+              marginBottom: '10px',
               lineHeight: 1.2,
               textAlign: 'left'
             }}>
@@ -1962,7 +1998,7 @@ export default function Home() {
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '12px',
+                  marginBottom: '10px',
                   marginTop: 0
                 }}>
                   SunTerm
@@ -2016,7 +2052,7 @@ export default function Home() {
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '12px',
+                  marginBottom: '10px',
                   marginTop: 0
                 }}>
                   SunSpectrum Term
@@ -2070,7 +2106,7 @@ export default function Home() {
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '12px',
+                  marginBottom: '10px',
                   marginTop: 0
                 }}>
                   SunLife Go & SunLife Go Simplified
@@ -2124,7 +2160,7 @@ export default function Home() {
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '12px',
+                  marginBottom: '10px',
                   marginTop: 0
                 }}>
                   SunLife Evolve
@@ -2160,7 +2196,7 @@ export default function Home() {
                 />
               ))}
             </div>
-          </div>
+              </div>
         </div>
       </section>
 
@@ -2186,7 +2222,7 @@ export default function Home() {
                 display: 'flex',
               alignItems: 'center',
                 justifyContent: 'flex-start',
-                marginBottom: '16px',
+                marginBottom: '14px',
                 fontSize: '32px',
                 color: '#013946'
               }}>
@@ -2219,7 +2255,7 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
-                marginBottom: '16px',
+                marginBottom: '14px',
                 fontSize: '32px',
                 color: '#013946'
               }}>
@@ -2252,7 +2288,7 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
-                marginBottom: '16px',
+                marginBottom: '14px',
                 fontSize: '32px',
                 color: '#013946'
               }}>
@@ -2295,7 +2331,7 @@ export default function Home() {
                 fontSize: '32px', 
                 fontWeight: 700, 
                 color: '#2d3748', 
-                marginBottom: '24px', 
+                marginBottom: '22px', 
                 textAlign: 'left', 
                 lineHeight: 1.3,
                 position: 'relative',
@@ -2413,7 +2449,7 @@ export default function Home() {
           maxWidth: '1200px', 
           margin: '0 auto',
           backgroundColor: '#FFF8E0',
-          padding: '50px 45px',
+          padding: '36px 32px',
           borderRadius: '12px',
           textAlign: 'center'
         }}>
@@ -2421,7 +2457,7 @@ export default function Home() {
             fontSize: 'clamp(18px, 4vw, 26px)', 
             fontWeight: 700, 
             color: '#2d3748', 
-            marginBottom: '12px',
+            marginBottom: '10px',
             lineHeight: 1.3,
             textAlign: 'center'
           }}>
