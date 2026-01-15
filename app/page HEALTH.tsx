@@ -17,7 +17,7 @@ const Home = () => {
   const [activeFAQ, setActiveFAQ] = useState<number | null>(null)
   const [showLeadForm, setShowLeadForm] = useState(false)
   const [mobileProvinceDropdownOpen, setMobileProvinceDropdownOpen] = useState(false)
-  const [showOTPVerification, seimage.pngtShowOTPVerification] = useState(false)
+  const [showOTPVerification, setShowOTPVerification] = useState(false)
   const [otp, setOTP] = useState(['', '', '', '', '', ''])
   const [phoneNumber, setPhoneNumber] = useState('')
   const [formErrors, setFormErrors] = useState({
