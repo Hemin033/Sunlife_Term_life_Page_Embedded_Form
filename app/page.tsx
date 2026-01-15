@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { IoMdWalk } from 'react-icons/io'
@@ -29,16 +29,6 @@ export default function Home() {
   })
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [mobileProvinceOpen, setMobileProvinceOpen] = useState(false)
-  const [productCarouselIndex, setProductCarouselIndex] = useState(0)
-
-  // Auto-scroll carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProductCarouselIndex(prev => prev === 1 ? 0 : prev + 1)
-    }, 3000) // Change slide every 3 seconds
-    
-    return () => clearInterval(interval)
-  }, [])
 
   const toggleFAQ = (index: number) => {
     setActiveFAQ(activeFAQ === index ? null : index)
@@ -440,7 +430,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '14px 16px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -497,7 +487,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '14px 16px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -522,7 +512,7 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                      padding: '14px 16px',
+                    padding: '14px 16px',
                     fontSize: '15px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
                     borderRadius: '8px',
@@ -911,7 +901,7 @@ export default function Home() {
                 maxWidth: '440px',
                 margin: 0
               }}>
-                Secure your family's future with reliable, affordable life insurance coverage you can count on. Sun Life offers flexible options designed to protect your loved ones, pay off debts, and preserve your legacy.
+                Protect your loved ones with life insurance from one of Canada's most trusted insurers. Get expert guidance from licensed advisors to help you choose coverage that fits your life, goals, and budget.
               </p>
             </div>
 
@@ -1777,9 +1767,9 @@ export default function Home() {
         <div className="vitality-intro">
           <h2>Protect what matters most with Sun Life</h2>
           <p>
-            Secure your family's future with reliable coverage. Sun Life offers flexible life insurance options designed to safeguard your loved ones, pay off debts, and preserve your legacy, all with reliable coverage from one of Canada's most established insurers.
+            Life insurance helps ensure your family's financial security when it matters most. Sun Life offers a range of life insurance options designed to provide dependable protection, whether you're planning for the short term or building long-term security.
             <br /><br />
-            Whether you're looking for affordable term coverage or lifetime protection that builds value, Sun Life makes it easy to find the right plan for your needs and budget.
+            From affordable term coverage to permanent solutions that build value over time, Sun Life makes it easy to find coverage that aligns with your needs, priorities, and budget.
           </p>
         </div>
       </section>
@@ -1808,10 +1798,10 @@ export default function Home() {
             <div style={{ marginTop: '32px', marginBottom: '20px' }}>
               <ul className="benefits-list">
                 <li><strong>Financial security for your loved ones</strong><br />
-                Your family receives a tax-free benefit to cover debts, income loss, or future goals.</li>
+                Life insurance provides a tax-free benefit to help your family manage everyday expenses, pay off debts, replace income, and secure their future when you pass away.</li>
                 
                 <li><strong>Flexible plans for every life stage</strong><br />
-                Choose from term, permanent, or participating life insurance options that evolve with your needs.</li>
+                Choose from temporary term or permanent whole life insurance options that evolve with your needs.</li>
                 
                 <li><strong>Affordable and customizable</strong><br />
                 Find a plan that fits your budget with coverage starting at just a few dollars a day.</li>
@@ -1910,83 +1900,15 @@ export default function Home() {
             Sun Life term life insurance products
           </h2>
           
-          {/* Carousel Container */}
-          <div style={{ position: 'relative', marginTop: '20px' }}>
-            {/* Left Arrow */}
-            <button
-              className="carousel-arrow"
-              onClick={() => setProductCarouselIndex(prev => Math.max(0, prev - 1))}
-              style={{
-                position: 'absolute',
-                left: '-50px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                border: 'none',
-                backgroundColor: productCarouselIndex === 0 ? '#e5e7eb' : '#013946',
-                color: productCarouselIndex === 0 ? '#9ca3af' : '#fff',
-                cursor: productCarouselIndex === 0 ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                zIndex: 10,
-                transition: 'all 0.3s ease'
-              }}
-              disabled={productCarouselIndex === 0}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6"/>
-              </svg>
-            </button>
-
-            {/* Right Arrow */}
-            <button
-              className="carousel-arrow"
-              onClick={() => setProductCarouselIndex(prev => Math.min(1, prev + 1))}
-              style={{
-                position: 'absolute',
-                right: '-50px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                border: 'none',
-                backgroundColor: productCarouselIndex === 1 ? '#e5e7eb' : '#013946',
-                color: productCarouselIndex === 1 ? '#9ca3af' : '#fff',
-                cursor: productCarouselIndex === 1 ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                zIndex: 10,
-                transition: 'all 0.3s ease'
-              }}
-              disabled={productCarouselIndex === 1}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </button>
-
-            {/* Carousel Track */}
-            <div style={{ overflow: 'hidden' }}>
-              <div 
-                className="products-carousel"
-                style={{
-                  display: 'flex',
-                  gap: '24px',
-                  transition: 'transform 0.5s ease',
-                  transform: `translateX(calc(-${productCarouselIndex} * (33.333% + 16px)))`
-                }}
-              >
-            {/* SunTerm Card */}
+          {/* Products Grid */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: '32px',
+            marginTop: '20px'
+          }} className="products-grid-2col">
+            {/* Sun Life Evolve Term Life Insurance Card */}
             <div className="product-card" style={{
-              flex: '0 0 calc(33.333% - 16px)',
-              minWidth: 'calc(33.333% - 16px)',
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -2003,44 +1925,77 @@ export default function Home() {
               e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'
             }}>
               <div style={{ 
-                height: '200px',
+                height: '180px',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
           <Image
-                  src="/Sun-term-.png"
-                  alt="SunTerm Life Insurance"
+                  src="/SunSpectrum-Term.png"
+                  alt="Sun Life Evolve Term Life Insurance"
                   fill
             style={{
-                    objectFit: 'cover'
+                    objectFit: 'cover',
+                    objectPosition: 'top'
             }}
           />
         </div>
-              <div style={{ padding: '24px' }}>
+              <div style={{ padding: '20px' }}>
                 <h3 style={{ 
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '10px',
+                  marginBottom: '12px',
                   marginTop: 0
                 }}>
-                  SunTerm
+                  Sun Life Evolve Term Life Insurance
                 </h3>
-                <p style={{ 
-                  fontSize: '16px', 
-                  color: '#4a5568', 
-                  lineHeight: 1.6,
-                  margin: 0
+                
+                <h4 style={{ 
+                  fontSize: '14px', 
+                  fontWeight: 600, 
+                  color: '#013946', 
+                  marginBottom: '6px',
+                  marginTop: 0
                 }}>
-                  Comprehensive, renewable coverage up to $15 million, with robust rider options and conversion to permanent life insurance available.
-                </p>
+                  Key features
+                </h4>
+                <ul style={{ 
+                  fontSize: '14px', 
+                  color: '#4a5568', 
+                  lineHeight: 1.5,
+                  margin: '0 0 12px 0',
+                  paddingLeft: '18px'
+                }}>
+                  <li>Coverage from $50,000 up to $25 million</li>
+                  <li>Flexible term lengths from 5 to 40 years</li>
+                  <li>Designed to adapt as your needs change</li>
+                  <li>Option to increase coverage at key life events (such as marriage, a new child, or a new mortgage), on eligible plans</li>
+                </ul>
+                
+                <h4 style={{ 
+                  fontSize: '14px', 
+                  fontWeight: 600, 
+                  color: '#013946', 
+                  marginBottom: '6px',
+                  marginTop: 0
+                }}>
+                  A good fit if you:
+                </h4>
+                <ul style={{ 
+                  fontSize: '14px', 
+                  color: '#4a5568', 
+                  lineHeight: 1.5,
+                  margin: 0,
+                  paddingLeft: '18px'
+                }}>
+                  <li>Want affordable, flexible coverage for a specific period</li>
+                  <li>Like the option to convert to permanent coverage later as your needs evolve</li>
+                </ul>
                 </div>
               </div>
 
-            {/* SunSpectrum Term Card */}
+            {/* SunSpectrum Permanent Life II Card */}
             <div className="product-card" style={{
-              flex: '0 0 calc(33.333% - 16px)',
-              minWidth: 'calc(33.333% - 16px)',
               backgroundColor: '#fff',
               borderRadius: '12px',
               padding: '0',
@@ -2057,168 +2012,74 @@ export default function Home() {
               e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'
             }}>
               <div style={{ 
-                height: '200px',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Image
-                  src="/SunSpectrum-Term.png"
-                  alt="SunSpectrum Term Life Insurance"
-                  fill
-                style={{
-                    objectFit: 'cover'
-                  }}
-                />
-                  </div>
-              <div style={{ padding: '24px' }}>
-                <h3 style={{ 
-                  fontSize: '20px', 
-                  fontWeight: 700, 
-                  color: '#1f2937', 
-                  marginBottom: '10px',
-                  marginTop: 0
-                }}>
-                  SunSpectrum Term
-                </h3>
-                <p style={{ 
-                  fontSize: '16px', 
-                  color: '#4a5568', 
-                  lineHeight: 1.6,
-                  margin: 0
-                }}>
-                  Affordable premiums, streamlined features, and coverage up to $15 million.
-                </p>
-                </div>
-              </div>
-
-            {/* SunLife Go Card */}
-            <div className="product-card" style={{
-              flex: '0 0 calc(33.333% - 16px)',
-              minWidth: 'calc(33.333% - 16px)',
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              padding: '0',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.15)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div style={{ 
-                height: '200px',
+                height: '180px',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
           <Image
                   src="/SunLife-Go-&-SunLife-Go-Simplified-.png"
-                  alt="SunLife Go Life Insurance"
+                  alt="SunSpectrum Permanent Life II"
                   fill
             style={{
-                    objectFit: 'cover'
+                    objectFit: 'cover',
+                    objectPosition: 'center 15%'
             }}
           />
                   </div>
-              <div style={{ padding: '24px' }}>
+              <div style={{ padding: '20px' }}>
                 <h3 style={{ 
                   fontSize: '20px', 
                   fontWeight: 700, 
                   color: '#1f2937', 
-                  marginBottom: '10px',
+                  marginBottom: '12px',
                   marginTop: 0
                 }}>
-                  SunLife Go & SunLife Go Simplified
+                  SunSpectrum Permanent Life II
                 </h3>
-                <p style={{ 
-                  fontSize: '16px', 
-                  color: '#4a5568', 
-                  lineHeight: 1.6,
-                  margin: 0
+                
+                <h4 style={{ 
+                  fontSize: '14px', 
+                  fontWeight: 600, 
+                  color: '#013946', 
+                  marginBottom: '6px',
+                  marginTop: 0
                 }}>
-                  Easy to apply for, no-medical-exam online policies with coverage up to $1&nbsp;million (SunLife Go) or $500,000 (SunLife Go Simplified), ideal for fast, basic protection needs.
-                </p>
+                  Key features
+                </h4>
+                <ul style={{ 
+                  fontSize: '14px', 
+                  color: '#4a5568', 
+                  lineHeight: 1.5,
+                  margin: '0 0 12px 0',
+                  paddingLeft: '18px'
+                }}>
+                  <li>Coverage from $25,000 up to $25 million</li>
+                  <li>Lifetime protection as long as premiums are paid</li>
+                  <li>Guaranteed death benefit, cash values, and premiums</li>
+                </ul>
+                
+                <h4 style={{ 
+                  fontSize: '14px', 
+                  fontWeight: 600, 
+                  color: '#013946', 
+                  marginBottom: '6px',
+                  marginTop: 0
+                }}>
+                  A good fit if you:
+                </h4>
+                <ul style={{ 
+                  fontSize: '14px', 
+                  color: '#4a5568', 
+                  lineHeight: 1.5,
+                  margin: 0,
+                  paddingLeft: '18px'
+                }}>
+                  <li>Want guaranteed lifelong coverage without ongoing management</li>
+                  <li>Are planning for retirement, estate protection, or long-term certainty</li>
+                  <li>Prefer stable, predictable premiums and guaranteed lifetime protection</li>
+                </ul>
                   </div>
                 </div>
-
-            {/* SunLife Evolve Card */}
-            <div className="product-card" style={{
-              flex: '0 0 calc(33.333% - 16px)',
-              minWidth: 'calc(33.333% - 16px)',
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              padding: '0',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.15)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'
-            }}>
-              <div style={{ 
-                height: '200px',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Image
-                  src="/Term-Go-.png"
-                  alt="SunLife Evolve Life Insurance"
-                  fill
-                  style={{
-                    objectFit: 'cover'
-                  }}
-                />
-              </div>
-              <div style={{ padding: '24px' }}>
-                <h3 style={{ 
-                  fontSize: '20px', 
-                  fontWeight: 700, 
-                  color: '#1f2937', 
-                  marginBottom: '10px',
-                  marginTop: 0
-                }}>
-                  SunLife Evolve
-                </h3>
-                <p style={{ 
-                  fontSize: '16px', 
-                  color: '#4a5568', 
-                  lineHeight: 1.6,
-                  margin: 0
-                }}>
-                  Offering the highest coverage and flexibility with up to $15-25 million; renewable to age 85 and convertible to permanent coverage up to age 75.
-                </p>
-              </div>
-            </div>
-              </div>
-            </div>
-            
-            {/* Carousel Dots */}
-            <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '24px' }}>
-              {[0, 1].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => setProductCarouselIndex(index)}
-                  style={{
-                    width: productCarouselIndex === index ? '24px' : '10px',
-                    height: '10px',
-                    borderRadius: '5px',
-                    border: 'none',
-                    backgroundColor: productCarouselIndex === index ? '#013946' : '#d1d5db',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
-                />
-              ))}
-            </div>
               </div>
         </div>
       </section>
@@ -2243,7 +2104,7 @@ export default function Home() {
             }}>
               <div style={{
                 display: 'flex',
-                alignItems: 'center',
+              alignItems: 'center',
                 gap: '12px',
                 marginBottom: '10px'
               }}>
@@ -2252,17 +2113,17 @@ export default function Home() {
                   color: '#013946',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
-                  <AiOutlineDollar />
-                </div>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  color: '#1f2937',
+              }}>
+                <AiOutlineDollar />
+                  </div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#1f2937',
                   margin: 0
-                }}>
-                  Affordable Premiums
-                </h3>
+              }}>
+                Affordable Premiums
+              </h3>
               </div>
               <p style={{
                 fontSize: '16px',
@@ -2272,7 +2133,7 @@ export default function Home() {
               }}>
                 Get substantial coverage at a fraction of the cost of permanent insurance, especially when you&#39;re young and healthy.
               </p>
-            </div>
+                  </div>
 
             {/* Financial Protection */}
             <div style={{
@@ -2289,17 +2150,17 @@ export default function Home() {
                   color: '#013946',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
-                  <BsShield />
+              }}>
+                <BsShield />
                 </div>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  color: '#1f2937',
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#1f2937',
                   margin: 0
-                }}>
-                  Financial Protection
-                </h3>
+              }}>
+                Financial Protection
+              </h3>
               </div>
               <p style={{
                 fontSize: '16px',
@@ -2308,8 +2169,8 @@ export default function Home() {
                 margin: 0
               }}>
                 Ensure your family can maintain their lifestyle and meet financial obligations if you&#39;re no longer there to provide.
-              </p>
-            </div>
+          </p>
+        </div>
 
             {/* Peace of Mind */}
             <div style={{
@@ -2326,17 +2187,17 @@ export default function Home() {
                   color: '#013946',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
-                  <AiOutlineHeart />
-                </div>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  color: '#1f2937',
+              }}>
+                <AiOutlineHeart />
+          </div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#1f2937',
                   margin: 0
-                }}>
-                  Peace of Mind
-                </h3>
+              }}>
+                Peace of Mind
+              </h3>
               </div>
               <p style={{
                 fontSize: '16px',
@@ -2446,32 +2307,43 @@ export default function Home() {
               </thead>
               <tbody>
                 <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>20s</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$29.10</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$47.33</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 20</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$16.65</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$25.20</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
-                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>30s</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$54.12</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$76.70</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 30</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$17.55</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$25.65</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>40s</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$136.23</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$212.48</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 40</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$23.40</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$31.95</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
-                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>50s</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$298.45</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$425.67</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 50</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$51.30</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$72.00</td>
                 </tr>
                 <tr>
-                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>60s</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$587.92</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$789.34</td>
+                  <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 60</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$161.55</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$230.85</td>
                 </tr>
               </tbody>
             </table>
+            <p style={{ 
+              fontSize: '11px', 
+              color: '#6b7280', 
+              marginTop: '12px', 
+              marginBottom: 0,
+              textAlign: 'left',
+              fontStyle: 'italic',
+              whiteSpace: 'nowrap'
+            }}>
+              Illustrative rates only. Based on $500,000 Term 10 coverage. Actual premiums vary. Contact an advisor for a personalized quote.
+            </p>
             </div>
           </div>
         </div>
@@ -2495,42 +2367,42 @@ export default function Home() {
           <div style={{ flex: '1', minWidth: '250px' }}>
             <h2 className="cta-heading" style={{ 
               fontSize: 'clamp(16px, 3vw, 32px)', 
-              fontWeight: 700, 
-              color: '#2d3748', 
+            fontWeight: 700, 
+            color: '#2d3748', 
               marginBottom: '8px',
-              lineHeight: 1.3,
+            lineHeight: 1.3,
               textAlign: 'left'
-            }}>
+          }}>
               Ready to protect your family with Sun&nbsp;Life?
-            </h2>
+          </h2>
             <p className="cta-subtext" style={{ 
               fontSize: 'clamp(12px, 2vw, 18px)', 
               color: '#4a5568', 
               margin: 0,
-              lineHeight: 1.5,
+            lineHeight: 1.5,
               textAlign: 'left'
-            }}>
+          }}>
               Get your personalized Sun&nbsp;Life quote in minutes!
-            </p>
+          </p>
           </div>
           <div style={{ width: '100%', maxWidth: '250px', flexShrink: 0 }}>
-            <button
-              onClick={() => setShowLeadForm(true)}
-              className="btn btn-primary"
-              style={{
+          <button
+            onClick={() => setShowLeadForm(true)}
+            className="btn btn-primary"
+            style={{
                 width: '100%',
                 fontSize: 'clamp(14px, 2vw, 16px)',
                 padding: 'clamp(12px, 2vw, 16px) clamp(20px, 4vw, 40px)',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
                 backgroundColor: '#013946'
-              }}
-            >
-              GET QUOTE
-            </button>
+            }}
+          >
+            GET QUOTE
+          </button>
           </div>
         </div>
       </section>
@@ -2593,7 +2465,7 @@ export default function Home() {
                   Level premiums
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Your payments stay the same for your full term.
+                  Your premium amount stays the same for the duration of your chosen term.
                 </p>
               </div>
             </div>
@@ -2633,7 +2505,7 @@ export default function Home() {
                   Flexible terms
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Choose 10, 15, 20, or 30 years.
+                  Choose the coverage period that fits your needs - commonly 10, 20, or 30 years.
                 </p>
               </div>
             </div>
@@ -2673,7 +2545,7 @@ export default function Home() {
                   High coverage limits
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Options from $50,000 up to $15 million.
+                  Coverage can range from lower amounts to several million dollars, depending on eligibility and underwriting.
                 </p>
               </div>
             </div>
@@ -2833,7 +2705,7 @@ export default function Home() {
                   Living benefit
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Early payout available if diagnosed with a terminal illness (on select plans).
+                  Some plans offer early benefit access if diagnosed with a qualifying terminal illness or similar condition depending on the policy.
                 </p>
           </div>
         </div>
@@ -2873,7 +2745,7 @@ export default function Home() {
                   Renewable Coverage
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Easily extend your protection at the end of your term, no new medical exam required.
+                  At the end of your term, you may have the option to renew your coverage without a new medical exam.
                 </p>
               </div>
             </div>
@@ -2913,7 +2785,7 @@ export default function Home() {
                   Wellness resources
                 </h3>
                 <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: 1.5, margin: 0 }}>
-                  Personalized health support (e.g., diabetes management tools).
+                  Access to additional resources or tools that support health and wellness, depending on the specific product features.
                 </p>
               </div>
             </div>
@@ -2925,64 +2797,76 @@ export default function Home() {
       {/* FAQs */}
       <section className="faq-section">
         <h2 style={{ textAlign: 'center' }}>FAQs</h2>
-            <p className="faq-subtitle">Everything you need to know about Sun Life term life insurance.</p>
+            <p className="faq-subtitle">Everything you need to know about Sun Life life insurance.</p>
         <div className="faq-list">
           <div className={`faq-item ${activeFAQ === 0 ? 'active' : ''}`} onClick={() => toggleFAQ(0)}>
             <div className="faq-question">
-                  <span>What is term life insurance?</span>
+                  <span>What is life insurance and how does it work in Canada?</span>
               <span>{activeFAQ === 0 ? '−' : '+'}</span>
             </div>
             {activeFAQ === 0 && (
               <div className="faq-answer">
-                    Term life insurance provides coverage for a specific period. If you pass away during the term, your beneficiaries receive a tax-free payout to help replace lost income or cover expenses.
+                    Life insurance provides a tax-free payout to your chosen beneficiaries if you pass away while your policy is active. This benefit can help replace income, pay off debts, cover final expenses, or support your family's financial future.
               </div>
             )}
           </div>
           
           <div className={`faq-item ${activeFAQ === 1 ? 'active' : ''}`} onClick={() => toggleFAQ(1)}>
             <div className="faq-question">
-                  <span>What types of term life insurance does Sun Life offer?</span>
+                  <span>Why choose Sun Life for life insurance?</span>
               <span>{activeFAQ === 1 ? '−' : '+'}</span>
             </div>
             {activeFAQ === 1 && (
               <div className="faq-answer">
-                    Sun Life offers five main term life products: SunTerm, SunSpectrum Term, SunLife Go, SunLife Go Simplified, and SunLife Evolve. Each varies by coverage limit, application process, and available riders.
+                    Sun Life is one of Canada's most trusted and established insurers, offering a wide range of life insurance options backed by strong financial stability. Licensed advisors help you choose coverage that fits your needs and budget.
               </div>
             )}
           </div>
 
           <div className={`faq-item ${activeFAQ === 2 ? 'active' : ''}`} onClick={() => toggleFAQ(2)}>
             <div className="faq-question">
-                  <span>Can I convert my Sun Life term policy to permanent insurance?</span>
+                  <span>What types of life insurance does Sun Life offer?</span>
               <span>{activeFAQ === 2 ? '−' : '+'}</span>
             </div>
             {activeFAQ === 2 && (
               <div className="faq-answer">
-                    Yes, most Sun Life term life insurance policies allow conversion to permanent insurance (whole life or universal) until age 75, providing you greater long-term flexibility.
+                    Sun Life offers term life insurance for affordable, time-limited protection, as well as permanent life insurance options designed to provide lifelong coverage and long-term financial planning benefits.
               </div>
             )}
           </div>
 
           <div className={`faq-item ${activeFAQ === 3 ? 'active' : ''}`} onClick={() => toggleFAQ(3)}>
             <div className="faq-question">
-                  <span>How much does Sun Life term life insurance cost?</span>
+                  <span>How much life insurance coverage do I need?</span>
               <span>{activeFAQ === 3 ? '−' : '+'}</span>
             </div>
             {activeFAQ === 3 && (
               <div className="faq-answer">
-                    Premiums depend on age, gender, health, term length, and coverage amount. As an example, a healthy 35-year-old non-smoker might pay about $35/month for $500,000 of coverage over 20 years.
+                    The right amount of coverage depends on factors such as your income, debts, family responsibilities, and long-term goals. A licensed advisor can help assess your situation and recommend an appropriate coverage amount.
               </div>
             )}
           </div>
 
           <div className={`faq-item ${activeFAQ === 4 ? 'active' : ''}`} onClick={() => toggleFAQ(4)}>
             <div className="faq-question">
-                  <span>What rider options are available with Sun Life term life insurance?</span>
+                  <span>Do I need a medical exam to apply?</span>
               <span>{activeFAQ === 4 ? '−' : '+'}</span>
             </div>
             {activeFAQ === 4 && (
               <div className="faq-answer">
-                    You can customize your policy with riders such as accidental death, child coverage, disability waiver of premium, or guaranteed insurability, depending on your chosen product.
+                    Some life insurance policies require medical questions or exams, while others may offer simplified or no-medical options depending on your age, health, and coverage amount. Availability varies by policy.
+              </div>
+            )}
+          </div>
+
+          <div className={`faq-item ${activeFAQ === 5 ? 'active' : ''}`} onClick={() => toggleFAQ(5)}>
+            <div className="faq-question">
+                  <span>Is the life insurance payout taxable in Canada?</span>
+              <span>{activeFAQ === 5 ? '−' : '+'}</span>
+            </div>
+            {activeFAQ === 5 && (
+              <div className="faq-answer">
+                    In most cases, life insurance benefits paid to a named beneficiary are tax-free, allowing your loved ones to receive the full amount to support their financial needs.
               </div>
             )}
           </div>
@@ -3006,7 +2890,7 @@ export default function Home() {
               margin: '0 0 16px 0',
               textAlign: 'center'
             }}>
-              Disclaimer: This website is operated by Policy Advisor, an independent insurance broker. We are not directly affiliated with or endorsed by Sun Life Financial. All product names, logos, and brands are property of their respective owners. The information provided on this site is for general informational purposes only and should not be considered as professional insurance advice. Insurance products and their features may vary based on your location and individual circumstances. For specific details about Sun Life insurance products, please consult with a licensed Sun Life advisor.
+              Disclaimer: This website is operated by PolicyAdvisor, a licensed independent insurance brokerage and authorized distributor of Sun Life insurance products. PolicyAdvisor is not the insurer. All insurance products discussed on this site are underwritten by Sun Life Assurance Company of Canada and are subject to eligibility, terms, conditions, and provincial variations. The content on this site is provided for general informational purposes only and does not constitute insurance advice. For specific product details and advice tailored to your situation, please consult a licensed advisor. PolicyAdvisor is not the insurer. All insurance products are underwritten by Sun Life Assurance Company of Canada. Product availability, features, and eligibility may vary by province and individual circumstances. The information provided on this website is for general informational purposes only and does not constitute professional insurance advice. For full details, terms, and conditions, please speak with a licensed Sun Life advisor.
             </p>
             <p style={{
               fontSize: '11px',
@@ -3016,7 +2900,7 @@ export default function Home() {
               borderTop: '1px solid #e5e7eb',
               paddingTop: '16px'
             }}>
-              © 2025 Policy Advisor. All rights reserved.
+              © 2026 Policy Advisor. All rights reserved.
             </p>
           </div>
       </footer>

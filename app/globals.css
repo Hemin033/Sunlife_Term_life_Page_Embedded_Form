@@ -911,6 +911,16 @@ a {
     display: none !important;
   }
 
+  /* Products 2-column Grid - Mobile */
+  .products-grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .products-grid-2col .product-card {
+    max-width: 100% !important;
+  }
+
   /* Insurance Answers / CTA Boxes */
   .insurance-answers {
     flex-direction: column;
