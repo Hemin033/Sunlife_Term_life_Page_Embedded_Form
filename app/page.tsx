@@ -22,13 +22,14 @@ export default function Home() {
     email: '',
     gender: '',
     dateOfBirth: '',
-    occupation: '',
     smokerStatus: '',
     province: '',
     coverageAmount: 0
   })
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [mobileProvinceOpen, setMobileProvinceOpen] = useState(false)
+  const [modalProvinceOpen, setModalProvinceOpen] = useState(false)
+  const [embeddedProvinceOpen, setEmbeddedProvinceOpen] = useState(false)
 
   const toggleFAQ = (index: number) => {
     setActiveFAQ(activeFAQ === index ? null : index)
@@ -695,41 +696,91 @@ export default function Home() {
                 <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
                   Province <span style={{ color: '#013946' }}>*</span>
                 </label>
-                <div>
-                <select
-                    required
-                  value={formData.province}
-                    onChange={(e) => {
-                      handleInputChange('province', e.target.value)
-                      setFormErrors(prev => ({ ...prev, province: '' }))
-                    }}
+                <div style={{ position: 'relative' }}>
+                  <div
+                    onClick={() => setModalProvinceOpen(!modalProvinceOpen)}
                     onBlur={() => {
-                      const error = validateProvince(formData.province)
-                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                      setTimeout(() => {
+                        setModalProvinceOpen(false)
+                        const error = validateProvince(formData.province)
+                        if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                      }, 200)
                     }}
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
+                    tabIndex={0}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '8px',
-                    outline: 'none',
-                    backgroundColor: '#fff',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <option value="">Select Province</option>
-                  <option value="AB">Alberta</option>
-                  <option value="BC">British Columbia</option>
-                  <option value="MB">Manitoba</option>
-                  <option value="NB">New Brunswick</option>
-                  <option value="NL">Newfoundland and Labrador</option>
-                  <option value="NS">Nova Scotia</option>
-                  <option value="ON">Ontario</option>
-                  <option value="PE">Prince Edward Island</option>
-                  <option value="QC">Quebec</option>
-                  <option value="SK">Saskatchewan</option>
-                </select>
+                      borderRadius: '8px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ color: formData.province ? '#1f2937' : '#9ca3af' }}>
+                      {formData.province ? 
+                        { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', ON: 'Ontario' }[formData.province] 
+                        : 'Select Province'}
+                    </span>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: modalProvinceOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {modalProvinceOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {[
+                        { value: 'AB', label: 'Alberta' },
+                        { value: 'BC', label: 'British Columbia' },
+                        { value: 'MB', label: 'Manitoba' },
+                        { value: 'ON', label: 'Ontario' }
+                      ].map((province) => (
+                        <li
+                          key={province.value}
+                          onClick={() => {
+                            handleInputChange('province', province.value);
+                            setFormErrors(prev => ({ ...prev, province: '' }));
+                            setModalProvinceOpen(false);
+                          }}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: '15px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.province === province.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.province !== province.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.province === province.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {province.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {formErrors.province && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
               </div>
@@ -749,27 +800,6 @@ export default function Home() {
                       handleInputChange('coverageAmount', parseInt(numValue) || 0)
                     }
                   }}
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '8px',
-                    outline: 'none'
-                  }}
-                />
-              </div>
-
-              {/* Occupation */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '24px', alignItems: 'center' }}>
-                <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
-                  Occupation
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter your occupation"
-                  value={formData.occupation}
-                  onChange={(e) => handleInputChange('occupation', e.target.value)}
                   style={{
                     width: '100%',
                     padding: '14px 16px',
@@ -1200,10 +1230,10 @@ export default function Home() {
                         handleInputChange('smokerStatus', 'No')
                         setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
                       }}
-              style={{
+                      style={{
                         flex: 1,
-                        padding: '10px 8px',
-              fontSize: '14px',
+                        padding: '14px 16px',
+                        fontSize: '14px',
                         border: `2px solid ${formData.smokerStatus === 'No' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.smokerStatus === 'No' ? '#FFB800' : '#fff',
@@ -1220,65 +1250,111 @@ export default function Home() {
                         handleInputChange('smokerStatus', 'Yes')
                         setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
                       }}
-                style={{
+                      style={{
                         flex: 1,
-                        padding: '10px 8px',
+                        padding: '14px 16px',
                         fontSize: '14px',
                         border: `2px solid ${formData.smokerStatus === 'Yes' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.smokerStatus === 'Yes' ? '#FFB800' : '#fff',
                         color: formData.smokerStatus === 'Yes' ? '#013946' : '#1f2937',
-                  cursor: 'pointer',
-                  fontWeight: 500
-                }}
-              >
+                        cursor: 'pointer',
+                        fontWeight: 500
+                      }}
+                    >
                       Yes
-              </button>
-          </div>
+                    </button>
+                  </div>
                   {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
-        </div>
-                <div>
+                </div>
+                <div style={{ position: 'relative' }}>
                   <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Province *
                   </label>
-                  <select
-                    required
-                    value={formData.province}
-                    onChange={(e) => {
-                      handleInputChange('province', e.target.value)
-                      setFormErrors(prev => ({ ...prev, province: '' }))
-                    }}
+                  <div
+                    onClick={() => setEmbeddedProvinceOpen(!embeddedProvinceOpen)}
                     onBlur={() => {
-                      const error = validateProvince(formData.province)
-                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                      setTimeout(() => {
+                        setEmbeddedProvinceOpen(false)
+                        const error = validateProvince(formData.province)
+                        if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                      }, 200)
                     }}
+                    tabIndex={0}
                     style={{
-            width: '100%',
+                      width: '100%',
                       padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '6px',
-                      outline: 'none',
                       backgroundColor: '#fff',
-              color: '#1f2937',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
                     }}
                   >
-                    <option value="">Select...</option>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="YT">Yukon</option>
-                  </select>
+                    <span style={{ color: formData.province ? '#1f2937' : '#9ca3af' }}>
+                      {formData.province ? 
+                        { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', ON: 'Ontario' }[formData.province] 
+                        : 'Select...'}
+                    </span>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: embeddedProvinceOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {embeddedProvinceOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {[
+                        { value: 'AB', label: 'Alberta' },
+                        { value: 'BC', label: 'British Columbia' },
+                        { value: 'MB', label: 'Manitoba' },
+                        { value: 'ON', label: 'Ontario' }
+                      ].map((province) => (
+                        <li
+                          key={province.value}
+                          onClick={() => {
+                            handleInputChange('province', province.value);
+                            setFormErrors(prev => ({ ...prev, province: '' }));
+                            setEmbeddedProvinceOpen(false);
+                          }}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: '14px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.province === province.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.province !== province.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.province === province.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {province.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
           </div>
@@ -1312,7 +1388,7 @@ export default function Home() {
                 textAlign: 'center',
                 margin: '10px 0 0 0'
               }}>
-                By submitting, you agree to be contacted by a licensed advisor from Sun Life.
+                A licensed Sun Life advisor will reach out within the next business hours to present coverage options tailored to your needs.
               </p>
             </form>
           </div>
@@ -1619,7 +1695,7 @@ export default function Home() {
                 >
                   <span style={{ color: formData.province ? '#1f2937' : '#9ca3af' }}>
                     {formData.province ? 
-                      { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick', NL: 'Newfoundland', NS: 'Nova Scotia', ON: 'Ontario', PE: 'PEI', QC: 'Quebec', SK: 'Saskatchewan' }[formData.province] 
+                      { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', ON: 'Ontario' }[formData.province] 
                       : 'Select...'}
                   </span>
                   <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: mobileProvinceOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
@@ -1647,13 +1723,7 @@ export default function Home() {
                       { value: 'AB', label: 'Alberta' },
                       { value: 'BC', label: 'British Columbia' },
                       { value: 'MB', label: 'Manitoba' },
-                      { value: 'NB', label: 'New Brunswick' },
-                      { value: 'NL', label: 'Newfoundland' },
-                      { value: 'NS', label: 'Nova Scotia' },
-                      { value: 'ON', label: 'Ontario' },
-                      { value: 'PE', label: 'PEI' },
-                      { value: 'QC', label: 'Quebec' },
-                      { value: 'SK', label: 'Saskatchewan' }
+                      { value: 'ON', label: 'Ontario' }
                     ].map((province) => (
                       <li
                         key={province.value}
@@ -1755,7 +1825,7 @@ export default function Home() {
                 lineHeight: '1.4',
                 textAlign: 'center'
               }}>
-                By submitting, you agree to be contacted by a licensed advisor from Sun Life.
+                A licensed Sun Life advisor will reach out within the next business hours to present coverage options tailored to your needs.
               </p>
             </form>
           </div>
