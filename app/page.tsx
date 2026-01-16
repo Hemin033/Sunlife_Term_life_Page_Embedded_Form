@@ -1968,8 +1968,7 @@ export default function Home() {
                 }}>
                   <li>Coverage from $50,000 up to $25 million</li>
                   <li>Flexible term lengths from 5 to 40 years</li>
-                  <li>Designed to adapt as your needs change</li>
-                  <li>Option to increase coverage at key life events (such as marriage, a new child, or a new mortgage), on eligible plans</li>
+                  <li>Flexible coverage that can grow with you at key life events</li>
                 </ul>
                 
                 <h4 style={{ 
@@ -1988,7 +1987,7 @@ export default function Home() {
                   margin: 0,
                   paddingLeft: '18px'
                 }}>
-                  <li>Want affordable, flexible coverage for a specific period</li>
+                  <li>Want affordable, flexible coverage for a specific period aligning with major life stages like paying off a mortgage</li>
                   <li>Like the option to convert to permanent coverage later as your needs evolve</li>
                 </ul>
                 </div>
