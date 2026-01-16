@@ -354,8 +354,8 @@ export default function Home() {
         }}>
           <div className="lead-form-content" style={{
             backgroundColor: '#fff',
-            borderRadius: '20px',
-            padding: 'clamp(20px, 4vw, 40px)',
+            borderRadius: '16px',
+            padding: 'clamp(16px, 3vw, 24px)',
             maxWidth: '900px',
             width: '100%',
             maxHeight: '95vh',
@@ -369,14 +369,14 @@ export default function Home() {
               onClick={() => setShowLeadForm(false)}
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
+                top: '12px',
+                right: '12px',
                 background: 'none',
                 border: 'none',
-                fontSize: '28px',
+                fontSize: '24px',
                 cursor: 'pointer',
                 color: '#6b7280',
-                padding: '8px',
+                padding: '4px',
                 lineHeight: 1
               }}
             >
@@ -385,26 +385,27 @@ export default function Home() {
 
             {/* Form Header */}
             <h2 style={{
-              fontSize: '32px',
+              fontSize: '24px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '8px',
+              marginBottom: '4px',
               textAlign: 'center'
             }}>
               Get started today
             </h2>
             <p style={{
-              fontSize: '16px',
+              fontSize: '13px',
               color: '#6b7280',
-              marginBottom: '16px',
-              textAlign: 'center'
+              marginBottom: '6px',
+              textAlign: 'center',
+              lineHeight: '1.4'
             }}>
               Complete the quick form below to find out how affordable life insurance can be and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
             </p>
             <p style={{
-              fontSize: '14px',
+              fontSize: '12px',
               color: '#6b7280',
-              marginBottom: '32px',
+              marginBottom: '16px',
               textAlign: 'center',
               fontStyle: 'italic'
             }}>
@@ -414,9 +415,9 @@ export default function Home() {
             {/* Form */}
             <form onSubmit={handleSubmitLead}>
               {/* First Name and Last Name */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '20px' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '10px' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     First Name <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -431,17 +432,17 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
+                    padding: '10px 12px',
+                    fontSize: '14px',
                       border: `1px solid ${formErrors.firstName ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     outline: 'none'
                   }}
                 />
-                  {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.firstName}</p>}
+                  {formErrors.firstName && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.firstName}</p>}
                 </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                     Last Name <span style={{ color: '#013946' }}>*</span>
                   </label>
                   <input
@@ -456,21 +457,21 @@ export default function Home() {
                     }}
                     style={{
                       width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '15px',
+                      padding: '10px 12px',
+                      fontSize: '14px',
                       border: `1px solid ${formErrors.lastName ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       outline: 'none'
                     }}
                   />
-                  {formErrors.lastName && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.lastName}</p>}
+                  {formErrors.lastName && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.lastName}</p>}
                 </div>
               </div>
 
               {/* Phone Number and Email Address */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px', alignItems: 'start' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                   Phone Number <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -488,17 +489,17 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
+                    padding: '10px 12px',
+                    fontSize: '14px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     outline: 'none'
                   }}
                 />
-                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
+                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.phoneNumber}</p>}
               </div>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '14px', color: '#1f2937', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
                   Email Address <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
@@ -513,190 +514,124 @@ export default function Home() {
                     }}
                   style={{
                     width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
+                    padding: '10px 12px',
+                    fontSize: '14px',
                       border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     outline: 'none'
                   }}
                 />
-                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.email}</p>}
+                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.email}</p>}
                 </div>
               </div>
 
-              {/* Gender */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
-                <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
-                  Gender <span style={{ color: '#013946' }}>*</span>
-                </label>
+              {/* Gender and Age Row */}
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px', alignItems: 'start' }}>
                 <div>
-                <div className="gender-buttons" style={{ display: 'flex', gap: '10px' }}>
-                  <button
-                    type="button"
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Gender <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <div className="gender-buttons" style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      type="button"
                       onClick={() => {
                         handleInputChange('gender', 'Man')
                         setFormErrors(prev => ({ ...prev, gender: '' }))
                       }}
-                    style={{
-                      flex: 1,
-                      padding: '14px',
-                      fontSize: '15px',
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
                         border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      backgroundColor: formData.gender === 'Man' ? '#e0f2fe' : '#fff',
-                      color: '#1f2937',
-                      cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    Man
-                  </button>
-                  <button
-                    type="button"
+                        borderRadius: '6px',
+                        backgroundColor: formData.gender === 'Man' ? '#e0f2fe' : '#fff',
+                        color: '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      Man
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => {
                         handleInputChange('gender', 'Woman')
                         setFormErrors(prev => ({ ...prev, gender: '' }))
                       }}
-                    style={{
-                      flex: 1,
-                      padding: '14px',
-                      fontSize: '15px',
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
                         border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      backgroundColor: formData.gender === 'Woman' ? '#e0f2fe' : '#fff',
-                      color: '#1f2937',
-                      cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    Woman
-                  </button>
+                        borderRadius: '6px',
+                        backgroundColor: formData.gender === 'Woman' ? '#e0f2fe' : '#fff',
+                        color: '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      Woman
+                    </button>
                   </div>
-                  {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.gender}</p>}
+                  {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.gender}</p>}
                 </div>
-              </div>
-
-              {/* Date of Birth */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
                 <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
-                    Date of Birth <span style={{ color: '#013946' }}>*</span>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Age <span style={{ color: '#013946' }}>*</span>
                   </label>
-                  <p style={{ fontSize: '13px', color: '#6b7280', margin: '4px 0 0 0' }}>
-                    Your premium depends on your age.
-                  </p>
-                </div>
-                <div>
-                <input
-                  type="text"
-                  required
-                  maxLength={10}
-                    placeholder="DD/MM/YYYY"
-                  value={formData.dateOfBirth}
-                  onChange={(e) => {
-                    const inputValue = e.target.value;
-                    const prevValue = formData.dateOfBirth;
-                    
-                    // If deleting, allow direct deletion
-                    if (inputValue.length < prevValue.length) {
-                      handleInputChange('dateOfBirth', inputValue);
-                      return;
-                    }
-                    
-                    // Only keep digits for formatting
-                    let digits = inputValue.replace(/\D/g, '');
-                    if (digits.length <= 8) {
-                      let formatted = '';
-                      if (digits.length >= 4) {
-                        formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
-                      } else if (digits.length >= 2) {
-                        formatted = digits.slice(0, 2) + '/' + digits.slice(2);
-                      } else {
-                        formatted = digits;
+                  <input
+                    type="text"
+                    required
+                    maxLength={10}
+                    placeholder="e.g. 35"
+                    value={formData.dateOfBirth}
+                    onChange={(e) => {
+                      const inputValue = e.target.value;
+                      const prevValue = formData.dateOfBirth;
+                      
+                      // If deleting, allow direct deletion
+                      if (inputValue.length < prevValue.length) {
+                        handleInputChange('dateOfBirth', inputValue);
+                        return;
                       }
-                      handleInputChange('dateOfBirth', formatted);
-                    }
-                  }}
+                      
+                      // Only keep digits for formatting
+                      let digits = inputValue.replace(/\D/g, '');
+                      if (digits.length <= 8) {
+                        let formatted = '';
+                        if (digits.length >= 4) {
+                          formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
+                        } else if (digits.length >= 2) {
+                          formatted = digits.slice(0, 2) + '/' + digits.slice(2);
+                        } else {
+                          formatted = digits;
+                        }
+                        handleInputChange('dateOfBirth', formatted);
+                      }
+                    }}
                     onBlur={() => {
                       const error = validateDateOfBirth(formData.dateOfBirth)
                       if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '8px',
-                    outline: 'none'
-                  }}
-                />
-                  {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
+                      borderRadius: '6px',
+                      outline: 'none'
+                    }}
+                  />
+                  {formErrors.dateOfBirth && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.dateOfBirth}</p>}
                 </div>
               </div>
 
-              {/* Smoker Status */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
-                <div>
-                  <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', display: 'block' }}>
-                    Smoker Status <span style={{ color: '#013946' }}>*</span>
-                  </label>
-                  <p style={{ fontSize: '13px', color: '#6b7280', margin: '4px 0 0 0' }}>
-                    Includes tobacco, e-cigarettes, and vaping in the past 12 months.
-                  </p>
-                </div>
-                <div>
-                <div className="smoker-buttons" style={{ display: 'flex', gap: '10px' }}>
-                  <button
-                    type="button"
-                      onClick={() => {
-                        handleInputChange('smokerStatus', 'Non-smoker')
-                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                      }}
-                    style={{
-                      flex: 1,
-                      padding: '14px',
-                      fontSize: '15px',
-                        border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      backgroundColor: formData.smokerStatus === 'Non-smoker' ? '#e0f2fe' : '#fff',
-                      color: '#1f2937',
-                      cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    Non-smoker
-                  </button>
-                  <button
-                    type="button"
-                      onClick={() => {
-                        handleInputChange('smokerStatus', 'Smoker')
-                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                      }}
-                    style={{
-                      flex: 1,
-                      padding: '14px',
-                      fontSize: '15px',
-                        border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      backgroundColor: formData.smokerStatus === 'Smoker' ? '#e0f2fe' : '#fff',
-                      color: '#1f2937',
-                      cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    Smoker
-                  </button>
-                  </div>
-                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
-                </div>
-              </div>
-
-              {/* Province */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'start' }}>
-                <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
-                  Province <span style={{ color: '#013946' }}>*</span>
-                </label>
+              {/* Province and Provincial Coverage Row */}
+              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px', alignItems: 'start' }}>
                 <div style={{ position: 'relative' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Province? <span style={{ color: '#013946' }}>*</span>
+                  </label>
                   <div
                     onClick={() => setModalProvinceOpen(!modalProvinceOpen)}
                     onBlur={() => {
@@ -709,10 +644,10 @@ export default function Home() {
                     tabIndex={0}
                     style={{
                       width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '15px',
+                      padding: '10px 12px',
+                      fontSize: '14px',
                       border: `1px solid ${formErrors.province ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#fff',
                       cursor: 'pointer',
                       display: 'flex',
@@ -723,9 +658,9 @@ export default function Home() {
                     <span style={{ color: formData.province ? '#1f2937' : '#9ca3af' }}>
                       {formData.province ? 
                         { AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', ON: 'Ontario' }[formData.province] 
-                        : 'Select Province'}
+                        : 'Select...'}
                     </span>
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: modalProvinceOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                    <svg width="10" height="6" viewBox="0 0 12 8" fill="none" style={{ transform: modalProvinceOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
                       <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -737,11 +672,11 @@ export default function Home() {
                       right: 0,
                       backgroundColor: '#fff',
                       border: '1px solid #d1d5db',
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       marginTop: '4px',
                       padding: 0,
                       listStyle: 'none',
-                      maxHeight: '200px',
+                      maxHeight: '160px',
                       overflowY: 'auto',
                       zIndex: 9999,
                       boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
@@ -760,8 +695,8 @@ export default function Home() {
                             setModalProvinceOpen(false);
                           }}
                           style={{
-                            padding: '12px 16px',
-                            fontSize: '15px',
+                            padding: '10px 12px',
+                            fontSize: '14px',
                             color: '#1f2937',
                             cursor: 'pointer',
                             backgroundColor: formData.province === province.value ? '#e0f7fa' : '#fff',
@@ -781,34 +716,56 @@ export default function Home() {
                       ))}
                     </ul>
                   )}
-                  {formErrors.province && <p style={{ color: '#ef4444', fontSize: '12px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
+                  {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
-              </div>
-
-              {/* Coverage Amount */}
-              <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '16px', marginBottom: '20px', alignItems: 'center' }}>
-                <label style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937' }}>
-                  Coverage Amount
-                </label>
-                <input
-                  type="text"
-                  placeholder="$500,000"
-                  value={formData.coverageAmount > 0 ? `$${formData.coverageAmount.toLocaleString()}` : ''}
-                  onChange={(e) => {
-                    const numValue = e.target.value.replace(/[$,]/g, '')
-                    if (!isNaN(Number(numValue))) {
-                      handleInputChange('coverageAmount', parseInt(numValue) || 0)
-                    }
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    fontSize: '15px',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '8px',
-                    outline: 'none'
-                  }}
-                />
+                <div>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Provincial coverage? <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <div className="smoker-buttons" style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Non-smoker')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
+                        border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'Non-smoker' ? '#e0f2fe' : '#fff',
+                        color: '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Smoker')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
+                        border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'Smoker' ? '#e0f2fe' : '#fff',
+                        color: '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      No
+                    </button>
+                  </div>
+                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.smokerStatus}</p>}
+                </div>
               </div>
 
               {/* Submit Button */}
@@ -816,13 +773,13 @@ export default function Home() {
                 type="submit"
                 style={{
                   width: '100%',
-                  padding: '18px',
-                  fontSize: '18px',
+                  padding: '14px',
+                  fontSize: '15px',
                   fontWeight: 700,
                   color: '#fff',
                   backgroundColor: '#013946',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
@@ -836,25 +793,27 @@ export default function Home() {
               <div style={{
                 backgroundColor: '#f9fafb',
                 border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                padding: '16px',
-                marginTop: '24px'
+                borderRadius: '6px',
+                padding: '12px',
+                marginTop: '12px'
               }}>
                 <p style={{
-                  fontSize: '13px',
+                  fontSize: '12px',
                   color: '#4b5563',
-                  margin: '0 0 8px 0',
+                  margin: '0 0 4px 0',
                   fontWeight: '500',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  lineHeight: '1.4'
                 }}>
-                  By submitting this form, you agree to be contacted by a licensed advisor to discuss your Sun Life term life insurance options.
+                  By submitting this form, you agree to be contacted by a licensed advisor to discuss your Sun Life Health and Dental Insurance options.
                 </p>
                 <p style={{
-                  fontSize: '12px',
+                  fontSize: '11px',
                   color: '#6b7280',
                   margin: '0',
                   fontStyle: 'italic',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  lineHeight: '1.4'
                 }}>
                   Your information is secure, confidential and used only to assist with your insurance inquiry.
                 </p>
