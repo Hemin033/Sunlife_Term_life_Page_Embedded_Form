@@ -6,7 +6,7 @@ import Image from 'next/image';
 function ThankYouContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(7);
   const returnUrl = searchParams.get('return') || '/';
 
   useEffect(() => {
@@ -174,7 +174,7 @@ function ThankYouContent() {
               target.style.boxShadow = '0 4px 15px rgba(255, 184, 0, 0.3)';
             }}
           >
-            Return to Home
+            Schedule a Call
           </button>
         </div>
       </div>
