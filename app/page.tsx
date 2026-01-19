@@ -2082,6 +2082,56 @@ export default function Home() {
                 </div>
                 {formErrors.gender && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.gender}</p>}
           </div>
+
+              {/* Smoker Status */}
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Smoker <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleInputChange('smokerStatus', 'No')
+                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                    }}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.smokerStatus === 'No' ? '#013946' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.smokerStatus === 'No' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    No
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleInputChange('smokerStatus', 'Yes')
+                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                    }}
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: '14px',
+                      border: `1.5px solid ${formData.smokerStatus === 'Yes' ? '#013946' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: formData.smokerStatus === 'Yes' ? '#e0f7fa' : '#fff',
+                      color: '#1f2937',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    Yes
+                  </button>
+                </div>
+                {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
+              </div>
           
               {/* Province - Custom Dropdown */}
               <div style={{ marginBottom: '10px', position: 'relative' }}>
@@ -2316,56 +2366,6 @@ export default function Home() {
                 )}
                 {formErrors.termLength && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.termLength}</p>}
               </div>
-
-              {/* Smoker Status */}
-              <div style={{ marginBottom: '14px' }}>
-                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                  Smoker <span style={{ color: '#013946' }}>*</span>
-                </label>
-                <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-                    type="button"
-                    onClick={() => {
-                      handleInputChange('smokerStatus', 'No')
-                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                    }}
-              style={{
-                      flex: 1,
-                      padding: '8px 10px',
-                      fontSize: '14px',
-                      border: `1.5px solid ${formData.smokerStatus === 'No' ? '#013946' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '6px',
-                      backgroundColor: formData.smokerStatus === 'No' ? '#e0f7fa' : '#fff',
-                      color: '#1f2937',
-                cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    No
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleInputChange('smokerStatus', 'Yes')
-                      setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                    }}
-                    style={{
-                      flex: 1,
-                      padding: '8px 10px',
-                      fontSize: '14px',
-                      border: `1.5px solid ${formData.smokerStatus === 'Yes' ? '#013946' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '6px',
-                      backgroundColor: formData.smokerStatus === 'Yes' ? '#e0f7fa' : '#fff',
-                      color: '#1f2937',
-                      cursor: 'pointer',
-                      fontWeight: 600
-                    }}
-                  >
-                    Yes
-            </button>
-                </div>
-                {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.smokerStatus}</p>}
-          </div>
           
               {/* Submit */}
               <button
