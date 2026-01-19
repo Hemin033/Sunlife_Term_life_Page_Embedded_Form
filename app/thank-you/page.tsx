@@ -120,7 +120,7 @@ function ThankYouContent() {
 
         {/* Book a Call Button */}
         <a
-          href="https://www.policyadvisor.com/schedule-a-call/"
+          href="https://action.sunlife.ca/AppointmentRendezvous/s/prospr-home?language=en_CA&WT.ac=en-ca%3Aweb%3Aslf_internal%3Aprosprweb%3Aprosprweb"
           target="_blank"
           rel="noopener noreferrer"
           style={{
