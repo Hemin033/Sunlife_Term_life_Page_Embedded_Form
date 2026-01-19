@@ -1,184 +1,174 @@
 "use client";
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
 function ThankYouContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [countdown, setCountdown] = useState(7);
   const returnUrl = searchParams.get('return') || '/';
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          router.push(returnUrl);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [router, returnUrl]);
-
   return (
-    <>
-      {/* Logo Bar */}
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '40px 20px',
+      background: '#f0f4f8'
+    }}>
+      <style>{`
+        .thank-you-logo {
+          width: 400px;
+          height: auto;
+        }
+        @media (max-width: 768px) {
+          .thank-you-logo {
+            width: 340px;
+          }
+        }
+      `}</style>
       <div style={{
-        backgroundColor: '#fff',
-        padding: '12px 20px',
-        borderBottom: '1px solid #e5e7eb'
+        maxWidth: '580px',
+        width: '100%',
+        textAlign: 'center',
+        background: '#ffffff',
+        borderRadius: '16px',
+        padding: '48px 40px',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)'
       }}>
+        {/* Logo Bar */}
         <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'center',
+          marginBottom: '40px'
         }}>
           <Image
-            src="/Sun-Life-Financial-Logo.png"
-            alt="Sun Life Financial"
-            width={270}
-            height={90}
-            style={{ objectFit: 'contain' }}
+            src="/IMAGE-TOP-OVERLAY-Life-2.png"
+            alt="PolicyAdvisor | Sun Life"
+            width={400}
+            height={60}
+            className="thank-you-logo"
+            style={{ objectFit: 'contain', height: 'auto' }}
           />
-          <span style={{
-            fontSize: '13px',
-            color: '#6b7280',
-            fontWeight: 500
-          }}>
-            Powered by PolicyAdvisor
-          </span>
         </div>
-      </div>
 
-      <div style={{
-        minHeight: 'calc(100vh - 100px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px 20px',
-        background: 'linear-gradient(135deg, #EEFCFE 0%, #ffffff 100%)'
-      }}>
+        {/* Success Icon */}
         <div style={{
-          maxWidth: '600px',
-          width: '100%',
-          textAlign: 'center',
-          background: '#ffffff',
-          borderRadius: '20px',
-          padding: '60px 40px',
-          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)'
+          width: '80px',
+          height: '80px',
+          margin: '0 auto 28px',
+          borderRadius: '50%',
+          background: '#4ade80',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          {/* Success Icon */}
-          <div style={{
-            width: '100px',
-            height: '100px',
-            margin: '0 auto 30px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)',
+          <svg 
+            width="40" 
+            height="40" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="white" 
+            strokeWidth="3" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
+
+        {/* Thank You Message */}
+        <h1 style={{
+          fontSize: '36px',
+          fontWeight: '700',
+          color: '#1f2937',
+          marginBottom: '12px',
+          lineHeight: '1.2'
+        }}>
+          You're all set
+        </h1>
+        
+        <p style={{
+          fontSize: '16px',
+          color: '#6b7280',
+          marginBottom: '24px',
+          lineHeight: '1.5'
+        }}>
+          We've received your request.
+        </p>
+
+        {/* Need quotes section */}
+        <p style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#1f2937',
+          marginBottom: '8px'
+        }}>
+          Need quotes in a hurry?
+        </p>
+        
+        <p style={{
+          fontSize: '15px',
+          color: '#4b5563',
+          marginBottom: '32px',
+          lineHeight: '1.5'
+        }}>
+          Call <a href="tel:+18886019980" style={{ color: '#013946', fontWeight: '600', textDecoration: 'none' }}>+1-888-601-9980</a> or Book a time with a licensed advisor.
+        </p>
+
+        {/* Book a Call Button */}
+        <a
+          href="https://www.policyadvisor.com/schedule-a-call/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(22, 163, 74, 0.3)'
-          }}>
-            <svg 
-              width="50" 
-              height="50" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="white" 
-              strokeWidth="3" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-          </div>
-
-          {/* Thank You Message */}
-          <h1 style={{
-            fontSize: '42px',
-            fontWeight: '700',
+            gap: '10px',
+            width: '100%',
+            padding: '16px 24px',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '16px',
+            fontWeight: '600',
             color: '#013946',
-            marginBottom: '16px',
-            lineHeight: '1.2'
-          }}>
-            Thank You!
-          </h1>
-          
-          <p style={{
-            fontSize: '20px',
-            color: '#4a5568',
-            marginBottom: '8px',
-            lineHeight: '1.6'
-          }}>
-            We've received your request successfully.
-          </p>
-          
-          <p style={{
-            fontSize: '18px',
-            color: '#64748b',
-            marginBottom: '40px',
-            lineHeight: '1.6'
-          }}>
-            A licensed Sun Life advisor will contact you shortly to discuss your life insurance options.
-          </p>
+            background: '#FFB800',
+            cursor: 'pointer',
+            textDecoration: 'none',
+            marginBottom: '12px'
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Book a Call
+        </a>
 
-          {/* Redirect Message */}
-          <div style={{
-            padding: '20px',
-            background: '#FFF8E0',
-            borderRadius: '12px',
-            marginTop: '30px'
-          }}>
-            <p style={{
-              fontSize: '16px',
-              color: '#475569',
-              margin: '0',
-              lineHeight: '1.5'
-            }}>
-              Redirecting you back in <strong style={{ color: '#013946', fontSize: '18px' }}>{countdown}</strong> second{countdown !== 1 ? 's' : ''}...
-            </p>
-          </div>
-
-          {/* Manual Redirect Button */}
-          <button
-            onClick={() => router.push(returnUrl)}
-            style={{
-              marginTop: '30px',
-              padding: '14px 32px',
-              border: 'none',
-              borderRadius: '12px',
-              fontSize: '16px',
-              fontWeight: '600',
-              color: '#013946',
-              background: '#FFB800',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 15px rgba(255, 184, 0, 0.3)'
-            }}
-            onMouseOver={(e) => {
-              const target = e.target as HTMLButtonElement;
-              target.style.background = '#e5a600';
-              target.style.transform = 'translateY(-2px)';
-              target.style.boxShadow = '0 6px 20px rgba(255, 184, 0, 0.4)';
-            }}
-            onMouseOut={(e) => {
-              const target = e.target as HTMLButtonElement;
-              target.style.background = '#FFB800';
-              target.style.transform = 'translateY(0)';
-              target.style.boxShadow = '0 4px 15px rgba(255, 184, 0, 0.3)';
-            }}
-          >
-            Schedule a Call
-          </button>
-        </div>
+        {/* Return to Home Button */}
+        <button
+          onClick={() => router.push(returnUrl)}
+          style={{
+            width: '100%',
+            padding: '16px 24px',
+            border: '2px solid #013946',
+            borderRadius: '8px',
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#013946',
+            background: '#ffffff',
+            cursor: 'pointer'
+          }}
+        >
+          Return to Home
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -190,7 +180,7 @@ export default function ThankYouPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#EEFCFE'
+        background: '#f0f4f8'
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ 

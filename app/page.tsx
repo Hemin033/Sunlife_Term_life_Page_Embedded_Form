@@ -24,12 +24,22 @@ export default function Home() {
     dateOfBirth: '',
     smokerStatus: '',
     province: '',
-    coverageAmount: 0
+    coverageAmount: '',
+    termLength: ''
   })
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [mobileProvinceOpen, setMobileProvinceOpen] = useState(false)
   const [modalProvinceOpen, setModalProvinceOpen] = useState(false)
   const [embeddedProvinceOpen, setEmbeddedProvinceOpen] = useState(false)
+  const [mobileCoverageOpen, setMobileCoverageOpen] = useState(false)
+  const [modalCoverageOpen, setModalCoverageOpen] = useState(false)
+  const [embeddedCoverageOpen, setEmbeddedCoverageOpen] = useState(false)
+  const [mobileTermOpen, setMobileTermOpen] = useState(false)
+  const [modalTermOpen, setModalTermOpen] = useState(false)
+  const [embeddedTermOpen, setEmbeddedTermOpen] = useState(false)
+  const [showOtpField, setShowOtpField] = useState(false)
+  const [otpValue, setOtpValue] = useState('')
+  const [otpError, setOtpError] = useState('')
 
   const toggleFAQ = (index: number) => {
     setActiveFAQ(activeFAQ === index ? null : index)
@@ -72,24 +82,12 @@ export default function Home() {
     return ''
   }
 
-  const validateDateOfBirth = (dob: string): string => {
-    if (!dob.trim()) return 'Date of birth is required'
-    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
-    if (!dateRegex.test(dob)) return 'Please enter a valid date (DD/MM/YYYY)'
-    
-    const [day, month, year] = dob.split('/').map(Number)
-    const birthDate = new Date(year, month - 1, day)
-    const today = new Date()
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDiff = today.getMonth() - birthDate.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--
-    }
-    
-    if (age < 18) return 'You must be at least 18 years old'
-    if (age > 85) return 'Age must be 85 or younger'
-    if (birthDate > today) return 'Date of birth cannot be in the future'
-    
+  const validateDateOfBirth = (age: string): string => {
+    if (!age.trim()) return 'Age is required'
+    const ageNum = parseInt(age, 10)
+    if (isNaN(ageNum)) return 'Please enter a valid age'
+    if (ageNum < 18) return 'Age must be between 18-70'
+    if (ageNum > 70) return 'Age must be between 18-70'
     return ''
   }
 
@@ -107,6 +105,33 @@ export default function Home() {
     if (!province) return 'Please select your province'
     return ''
   }
+
+  const validateCoverageAmount = (coverage: string): string => {
+    if (!coverage) return 'Please select coverage amount'
+    return ''
+  }
+
+  const validateTermLength = (term: string): string => {
+    if (!term) return 'Please select term length'
+    return ''
+  }
+
+  const coverageOptions = [
+    { value: 'under25k', label: 'Under $25K' },
+    { value: '25k-100k', label: '$25K - $100K' },
+    { value: '100k-250k', label: '$100K - $250K' },
+    { value: '250k-500k', label: '$250K - $500K' },
+    { value: '500k-1m', label: '$500K - $1M' },
+    { value: '1m-2m', label: '$1M - $2M' },
+    { value: '2m-3m', label: '$2M - $3M' },
+    { value: '3m-4m', label: '$3M - $4M' },
+    { value: 'not-sure', label: "I'm not sure" }
+  ]
+
+  const termLengthOptions = Array.from({ length: 46 }, (_, i) => ({
+    value: String(i + 5),
+    label: `${i + 5} years`
+  }))
 
   // Format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string): string => {
@@ -131,6 +156,8 @@ export default function Home() {
     errors.gender = validateGender(formData.gender)
     errors.smokerStatus = validateSmokerStatus(formData.smokerStatus)
     errors.province = validateProvince(formData.province)
+    errors.coverageAmount = validateCoverageAmount(formData.coverageAmount)
+    errors.termLength = validateTermLength(formData.termLength)
     
     // Filter out empty errors
     const activeErrors = Object.fromEntries(
@@ -356,7 +383,7 @@ export default function Home() {
             backgroundColor: '#fff',
             borderRadius: '16px',
             padding: 'clamp(16px, 3vw, 24px)',
-            maxWidth: '900px',
+            maxWidth: '720px',
             width: '100%',
             maxHeight: '95vh',
             overflowY: 'auto',
@@ -388,28 +415,19 @@ export default function Home() {
               fontSize: '24px',
               fontWeight: 700,
               color: '#1f2937',
-              marginBottom: '4px',
+              marginBottom: '6px',
               textAlign: 'center'
             }}>
-              Get started today
+              Get your life insurance options
             </h2>
             <p style={{
-              fontSize: '13px',
-              color: '#6b7280',
-              marginBottom: '6px',
-              textAlign: 'center',
-              lineHeight: '1.4'
-            }}>
-              Complete the quick form below to find out how affordable life insurance can be and get an expert Sun Life licensed advisor to help you find choosing the right plan for your family.
-            </p>
-            <p style={{
-              fontSize: '12px',
+              fontSize: '14px',
               color: '#6b7280',
               marginBottom: '16px',
               textAlign: 'center',
-              fontStyle: 'italic'
+              lineHeight: '1.4'
             }}>
-              <strong>Free of charge and with no obligation.</strong>
+              Complete a short form to receive a free, no-obligation quote.
             </p>
 
             {/* Form */}
@@ -468,17 +486,42 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Phone Number and Email Address */}
+              {/* Email and Phone Number */}
               <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '10px', alignItems: 'start' }}>
                 <div>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                  Phone Number <span style={{ color: '#013946' }}>*</span>
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="(555) 123-4567"
-                  value={formData.phoneNumber}
+                    Email Address <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="john.smith@gmail.com"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    onBlur={() => {
+                      const error = validateEmail(formData.email)
+                      if (error) setFormErrors(prev => ({ ...prev, email: error }))
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      outline: 'none'
+                    }}
+                  />
+                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.email}</p>}
+                </div>
+                <div>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Phone Number <span style={{ color: '#013946' }}>*</span> <span style={{ fontWeight: 400, color: '#6b7280' }}>(we'll send a code)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="(555) 123-4567"
+                    value={formData.phoneNumber}
                     onChange={(e) => {
                       const formatted = formatPhoneNumber(e.target.value)
                       handleInputChange('phoneNumber', formatted)
@@ -487,41 +530,16 @@ export default function Home() {
                       const error = validatePhone(formData.phoneNumber)
                       if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
                     }}
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    fontSize: '14px',
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
                       border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '6px',
-                    outline: 'none'
-                  }}
-                />
-                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.phoneNumber}</p>}
-              </div>
-                <div>
-                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                  Email Address <span style={{ color: '#013946' }}>*</span>
-                </label>
-                <input
-                  type="email"
-                  required
-                    placeholder="john.smith@gmail.com"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                    onBlur={() => {
-                      const error = validateEmail(formData.email)
-                      if (error) setFormErrors(prev => ({ ...prev, email: error }))
+                      borderRadius: '6px',
+                      outline: 'none'
                     }}
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    fontSize: '14px',
-                      border: `1px solid ${formErrors.email ? '#ef4444' : '#d1d5db'}`,
-                    borderRadius: '6px',
-                    outline: 'none'
-                  }}
-                />
-                  {formErrors.email && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.email}</p>}
+                  />
+                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.phoneNumber}</p>}
                 </div>
               </div>
 
@@ -542,10 +560,10 @@ export default function Home() {
                         flex: 1,
                         padding: '10px 12px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.gender === 'Man' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.gender === 'Man' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
-                        backgroundColor: formData.gender === 'Man' ? '#e0f2fe' : '#fff',
-                        color: '#1f2937',
+                        backgroundColor: formData.gender === 'Man' ? '#FFB800' : '#fff',
+                        color: formData.gender === 'Man' ? '#013946' : '#1f2937',
                         cursor: 'pointer',
                         fontWeight: 600
                       }}
@@ -562,10 +580,10 @@ export default function Home() {
                         flex: 1,
                         padding: '10px 12px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.gender === 'Woman' ? '#0086ae' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.gender === 'Woman' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
-                        backgroundColor: formData.gender === 'Woman' ? '#e0f2fe' : '#fff',
-                        color: '#1f2937',
+                        backgroundColor: formData.gender === 'Woman' ? '#FFB800' : '#fff',
+                        color: formData.gender === 'Woman' ? '#013946' : '#1f2937',
                         cursor: 'pointer',
                         fontWeight: 600
                       }}
@@ -582,32 +600,12 @@ export default function Home() {
                   <input
                     type="text"
                     required
-                    maxLength={10}
+                    maxLength={3}
                     placeholder="e.g. 35"
                     value={formData.dateOfBirth}
                     onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const prevValue = formData.dateOfBirth;
-                      
-                      // If deleting, allow direct deletion
-                      if (inputValue.length < prevValue.length) {
-                        handleInputChange('dateOfBirth', inputValue);
-                        return;
-                      }
-                      
-                      // Only keep digits for formatting
-                      let digits = inputValue.replace(/\D/g, '');
-                      if (digits.length <= 8) {
-                        let formatted = '';
-                        if (digits.length >= 4) {
-                          formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
-                        } else if (digits.length >= 2) {
-                          formatted = digits.slice(0, 2) + '/' + digits.slice(2);
-                        } else {
-                          formatted = digits;
-                        }
-                        handleInputChange('dateOfBirth', formatted);
-                      }
+                      const value = e.target.value.replace(/\D/g, '').slice(0, 3)
+                      handleInputChange('dateOfBirth', value)
                     }}
                     onBlur={() => {
                       const error = validateDateOfBirth(formData.dateOfBirth)
@@ -626,19 +624,65 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Province and Provincial Coverage Row */}
+              {/* Smoker Status and Province Row */}
               <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px', alignItems: 'start' }}>
+                <div>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Smoker Status <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <div className="smoker-buttons" style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'No')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
+                        border: `1px solid ${formData.smokerStatus === 'No' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'No' ? '#FFB800' : '#fff',
+                        color: formData.smokerStatus === 'No' ? '#013946' : '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleInputChange('smokerStatus', 'Yes')
+                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '10px 12px',
+                        fontSize: '14px',
+                        border: `1px solid ${formData.smokerStatus === 'Yes' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        borderRadius: '6px',
+                        backgroundColor: formData.smokerStatus === 'Yes' ? '#FFB800' : '#fff',
+                        color: formData.smokerStatus === 'Yes' ? '#013946' : '#1f2937',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.smokerStatus}</p>}
+                </div>
                 <div style={{ position: 'relative' }}>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                    Province? <span style={{ color: '#013946' }}>*</span>
+                    Province of residence <span style={{ color: '#013946' }}>*</span>
                   </label>
                   <div
                     onClick={() => setModalProvinceOpen(!modalProvinceOpen)}
                     onBlur={() => {
                       setTimeout(() => {
                         setModalProvinceOpen(false)
-                        const error = validateProvince(formData.province)
-                        if (error) setFormErrors(prev => ({ ...prev, province: error }))
                       }, 200)
                     }}
                     tabIndex={0}
@@ -718,66 +762,273 @@ export default function Home() {
                   )}
                   {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
-                <div>
+              </div>
+
+              {/* Row 5: Coverage Amount and Term Length */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
+                {/* Coverage Amount Dropdown */}
+                <div style={{ position: 'relative' }}>
                   <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                    Provincial coverage? <span style={{ color: '#013946' }}>*</span>
+                    Coverage Amount <span style={{ color: '#013946' }}>*</span>
                   </label>
-                  <div className="smoker-buttons" style={{ display: 'flex', gap: '8px' }}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleInputChange('smokerStatus', 'Non-smoker')
-                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                      }}
-                      style={{
-                        flex: 1,
-                        padding: '10px 12px',
-                        fontSize: '14px',
-                        border: `2px solid ${formData.smokerStatus === 'Non-smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                        borderRadius: '6px',
-                        backgroundColor: formData.smokerStatus === 'Non-smoker' ? '#e0f2fe' : '#fff',
-                        color: '#1f2937',
-                        cursor: 'pointer',
-                        fontWeight: 600
-                      }}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleInputChange('smokerStatus', 'Smoker')
-                        setFormErrors(prev => ({ ...prev, smokerStatus: '' }))
-                      }}
-                      style={{
-                        flex: 1,
-                        padding: '10px 12px',
-                        fontSize: '14px',
-                        border: `2px solid ${formData.smokerStatus === 'Smoker' ? '#0086ae' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
-                        borderRadius: '6px',
-                        backgroundColor: formData.smokerStatus === 'Smoker' ? '#e0f2fe' : '#fff',
-                        color: '#1f2937',
-                        cursor: 'pointer',
-                        fontWeight: 600
-                      }}
-                    >
-                      No
-                    </button>
+                  <div
+                    onClick={() => setModalCoverageOpen(!modalCoverageOpen)}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setModalCoverageOpen(false)
+                      }, 200)
+                    }}
+                    tabIndex={0}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.coverageAmount ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ color: formData.coverageAmount ? '#1f2937' : '#9ca3af' }}>
+                      {formData.coverageAmount ? 
+                        coverageOptions.find(opt => opt.value === formData.coverageAmount)?.label 
+                        : 'Select...'}
+                    </span>
+                    <svg width="10" height="6" viewBox="0 0 12 8" fill="none" style={{ transform: modalCoverageOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                  {formErrors.smokerStatus && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.smokerStatus}</p>}
+                  {modalCoverageOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {coverageOptions.map((option) => (
+                        <li
+                          key={option.value}
+                          onClick={() => {
+                            handleInputChange('coverageAmount', option.value);
+                            setFormErrors(prev => ({ ...prev, coverageAmount: '' }));
+                            setModalCoverageOpen(false);
+                          }}
+                          style={{
+                            padding: '10px 12px',
+                            fontSize: '14px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.coverageAmount === option.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.coverageAmount !== option.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.coverageAmount === option.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {option.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {formErrors.coverageAmount && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.coverageAmount}</p>}
+                </div>
+
+                {/* Term Length Dropdown */}
+                <div style={{ position: 'relative' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Term Length <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <div
+                    onClick={() => setModalTermOpen(!modalTermOpen)}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setModalTermOpen(false)
+                      }, 200)
+                    }}
+                    tabIndex={0}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.termLength ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ color: formData.termLength ? '#1f2937' : '#9ca3af' }}>
+                      {formData.termLength ? `${formData.termLength} years` : 'Select...'}
+                    </span>
+                    <svg width="10" height="6" viewBox="0 0 12 8" fill="none" style={{ transform: modalTermOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {modalTermOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {termLengthOptions.map((option) => (
+                        <li
+                          key={option.value}
+                          onClick={() => {
+                            handleInputChange('termLength', option.value);
+                            setFormErrors(prev => ({ ...prev, termLength: '' }));
+                            setModalTermOpen(false);
+                          }}
+                          style={{
+                            padding: '10px 12px',
+                            fontSize: '14px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.termLength === option.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.termLength !== option.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.termLength === option.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {option.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {formErrors.termLength && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{formErrors.termLength}</p>}
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* OTP Verification Field */}
+              {showOtpField && (
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                    Enter 6-digit OTP sent to your phone <span style={{ color: '#013946' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    placeholder=""
+                    value={otpValue}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '').slice(0, 6)
+                      setOtpValue(value)
+                      setOtpError('')
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '16px',
+                      border: `1px solid ${otpError ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937',
+                      letterSpacing: '8px',
+                      textAlign: 'center'
+                    }}
+                  />
+                  {otpError && <p style={{ color: '#ef4444', fontSize: '11px', margin: '2px 0 0 0' }}>{otpError}</p>}
+                  <p style={{ 
+                    textAlign: 'center', 
+                    marginTop: '8px', 
+                    fontSize: '12px', 
+                    color: '#6b7280' 
+                  }}>
+                    Didn't receive the code? <a 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault()
+                        alert('OTP resent to your phone!')
+                      }}
+                      style={{ color: '#013946', textDecoration: 'underline', fontWeight: 600 }}
+                    >Resend OTP</a>
+                  </p>
+                </div>
+              )}
+
+              {/* Submit/Verify Button */}
               <button
-                type="submit"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (!showOtpField) {
+                    const errors: {[key: string]: string} = {}
+                    const firstNameError = validateFirstName(formData.firstName)
+                    const lastNameError = validateLastName(formData.lastName)
+                    const emailError = validateEmail(formData.email)
+                    const phoneError = validatePhone(formData.phoneNumber)
+                    const genderError = validateGender(formData.gender)
+                    const dobError = validateDateOfBirth(formData.dateOfBirth)
+                    const provinceError = validateProvince(formData.province)
+                    const smokerError = validateSmokerStatus(formData.smokerStatus)
+                    
+                    if (firstNameError) errors.firstName = firstNameError
+                    if (lastNameError) errors.lastName = lastNameError
+                    if (emailError) errors.email = emailError
+                    if (phoneError) errors.phoneNumber = phoneError
+                    if (genderError) errors.gender = genderError
+                    if (dobError) errors.dateOfBirth = dobError
+                    if (provinceError) errors.province = provinceError
+                    if (smokerError) errors.smokerStatus = smokerError
+                    
+                    if (Object.keys(errors).length > 0) {
+                      setFormErrors(errors)
+                      return
+                    }
+                    
+                    setShowOtpField(true)
+                  } else {
+                    if (otpValue.length !== 6) {
+                      setOtpError('Please enter the 6-digit OTP')
+                      return
+                    }
+                    handleSubmitLead(e as any)
+                  }
+                }}
                 style={{
                   width: '100%',
                   padding: '14px',
                   fontSize: '15px',
                   fontWeight: 700,
-                  color: '#fff',
-                  backgroundColor: '#013946',
+                  color: '#013946',
+                  backgroundColor: '#FFB800',
                   border: 'none',
                   borderRadius: '6px',
                   cursor: 'pointer',
@@ -786,7 +1037,7 @@ export default function Home() {
                   transition: 'background-color 0.3s ease'
                 }}
               >
-                Submit Request
+                {showOtpField ? 'Verify' : 'Submit Request'}
               </button>
 
               {/* Form Disclaimer */}
@@ -798,24 +1049,13 @@ export default function Home() {
                 marginTop: '12px'
               }}>
                 <p style={{
-                  fontSize: '12px',
-                  color: '#4b5563',
-                  margin: '0 0 4px 0',
-                  fontWeight: '500',
-                  textAlign: 'center',
-                  lineHeight: '1.4'
-                }}>
-                  By submitting this form, you agree to be contacted by a licensed advisor to discuss your Sun Life Health and Dental Insurance options.
-                </p>
-                <p style={{
                   fontSize: '11px',
                   color: '#6b7280',
                   margin: '0',
-                  fontStyle: 'italic',
                   textAlign: 'center',
-                  lineHeight: '1.4'
+                  lineHeight: '1.5'
                 }}>
-                  Your information is secure, confidential and used only to assist with your insurance inquiry.
+                  You consent to PolicyAdvisor sharing your information with Sun Life to provide coverage options. A licensed Sun Life advisor may contact you to discuss coverage options tailored to you. For more details, see our <a href="https://www.policyadvisor.com/terms-of-service/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Terms of Service</a> and <a href="https://www.policyadvisor.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Privacy Policy</a>.
                 </p>
               </div>
             </form>
@@ -940,7 +1180,7 @@ export default function Home() {
               marginBottom: '10px',
               textAlign: 'center'
             }}>
-              Get started today
+              Get your life insurance options
             </h2>
             <p style={{
               fontSize: '15px',
@@ -949,7 +1189,7 @@ export default function Home() {
               lineHeight: '1.5',
               textAlign: 'center'
             }}>
-              Complete a short form to get your free, no-obligation quote.
+              Complete a short form to receive a free, no-obligation quote.
             </p>
 
             {/* Form */}
@@ -1012,38 +1252,8 @@ export default function Home() {
                 </div>
             </div>
 
-              {/* Phone Number and Email */}
+              {/* Email and Phone Number */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-                <div>
-                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="(555) 123-4567"
-                    value={formData.phoneNumber}
-                    onChange={(e) => {
-                      const formatted = formatPhoneNumber(e.target.value)
-                      handleInputChange('phoneNumber', formatted)
-                    }}
-                    onBlur={() => {
-                      const error = validatePhone(formData.phoneNumber)
-                      if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
-                    }}
-              style={{
-                width: '100%',
-                      padding: '14px 16px',
-                      fontSize: '14px',
-                      border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '6px',
-                      outline: 'none',
-                      backgroundColor: '#fff',
-                      color: '#1f2937'
-                    }}
-                  />
-                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
-                </div>
                 <div>
                   <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                     Email Address *
@@ -1071,9 +1281,39 @@ export default function Home() {
                   />
                   {formErrors.email && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.email}</p>}
                 </div>
+                <div>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Phone Number * <span style={{ fontWeight: 400, color: '#6b7280' }}>(we'll send a code)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="(555) 123-4567"
+                    value={formData.phoneNumber}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value)
+                      handleInputChange('phoneNumber', formatted)
+                    }}
+                    onBlur={() => {
+                      const error = validatePhone(formData.phoneNumber)
+                      if (error) setFormErrors(prev => ({ ...prev, phoneNumber: error }))
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.phoneNumber ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937'
+                    }}
+                  />
+                  {formErrors.phoneNumber && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.phoneNumber}</p>}
+                </div>
               </div>
 
-              {/* Gender and Date of Birth */}
+              {/* Gender and Age */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div>
                   <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
@@ -1090,7 +1330,7 @@ export default function Home() {
                         flex: 1,
                         padding: '10px 8px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.gender === 'Man' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.gender === 'Man' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.gender === 'Man' ? '#FFB800' : '#fff',
                         color: formData.gender === 'Man' ? '#013946' : '#1f2937',
@@ -1110,7 +1350,7 @@ export default function Home() {
                         flex: 1,
                         padding: '10px 8px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.gender === 'Woman' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.gender === 'Woman' ? '#FFB800' : formErrors.gender ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.gender === 'Woman' ? '#FFB800' : '#fff',
                         color: formData.gender === 'Woman' ? '#013946' : '#1f2937',
@@ -1125,44 +1365,24 @@ export default function Home() {
         </div>
                 <div>
                   <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
-                    Date of Birth *
+                    Age *
                   </label>
                   <input
                     type="text"
                     required
-                    maxLength={10}
-                    placeholder="DD/MM/YYYY"
+                    maxLength={3}
+                    placeholder="e.g. 35"
                     value={formData.dateOfBirth}
                     onChange={(e) => {
-                      const inputValue = e.target.value;
-                      const prevValue = formData.dateOfBirth;
-                      
-                      // If deleting, allow direct deletion
-                      if (inputValue.length < prevValue.length) {
-                        handleInputChange('dateOfBirth', inputValue);
-                        return;
-                      }
-                      
-                      // Only keep digits for formatting
-                      let digits = inputValue.replace(/\D/g, '');
-                      if (digits.length <= 8) {
-                        let formatted = '';
-                        if (digits.length >= 4) {
-                          formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
-                        } else if (digits.length >= 2) {
-                          formatted = digits.slice(0, 2) + '/' + digits.slice(2);
-                        } else {
-                          formatted = digits;
-                        }
-                        handleInputChange('dateOfBirth', formatted);
-                      }
+                      const value = e.target.value.replace(/\D/g, '').slice(0, 3)
+                      handleInputChange('dateOfBirth', value)
                     }}
                     onBlur={() => {
                       const error = validateDateOfBirth(formData.dateOfBirth)
                       if (error) setFormErrors(prev => ({ ...prev, dateOfBirth: error }))
                     }}
-            style={{
-            width: '100%',
+                    style={{
+                      width: '100%',
                       padding: '14px 16px',
                       fontSize: '14px',
                       border: `1px solid ${formErrors.dateOfBirth ? '#ef4444' : '#d1d5db'}`,
@@ -1193,7 +1413,7 @@ export default function Home() {
                         flex: 1,
                         padding: '14px 16px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.smokerStatus === 'No' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.smokerStatus === 'No' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.smokerStatus === 'No' ? '#FFB800' : '#fff',
                         color: formData.smokerStatus === 'No' ? '#013946' : '#1f2937',
@@ -1213,7 +1433,7 @@ export default function Home() {
                         flex: 1,
                         padding: '14px 16px',
                         fontSize: '14px',
-                        border: `2px solid ${formData.smokerStatus === 'Yes' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
+                        border: `1px solid ${formData.smokerStatus === 'Yes' ? '#FFB800' : formErrors.smokerStatus ? '#ef4444' : '#d1d5db'}`,
                         borderRadius: '6px',
                         backgroundColor: formData.smokerStatus === 'Yes' ? '#FFB800' : '#fff',
                         color: formData.smokerStatus === 'Yes' ? '#013946' : '#1f2937',
@@ -1228,15 +1448,13 @@ export default function Home() {
                 </div>
                 <div style={{ position: 'relative' }}>
                   <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
-                    Province *
+                    Province of residence *
                   </label>
                   <div
                     onClick={() => setEmbeddedProvinceOpen(!embeddedProvinceOpen)}
                     onBlur={() => {
                       setTimeout(() => {
                         setEmbeddedProvinceOpen(false)
-                        const error = validateProvince(formData.province)
-                        if (error) setFormErrors(prev => ({ ...prev, province: error }))
                       }, 200)
                     }}
                     tabIndex={0}
@@ -1317,37 +1535,297 @@ export default function Home() {
                   {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
                 </div>
           </div>
+
+              {/* Coverage Amount and Term Length */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '14px' }}>
+                {/* Coverage Amount Dropdown */}
+                <div style={{ position: 'relative' }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Coverage Amount *
+                  </label>
+                  <div
+                    onClick={() => setEmbeddedCoverageOpen(!embeddedCoverageOpen)}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setEmbeddedCoverageOpen(false)
+                      }, 200)
+                    }}
+                    tabIndex={0}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.coverageAmount ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ color: formData.coverageAmount ? '#1f2937' : '#9ca3af' }}>
+                      {formData.coverageAmount ? 
+                        coverageOptions.find(opt => opt.value === formData.coverageAmount)?.label 
+                        : 'Select...'}
+                    </span>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: embeddedCoverageOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {embeddedCoverageOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {coverageOptions.map((option) => (
+                        <li
+                          key={option.value}
+                          onClick={() => {
+                            handleInputChange('coverageAmount', option.value);
+                            setFormErrors(prev => ({ ...prev, coverageAmount: '' }));
+                            setEmbeddedCoverageOpen(false);
+                          }}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: '14px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.coverageAmount === option.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.coverageAmount !== option.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.coverageAmount === option.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {option.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {formErrors.coverageAmount && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.coverageAmount}</p>}
+                </div>
+
+                {/* Term Length Dropdown */}
+                <div style={{ position: 'relative' }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Term Length *
+                  </label>
+                  <div
+                    onClick={() => setEmbeddedTermOpen(!embeddedTermOpen)}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setEmbeddedTermOpen(false)
+                      }, 200)
+                    }}
+                    tabIndex={0}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '14px',
+                      border: `1px solid ${formErrors.termLength ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <span style={{ color: formData.termLength ? '#1f2937' : '#9ca3af' }}>
+                      {formData.termLength ? `${formData.termLength} years` : 'Select...'}
+                    </span>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: embeddedTermOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                      <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {embeddedTermOpen && (
+                    <ul style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      backgroundColor: '#fff',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      marginTop: '4px',
+                      padding: 0,
+                      listStyle: 'none',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      zIndex: 9999,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
+                      {termLengthOptions.map((option) => (
+                        <li
+                          key={option.value}
+                          onClick={() => {
+                            handleInputChange('termLength', option.value);
+                            setFormErrors(prev => ({ ...prev, termLength: '' }));
+                            setEmbeddedTermOpen(false);
+                          }}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: '14px',
+                            color: '#1f2937',
+                            cursor: 'pointer',
+                            backgroundColor: formData.termLength === option.value ? '#e0f7fa' : '#fff',
+                            borderBottom: '1px solid #f3f4f6'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (formData.termLength !== option.value) {
+                              e.currentTarget.style.backgroundColor = '#f9fafb';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = formData.termLength === option.value ? '#e0f7fa' : '#fff';
+                          }}
+                        >
+                          {option.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {formErrors.termLength && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.termLength}</p>}
+                </div>
+              </div>
           
-              {/* Submit Button */}
-            <button
-                type="submit"
-              style={{
-                width: '100%',
-                padding: '14px',
+              {/* OTP Verification Field */}
+              {showOtpField && (
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ fontSize: '13px', color: '#1a1a1a', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+                    Enter 6-digit OTP sent to your phone *
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    placeholder=""
+                    value={otpValue}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '').slice(0, 6)
+                      setOtpValue(value)
+                      setOtpError('')
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '16px',
+                      border: `1px solid ${otpError ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '6px',
+                      outline: 'none',
+                      backgroundColor: '#fff',
+                      color: '#1f2937',
+                      letterSpacing: '8px',
+                      textAlign: 'center'
+                    }}
+                  />
+                  {otpError && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{otpError}</p>}
+                  <p style={{ 
+                    textAlign: 'center', 
+                    marginTop: '10px', 
+                    fontSize: '13px', 
+                    color: '#6b7280' 
+                  }}>
+                    Didn't receive the code? <a 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault()
+                        // Resend OTP logic here
+                        alert('OTP resent to your phone!')
+                      }}
+                      style={{ color: '#013946', textDecoration: 'underline', fontWeight: 600 }}
+                    >Resend OTP</a>
+                  </p>
+                </div>
+              )}
+
+              {/* Submit/Verify Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (!showOtpField) {
+                    // First click - validate form and send OTP
+                    const errors: {[key: string]: string} = {}
+                    const firstNameError = validateFirstName(formData.firstName)
+                    const lastNameError = validateLastName(formData.lastName)
+                    const emailError = validateEmail(formData.email)
+                    const phoneError = validatePhone(formData.phoneNumber)
+                    const genderError = validateGender(formData.gender)
+                    const dobError = validateDateOfBirth(formData.dateOfBirth)
+                    const provinceError = validateProvince(formData.province)
+                    const smokerError = validateSmokerStatus(formData.smokerStatus)
+                    
+                    if (firstNameError) errors.firstName = firstNameError
+                    if (lastNameError) errors.lastName = lastNameError
+                    if (emailError) errors.email = emailError
+                    if (phoneError) errors.phoneNumber = phoneError
+                    if (genderError) errors.gender = genderError
+                    if (dobError) errors.dateOfBirth = dobError
+                    if (provinceError) errors.province = provinceError
+                    if (smokerError) errors.smokerStatus = smokerError
+                    
+                    if (Object.keys(errors).length > 0) {
+                      setFormErrors(errors)
+                      return
+                    }
+                    
+                    // Send OTP (simulate)
+                    setShowOtpField(true)
+                  } else {
+                    // Second click - verify OTP
+                    if (otpValue.length !== 6) {
+                      setOtpError('Please enter the 6-digit OTP')
+                      return
+                    }
+                    // Submit the form
+                    handleSubmitLead(e as any)
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  padding: '14px',
                   fontSize: '15px',
                   fontWeight: 700,
                   color: '#013946',
                   backgroundColor: '#FFB800',
-                border: 'none',
+                  border: 'none',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}
               >
-                Submit Request
-            </button>
+                {showOtpField ? 'Verify' : 'Submit Request'}
+              </button>
 
               {/* Form Disclaimer */}
               <p style={{
                 marginTop: '10px',
                 fontSize: '11px',
                 color: '#666',
-                lineHeight: '1.4',
+                lineHeight: '1.5',
                 textAlign: 'center',
                 margin: '10px 0 0 0'
               }}>
-                A licensed Sun Life advisor will reach out within the next business hours to present coverage options tailored to your needs.
+                You consent to PolicyAdvisor sharing your information with Sun Life to provide coverage options. A licensed Sun Life advisor may contact you to discuss coverage options tailored to you. For more details, see our <a href="https://www.policyadvisor.com/terms-of-service/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Terms of Service</a> and <a href="https://www.policyadvisor.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Privacy Policy</a>.
               </p>
             </form>
           </div>
@@ -1524,40 +2002,20 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Date of Birth */}
+              {/* Age */}
               <div style={{ marginBottom: '10px' }}>
                 <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                  Date of Birth <span style={{ color: '#013946' }}>*</span>
+                  Age <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <input
                   type="text"
                   required
-                  maxLength={10}
-                  placeholder="DD/MM/YYYY"
+                  maxLength={3}
+                  placeholder="e.g. 35"
                   value={formData.dateOfBirth}
                   onChange={(e) => {
-                    const inputValue = e.target.value;
-                    const prevValue = formData.dateOfBirth;
-                    
-                    // If deleting, allow direct deletion
-                    if (inputValue.length < prevValue.length) {
-                      handleInputChange('dateOfBirth', inputValue);
-                      return;
-                    }
-                    
-                    // Only keep digits for formatting
-                    let digits = inputValue.replace(/\D/g, '');
-                    if (digits.length <= 8) {
-                      let formatted = '';
-                      if (digits.length >= 4) {
-                        formatted = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
-                      } else if (digits.length >= 2) {
-                        formatted = digits.slice(0, 2) + '/' + digits.slice(2);
-                      } else {
-                        formatted = digits;
-                      }
-                      handleInputChange('dateOfBirth', formatted);
-                    }
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 3)
+                    handleInputChange('dateOfBirth', value)
                   }}
                   onBlur={() => {
                     const error = validateDateOfBirth(formData.dateOfBirth)
@@ -1628,14 +2086,13 @@ export default function Home() {
               {/* Province - Custom Dropdown */}
               <div style={{ marginBottom: '10px', position: 'relative' }}>
                 <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
-                  Province <span style={{ color: '#013946' }}>*</span>
+                  Province of residence <span style={{ color: '#013946' }}>*</span>
                 </label>
                 <div
                   onClick={() => setMobileProvinceOpen(!mobileProvinceOpen)}
                   onBlur={() => {
                     setTimeout(() => {
-                      const error = validateProvince(formData.province)
-                      if (error) setFormErrors(prev => ({ ...prev, province: error }))
+                      setMobileProvinceOpen(false)
                     }, 200)
                   }}
                   tabIndex={0}
@@ -1706,6 +2163,158 @@ export default function Home() {
                   </ul>
                 )}
                 {formErrors.province && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.province}</p>}
+              </div>
+
+              {/* Coverage Amount - Mobile */}
+              <div style={{ marginBottom: '14px', position: 'relative' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Coverage Amount <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <div
+                  onClick={() => setMobileCoverageOpen(!mobileCoverageOpen)}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setMobileCoverageOpen(false)
+                    }, 200)
+                  }}
+                  tabIndex={0}
+                  style={{
+                    width: '100%',
+                    padding: '14px 16px',
+                    fontSize: '15px',
+                    border: `1px solid ${formErrors.coverageAmount ? '#ef4444' : '#d1d5db'}`,
+                    borderRadius: '6px',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  <span style={{ color: formData.coverageAmount ? '#1f2937' : '#9ca3af' }}>
+                    {formData.coverageAmount ? 
+                      coverageOptions.find(opt => opt.value === formData.coverageAmount)?.label 
+                      : 'Select...'}
+                  </span>
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: mobileCoverageOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                {mobileCoverageOpen && (
+                  <ul style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#fff',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    marginTop: '4px',
+                    padding: 0,
+                    listStyle: 'none',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 9999,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }}>
+                    {coverageOptions.map((option) => (
+                      <li
+                        key={option.value}
+                        onClick={() => {
+                          handleInputChange('coverageAmount', option.value);
+                          setFormErrors(prev => ({ ...prev, coverageAmount: '' }));
+                          setMobileCoverageOpen(false);
+                        }}
+                        style={{
+                          padding: '12px 16px',
+                          fontSize: '15px',
+                          color: '#1f2937',
+                          cursor: 'pointer',
+                          backgroundColor: formData.coverageAmount === option.value ? '#e0f7fa' : '#fff',
+                          borderBottom: '1px solid #f3f4f6'
+                        }}
+                      >
+                        {option.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {formErrors.coverageAmount && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.coverageAmount}</p>}
+              </div>
+
+              {/* Term Length - Mobile */}
+              <div style={{ marginBottom: '14px', position: 'relative' }}>
+                <label style={{ fontWeight: 600, fontSize: '13px', color: '#1f2937', display: 'block', marginBottom: '4px' }}>
+                  Term Length <span style={{ color: '#013946' }}>*</span>
+                </label>
+                <div
+                  onClick={() => setMobileTermOpen(!mobileTermOpen)}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setMobileTermOpen(false)
+                    }, 200)
+                  }}
+                  tabIndex={0}
+                  style={{
+                    width: '100%',
+                    padding: '14px 16px',
+                    fontSize: '15px',
+                    border: `1px solid ${formErrors.termLength ? '#ef4444' : '#d1d5db'}`,
+                    borderRadius: '6px',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  <span style={{ color: formData.termLength ? '#1f2937' : '#9ca3af' }}>
+                    {formData.termLength ? `${formData.termLength} years` : 'Select...'}
+                  </span>
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style={{ transform: mobileTermOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                {mobileTermOpen && (
+                  <ul style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    backgroundColor: '#fff',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '6px',
+                    marginTop: '4px',
+                    padding: 0,
+                    listStyle: 'none',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 9999,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }}>
+                    {termLengthOptions.map((option) => (
+                      <li
+                        key={option.value}
+                        onClick={() => {
+                          handleInputChange('termLength', option.value);
+                          setFormErrors(prev => ({ ...prev, termLength: '' }));
+                          setMobileTermOpen(false);
+                        }}
+                        style={{
+                          padding: '12px 16px',
+                          fontSize: '15px',
+                          color: '#1f2937',
+                          cursor: 'pointer',
+                          backgroundColor: formData.termLength === option.value ? '#e0f7fa' : '#fff',
+                          borderBottom: '1px solid #f3f4f6'
+                        }}
+                      >
+                        {option.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {formErrors.termLength && <p style={{ color: '#ef4444', fontSize: '11px', margin: '4px 0 0 0' }}>{formErrors.termLength}</p>}
               </div>
 
               {/* Smoker Status */}
@@ -1781,10 +2390,10 @@ export default function Home() {
                 marginTop: '10px',
                 fontSize: '11px',
                 color: '#6b7280',
-                lineHeight: '1.4',
+                lineHeight: '1.5',
                 textAlign: 'center'
               }}>
-                A licensed Sun Life advisor will reach out within the next business hours to present coverage options tailored to your needs.
+                You consent to PolicyAdvisor sharing your information with Sun Life to provide coverage options. A licensed Sun Life advisor may contact you to discuss coverage options tailored to you. For more details, see our <a href="https://www.policyadvisor.com/terms-of-service/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Terms of Service</a> and <a href="https://www.policyadvisor.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: '#013946', textDecoration: 'underline' }}>Privacy Policy</a>.
               </p>
             </form>
           </div>
