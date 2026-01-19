@@ -2998,7 +2998,7 @@ export default function Home() {
                   </th>
                   <th style={{ 
                     padding: '16px 20px', 
-                    textAlign: 'left', 
+                    textAlign: 'center', 
                     fontWeight: 800, 
                     fontSize: '18px', 
                     color: '#1f2937',
@@ -3008,7 +3008,7 @@ export default function Home() {
                   </th>
                   <th style={{ 
                     padding: '16px 20px', 
-                    textAlign: 'left', 
+                    textAlign: 'center', 
                     fontWeight: 800, 
                     fontSize: '18px', 
                     color: '#1f2937',
@@ -3021,28 +3021,28 @@ export default function Home() {
               <tbody>
                 <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
                   <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 20</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$16.65</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$25.20</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$16.65</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$25.20</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
                   <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 30</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$17.55</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$25.65</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$17.55</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$25.65</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
                   <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 40</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$23.40</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$31.95</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$23.40</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$31.95</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#f9fafb' }}>
                   <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 50</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$51.30</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$72.00</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$51.30</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$72.00</td>
                 </tr>
                 <tr>
                   <td style={{ padding: '18px 20px', fontSize: '18px', color: '#1f2937', fontWeight: '600' }}>Age 60</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$161.55</td>
-                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700' }}>$230.85</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$161.55</td>
+                  <td style={{ padding: '18px 20px', fontSize: '20px', color: '#1f2937', fontWeight: '700', textAlign: 'center' }}>$230.85</td>
                 </tr>
               </tbody>
             </table>
